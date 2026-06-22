@@ -38,15 +38,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-This repository has been initialized as the working home for the Concrete Motivation AI bot system.
-
-Next steps for Codex:
-
-1. Review every file in this repository.
-2. Build the first working Python CLI app.
-3. Create structured prompt files for each bot.
-4. Add tests so the system can be validated.
-5. Expand the app into a web dashboard or API after the CLI works.
+Version 1 is a working, offline-first Python command center. Choose any of the eight specialists, enter a goal, and receive a useful response organized around that bot's required deliverables. It uses no paid services, internet connection, account, API key, or user tracking.
 
 ## Recommended Tech Stack
 
@@ -69,11 +61,36 @@ Future version:
 ## Quick Start
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 python main.py
 ```
+
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
+
+The app will display the bot menu. Enter `1` through `8`, then describe what you want created. Enter `0` to exit. For example:
+
+```text
+Enter your choice (0-8): 2
+What do you want this bot to create today?
+> Create a 7-minute speech about discipline after failure.
+```
+
+## Run Tests
+
+```bash
+python -m pytest
+```
+
+## How Version 1 Works
+
+- `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
+- `prompts/` holds each specialist's durable voice and safety guidance.
+- `concrete_motivation/bot_runner.py` creates distinct structured output locally and is the integration seam for a future opt-in AI provider.
+- No input or output is sent over the internet or saved to disk.
+
+See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
 
 ## Codex Build Prompt
 
