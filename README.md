@@ -38,7 +38,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 1 is a working, offline-first Python command center. Choose any of the eight specialists, enter a goal, and receive a useful response organized around that bot's required deliverables. It uses no paid services, internet connection, account, API key, or user tracking.
+Version 2 is a working, offline-first Python command center with a Concrete Motivation personalization layer. Choose any of the eight specialists, enter a goal, optionally add audience, tone, or personal context, and receive a useful response organized around that bot's required deliverables plus a `Concrete Motivation Angle`. It uses no paid services, internet connection, account, API key, or user tracking.
 
 ## Recommended Tech Stack
 
@@ -75,7 +75,11 @@ The app will display the bot menu. Enter `1` through `8`, then describe what you
 Enter your choice (0-8): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
+Any specific audience, tone, or personal detail to include? Press Enter to skip.
+> for high school football players
 ```
+
+Press Enter at the optional personalization question to skip it. When you provide detail, the offline runner folds it into the `Concrete Motivation Angle` section so the output can target a specific audience, tone, or life context.
 
 ## Run Tests
 
@@ -83,11 +87,13 @@ What do you want this bot to create today?
 python -m pytest
 ```
 
-## How Version 1 Works
+## How Version 2 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
-- `concrete_motivation/bot_runner.py` creates distinct structured output locally and is the integration seam for a future opt-in AI provider.
+- `brand/concrete_motivation_profile.md` holds the Concrete Motivation brand identity, Jaytee Miller founder context, audience, themes, preferences, and guardrails.
+- `concrete_motivation/brand_profile.py` loads the brand profile for offline personalization.
+- `concrete_motivation/bot_runner.py` creates distinct structured output locally, appends the `Concrete Motivation Angle`, and remains the integration seam for a future opt-in AI provider.
 - No input or output is sent over the internet or saved to disk.
 
 See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.

@@ -9,7 +9,7 @@ def scripted_app(*answers: str) -> str:
 
 
 def test_app_recovers_from_invalid_choice_and_empty_goal():
-    output = scripted_app("not-a-number", "9", "1", "   ", "0")
+    output = scripted_app("not-a-number", "9", "1", "   ", "", "0")
 
     assert output.count("Please enter a number from 0 to 8.") == 2
     assert "Unable to run bot: Goal cannot be empty." in output
@@ -17,8 +17,16 @@ def test_app_recovers_from_invalid_choice_and_empty_goal():
 
 
 def test_app_runs_selected_bot_and_returns_to_menu():
-    output = scripted_app("8", "renewing the mind after a setback", "0")
+    output = scripted_app("8", "renewing the mind after a setback", "", "0")
 
     assert "# Faith & Mindset Bot" in output
     assert "## Scripture-inspired principle" in output
+    assert "## Concrete Motivation Angle" in output
     assert output.count("CONCRETE MOTIVATION AI COMMAND CENTER") == 2
+
+
+def test_app_uses_optional_personalization_follow_up():
+    output = scripted_app("4", "daily discipline", "make it intense for Instagram reels", "0")
+
+    assert "# Social Media Content Bot" in output
+    assert "make it intense for Instagram reels" in output

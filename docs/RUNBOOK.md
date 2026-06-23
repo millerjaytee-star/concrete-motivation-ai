@@ -1,4 +1,4 @@
-# Version 1 Runbook
+# Version 2 Runbook
 
 ## Set up in VS Code
 
@@ -15,20 +15,26 @@ No account, internet connection, API key, or `.env` file is required.
 
 ## Run the Command Center
 
-Run `python main.py`, enter a number from 1 to 8, and describe the deliverable. The response prints as structured Markdown. After each response the menu appears again. Enter `0` to exit.
+Run `python main.py`, enter a number from 1 to 8, and describe the deliverable. The app then asks:
+
+```text
+Any specific audience, tone, or personal detail to include? Press Enter to skip.
+```
+
+Press Enter to keep the default Concrete Motivation audience, or add detail such as `for high school football players`, `make it about fatherhood`, `make it faith-based but not preachy`, or `make it intense for Instagram reels`. The response prints as structured Markdown and includes a `Concrete Motivation Angle` section. After each response the menu appears again. Enter `0` to exit.
 
 ## Verify the project
 
-Run `python -m pytest`. A passing suite confirms the registry, prompt library, runner, response structure, and important error paths.
+Run `python -m pytest`. A passing suite confirms the registry, prompt library, brand profile, personalization layer, runner, response structure, and important error paths.
 
 ## Troubleshooting
 
 - **Python is not found:** install Python 3.11+ and restart VS Code.
 - **pytest is not found:** activate `.venv` and run the install command again.
 - **Prompt file not found:** run from the repository checkout and restore the `prompts/` directory. Paths are resolved from the package, so the app does not depend on the terminal's current folder.
-- **Input was rejected:** choose a menu number from 0 to 8 and enter a non-empty goal.
+- **Input was rejected:** choose a menu number from 0 to 8 and enter a non-empty goal. The personalization follow-up is optional and can be blank.
 - **Stop the app:** enter `0`, press Ctrl+C, or send end-of-file (Ctrl+D on macOS/Linux; Ctrl+Z then Enter on Windows).
 
 ## Operating rhythm
 
-Start with one clear business or content goal, select the best specialist, edit the draft in your own voice, verify factual or scriptural claims, and save the finished asset in the tool where it will be used. Version 1 intentionally does not store inputs or outputs.
+Start with one clear business or content goal, select the best specialist, add any audience or personal context that matters, edit the draft in your own voice, verify factual or scriptural claims, and save the finished asset in the tool where it will be used. Version 2 intentionally does not store inputs or outputs.

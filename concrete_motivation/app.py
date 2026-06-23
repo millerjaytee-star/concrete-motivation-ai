@@ -41,7 +41,10 @@ def run(input_fn: Input = input, output_fn: Output = print) -> None:
 
         try:
             goal = input_fn("What do you want this bot to create today?\n> ")
-            response = runner.run(bot, goal)
+            personalization_detail = input_fn(
+                "Any specific audience, tone, or personal detail to include? Press Enter to skip.\n> "
+            )
+            response = runner.run(bot, goal, personalization_detail)
         except ValueError as exc:
             output_fn(f"Unable to run bot: {exc}")
             continue
