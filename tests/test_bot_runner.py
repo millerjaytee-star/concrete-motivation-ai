@@ -12,9 +12,12 @@ def test_every_bot_returns_its_required_sections(bot):
 
     assert response.bot_name == bot.name
     assert response.goal == "build discipline after a setback"
-    assert tuple(heading for heading, _ in response.sections) == bot.sections
+    assert tuple(heading for heading, _ in response.sections[:-1]) == bot.sections
+    assert response.sections[-1][0] == "Concrete Motivation Angle"
     assert all(body.strip() for _, body in response.sections)
     assert "build discipline after a setback" in response.as_markdown().lower()
+    assert "jaytee miller" in response.as_markdown().lower()
+    assert "family, legacy, and disciplined execution" in response.as_markdown().lower()
 
 
 @pytest.mark.parametrize("goal", ["", "   ", "\n\t"])
@@ -34,3 +37,22 @@ def test_missing_prompt_is_reported(tmp_path):
 
     with pytest.raises(FileNotFoundError, match="Prompt file not found"):
         BotRunner().run(bot, "create a message")
+
+
+def test_optional_personalization_detail_can_be_skipped():
+    response = BotRunner().run(list_bots()[0], "build a youth workshop", "")
+
+    assert "No extra detail was added" in response.as_markdown()
+    assert "## Concrete Motivation Angle" in response.as_markdown()
+
+
+def test_optional_personalization_detail_changes_output():
+    response = BotRunner().run(
+        list_bots()[1],
+        "discipline after a losing season",
+        "for high school football players and make it about fatherhood",
+    )
+
+    output = response.as_markdown()
+    assert "for high school football players and make it about fatherhood" in output
+    assert "No extra detail was added" not in output

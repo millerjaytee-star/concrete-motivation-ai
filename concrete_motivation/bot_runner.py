@@ -2,9 +2,11 @@
 
 from collections.abc import Callable
 
+from .brand_profile import BrandProfile, load_brand_profile
 from .models import Bot, BotResponse
 
 SectionBuilder = Callable[[str], tuple[str, ...]]
+ANGLE_SECTION = "Concrete Motivation Angle"
 
 
 def _brand(goal: str) -> tuple[str, ...]:
@@ -104,17 +106,23 @@ BUILDERS: dict[str, SectionBuilder] = {
 class BotRunner:
     """Run registered bots without network access or secrets."""
 
-    def run(self, bot: Bot, goal: str) -> BotResponse:
+    def __init__(self, brand_profile: BrandProfile | None = None) -> None:
+        self.brand_profile = brand_profile or load_brand_profile()
+
+    def run(self, bot: Bot, goal: str, personalization_detail: str = "") -> BotResponse:
         clean_goal = " ".join(goal.split())
         if not clean_goal:
             raise ValueError("Goal cannot be empty.")
+        clean_detail = " ".join(personalization_detail.split())
         if not bot.prompt_file.is_file():
             raise FileNotFoundError(f"Prompt file not found: {bot.prompt_file}")
 
-        # Loading the prompt validates the content seam used by a future AI provider.
+        # Loading the prompt and brand profile validates the content seams used by a future AI provider.
         prompt = bot.prompt_file.read_text(encoding="utf-8").strip()
         if not prompt:
             raise ValueError(f"Prompt file is empty: {bot.prompt_file}")
+        if not self.brand_profile.source_text:
+            raise ValueError("Brand profile cannot be empty.")
 
         try:
             content = BUILDERS[bot.slug](clean_goal)
@@ -122,4 +130,27 @@ class BotRunner:
             raise ValueError(f"No runner configured for {bot.name}.") from exc
         if len(content) != len(bot.sections):
             raise RuntimeError(f"Invalid response configuration for {bot.name}.")
-        return BotResponse(bot.name, clean_goal, tuple(zip(bot.sections, content, strict=True)))
+        sections = tuple(zip(bot.sections, content, strict=True))
+        return BotResponse(
+            bot.name,
+            clean_goal,
+            sections + ((ANGLE_SECTION, self._personalized_angle(bot, clean_goal, clean_detail)),),
+        )
+
+    def _personalized_angle(self, bot: Bot, goal: str, personalization_detail: str) -> str:
+        profile = self.brand_profile
+        audience = ", ".join(profile.primary_audience[:5])
+        themes = ", ".join(profile.core_themes[:6])
+        detail_line = (
+            f"Personal detail to honor: {personalization_detail}."
+            if personalization_detail
+            else "No extra detail was added, so this stays broad enough for the core Concrete Motivation audience."
+        )
+        return (
+            f"{profile.brand_name} should sound like {profile.founder} building through real pressure: "
+            f"{profile.voice}. Keep it aligned with {profile.podcast_name} by turning honest conversation "
+            f"into practical movement. For this {bot.name.lower()} on {goal}, connect the message to {themes} "
+            f"for {audience}, then land it in family, legacy, and disciplined execution. {detail_line} "
+            f"Make the next move clear: choose one action, keep the promise today, and build from there. "
+            f"Signature message: {profile.signature_message}."
+        )
