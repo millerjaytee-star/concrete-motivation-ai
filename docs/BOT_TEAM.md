@@ -1,6 +1,6 @@
 # Concrete Motivation Bot Team
 
-The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 5 runs offline by default, can use OpenAI when explicitly configured, can save every response to the local content vault, and can turn one theme into a weekly content calendar.
+The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 6 runs offline by default, can use OpenAI when explicitly configured, can save every response to the local content vault, can turn one theme into a weekly content calendar, and now includes a static public website foundation.
 
 | Bot | Best used for | Response structure |
 | --- | --- | --- |
@@ -29,10 +29,14 @@ Every bot maps to a local `outputs/` folder so useful responses can become reusa
 
 Menu option `10` creates a 7-day execution calendar for one theme. It covers mindset reels, podcast clips, athlete/youth messages, fatherhood/faith/leadership posts, Concrete Conversations pushes, behind-the-scenes stories, and Sunday reset challenges. Calendar files save to `outputs/content_calendars` and appear in recent outputs.
 
+## Website foundation
+
+The static site in `website/` presents Concrete Motivation as a speaking, podcast, youth/athlete development, and leadership platform. It includes booking and podcast calls to action, speaking topics, programs, early testimonial placeholders, and a static contact form placeholder.
+
 ## Choosing a bot
 
 Choose the specialist closest to the deliverable you need, then make the goal specific. “Create a seven-minute talk for high school athletes rebuilding after a losing season” will produce a more focused result than “motivate athletes.” Run the same goal through another bot when you want a complementary asset—for example, Speech first and Social Media second.
 
 ## Content responsibility
 
-Version 5 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.
+Version 6 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.

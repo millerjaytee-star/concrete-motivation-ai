@@ -1,4 +1,4 @@
-# Version 5 Runbook
+# Version 6 Runbook
 
 ## Set up in VS Code
 
@@ -105,6 +105,10 @@ The app should print `Provider: openai`. If OpenAI is unavailable for a response
 
 Run `python -m pytest`. A passing suite confirms the registry, prompt library, brand profile, personalization layer, provider factory, OpenAI prompt construction, offline fallback, output vault, content calendar engine, runner, response structure, and important error paths.
 
+## Preview the Website
+
+Open `website/index.html` in a browser. The site is static, so it does not require a backend, build step, deployment, payment integration, or live form service. The contact form is a placeholder until a form service is connected.
+
 ## Troubleshooting
 
 - **Python is not found:** install Python 3.11+ and restart VS Code.
@@ -119,4 +123,4 @@ Run `python -m pytest`. A passing suite confirms the registry, prompt library, b
 
 ## Operating rhythm
 
-Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 5 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses.
+Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 6 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses. Use the website as the first public-facing brand foundation.
