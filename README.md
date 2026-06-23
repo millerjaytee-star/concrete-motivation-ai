@@ -38,7 +38,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 5 is a working Python command center with offline generation by default, optional OpenAI-powered generation when configured, a local Markdown content vault, and a Weekly Content Calendar Engine. Choose any of the eight specialists or build a 7-day calendar from one theme, then save the output as a reusable asset.
+Version 6 includes the Python command center plus a local static website foundation for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine.
 
 Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
@@ -152,7 +152,21 @@ Return to offline mode by setting `CONCRETE_AI_PROVIDER=offline` or removing the
 python -m pytest
 ```
 
-## How Version 5 Works
+## Preview the Website
+
+Open `website/index.html` in a browser. The website is static and needs no backend, build step, API key, payment setup, form service, or deployment.
+
+The first website foundation includes:
+
+- Concrete Motivation hero with booking and podcast calls to action
+- Jaytee Miller founder story
+- Speaking topics
+- Concrete Conversations podcast section with placeholders
+- Programs and offers
+- Early testimonial placeholders
+- Static booking/contact placeholder form
+
+## How Version 6 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
@@ -163,6 +177,7 @@ python -m pytest
 - `concrete_motivation/output_vault.py` saves full Markdown responses with metadata and lists recent saved outputs.
 - `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
 - `concrete_motivation/content_calendar.py` creates the offline 7-day Weekly Content Calendar Engine output.
+- `website/` holds the static public website foundation.
 - Offline mode sends no input or output over the internet and saves nothing to disk.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 
@@ -172,7 +187,7 @@ python -m pytest
 - If OpenAI generation fails, the app prints `OpenAI generation was unavailable, so offline mode was used for this response.` and still returns a response.
 - If tests cannot import `openai`, activate your virtual environment and run `python -m pip install -r requirements.txt`.
 
-See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
+See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, [Website](docs/WEBSITE.md) for the static site, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
 
 ## Codex Build Prompt
 

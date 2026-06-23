@@ -50,7 +50,14 @@
 - Day-by-day hooks, captions, calls to action, platforms, and repurpose ideas
 - Saved calendars in `outputs/content_calendars`
 
-## Version 6 — Web command center
+## Version 6 — Static Concrete Motivation website
+
+- Local static website in `website/`
+- Public homepage for Concrete Motivation and Concrete Conversations
+- Speaking topics, programs, podcast section, testimonials placeholders, and booking placeholder
+- Mobile-friendly HTML/CSS/JS with no backend or build step
+
+## Version 7 — Web command center
 
 - FastAPI service and authenticated dashboard
 - Content calendar and approval workflow
