@@ -1,4 +1,4 @@
-# Version 3 Runbook
+# Version 4 Runbook
 
 ## Set up in VS Code
 
@@ -15,13 +15,36 @@ No account, internet connection, API key, or `.env` file is required for offline
 
 ## Run the Command Center
 
-Run `python main.py`. The app prints the active provider, then shows the menu. Enter a number from 1 to 8 and describe the deliverable. The app then asks:
+Run `python main.py`. The app prints the active provider, then shows the menu. Enter a number from 1 to 8 and describe the deliverable. Enter `9` to view recent saved outputs. The app then asks:
 
 ```text
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
 ```
 
-Press Enter to keep the default Concrete Motivation audience, or add detail such as `for high school football players`, `make it about fatherhood`, `make it faith-based but not preachy`, or `make it intense for Instagram reels`. The response prints as structured Markdown and includes a `Concrete Motivation Angle` section. After each response the menu appears again. Enter `0` to exit.
+Press Enter to keep the default Concrete Motivation audience, or add detail such as `for high school football players`, `make it about fatherhood`, `make it faith-based but not preachy`, or `make it intense for Instagram reels`. The response prints as structured Markdown and includes a `Concrete Motivation Angle` section.
+
+After each response, the app asks:
+
+```text
+Save this output to the content vault? [Y/n]
+```
+
+Press Enter or type `y` to save. Type `n` to skip. After that, the menu appears again. Enter `0` to exit.
+
+## Use the Content Vault
+
+Saved outputs are local Markdown assets under `outputs/`, organized by bot:
+
+- `outputs/speeches`
+- `outputs/podcast_episodes`
+- `outputs/social_posts`
+- `outputs/outreach_messages`
+- `outputs/business_growth`
+- `outputs/operations`
+- `outputs/faith_mindset`
+- `outputs/brand`
+
+Each saved file includes metadata for bot name, goal, provider, fallback status, and creation timestamp, followed by the full Markdown response. Choose menu option `9` to see the 10 most recent saved files. Generated Markdown files are ignored by Git by default; the folder structure stays committed.
 
 ## Run Offline
 
@@ -53,18 +76,20 @@ The app should print `Provider: openai`. If OpenAI is unavailable for a response
 
 ## Verify the project
 
-Run `python -m pytest`. A passing suite confirms the registry, prompt library, brand profile, personalization layer, provider factory, OpenAI prompt construction, offline fallback, runner, response structure, and important error paths.
+Run `python -m pytest`. A passing suite confirms the registry, prompt library, brand profile, personalization layer, provider factory, OpenAI prompt construction, offline fallback, output vault, runner, response structure, and important error paths.
 
 ## Troubleshooting
 
 - **Python is not found:** install Python 3.11+ and restart VS Code.
 - **pytest or openai is not found:** activate `.venv` and run the install command again.
 - **Prompt file not found:** run from the repository checkout and restore the `prompts/` directory. Paths are resolved from the package, so the app does not depend on the terminal's current folder.
-- **Input was rejected:** choose a menu number from 0 to 8 and enter a non-empty goal. The personalization follow-up is optional and can be blank.
+- **Input was rejected:** choose a menu number from 0 to 9 and enter a non-empty goal. The personalization follow-up is optional and can be blank.
+- **Output did not save:** press Enter or type `y` at the save prompt. Typing `n` skips saving.
+- **Recent outputs are empty:** save at least one response first, then choose menu option `9`.
 - **OpenAI mode shows offline:** confirm `CONCRETE_AI_PROVIDER=openai` and `OPENAI_API_KEY` are both set in the same terminal session.
 - **OpenAI generation failed:** the app automatically uses offline mode for that response. Check your key, billing, network connection, and package install before trying OpenAI mode again.
 - **Stop the app:** enter `0`, press Ctrl+C, or send end-of-file (Ctrl+D on macOS/Linux; Ctrl+Z then Enter on Windows).
 
 ## Operating rhythm
 
-Start with one clear business or content goal, select the best specialist, add any audience or personal context that matters, edit the draft in your own voice, verify factual or scriptural claims, and save the finished asset in the tool where it will be used. Version 3 offline mode does not store inputs or outputs; OpenAI mode sends the prompt context to OpenAI to generate the response.
+Start with one clear business or content goal, select the best specialist, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 4 offline mode sends nothing over the internet; OpenAI mode sends the prompt context to OpenAI to generate the response.

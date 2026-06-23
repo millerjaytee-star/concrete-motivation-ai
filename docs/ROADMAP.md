@@ -35,7 +35,15 @@
 - Prompt versioning, safety checks, and cost visibility
 - Streaming output
 
-## Version 4 — Web command center
+## Version 4 — Output vault and content library
+
+- Local Markdown output vault
+- Save prompt after every generated response
+- Metadata for bot, goal, provider, fallback status, and timestamp
+- Recent saved outputs menu
+- Safe filenames organized by content type
+
+## Version 5 — Web command center
 
 - FastAPI service and authenticated dashboard
 - Content calendar and approval workflow

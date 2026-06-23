@@ -38,9 +38,9 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 3 is a working Python command center with offline generation by default and optional OpenAI-powered generation when configured. Choose any of the eight specialists, enter a goal, optionally add audience, tone, or personal context, and receive a useful response organized around that bot's required deliverables plus a `Concrete Motivation Angle`.
+Version 4 is a working Python command center with offline generation by default, optional OpenAI-powered generation when configured, and a local Markdown content vault. Choose any of the eight specialists, enter a goal, optionally add audience, tone, or personal context, receive a structured response, and save it as a reusable asset.
 
-Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable.
+Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
 ## Recommended Tech Stack
 
@@ -71,18 +71,46 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the bot menu. Enter `1` through `8`, then describe what you want created. Enter `0` to exit. For example:
+The app will display the bot menu. Enter `1` through `8` to generate with a bot, enter `9` to view recent saved outputs, or enter `0` to exit. For example:
 
 ```text
 Provider: offline
-Enter your choice (0-8): 2
+Enter your choice (0-9): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
 > for high school football players
+Save this output to the content vault? [Y/n]
 ```
 
-Press Enter at the optional personalization question to skip it. When you provide detail, the offline runner folds it into the `Concrete Motivation Angle` section so the output can target a specific audience, tone, or life context.
+Press Enter at the optional personalization question to skip it. When you provide detail, the runner folds it into the `Concrete Motivation Angle` section so the output can target a specific audience, tone, or life context. Press Enter at the save prompt to save by default, or type `n` to skip.
+
+## Content Vault
+
+Saved outputs are Markdown files with metadata at the top:
+
+```text
+---
+bot: Bot Name
+goal: User goal
+provider: offline
+fallback_used: false
+created_at: 2026-06-23T12:00:00-04:00
+---
+```
+
+The vault organizes files by bot type:
+
+- `outputs/speeches`
+- `outputs/podcast_episodes`
+- `outputs/social_posts`
+- `outputs/outreach_messages`
+- `outputs/business_growth`
+- `outputs/operations`
+- `outputs/faith_mindset`
+- `outputs/brand`
+
+Filenames include date/time, bot slug, and a short goal slug, such as `2026-06-23-120000-motivational-speech-starting-from-bottom.md`. The folders are committed, but generated Markdown files are ignored by Git so local drafts do not accidentally enter pull requests.
 
 ## Provider Modes
 
@@ -121,7 +149,7 @@ Return to offline mode by setting `CONCRETE_AI_PROVIDER=offline` or removing the
 python -m pytest
 ```
 
-## How Version 3 Works
+## How Version 4 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
@@ -129,6 +157,8 @@ python -m pytest
 - `concrete_motivation/brand_profile.py` loads the brand profile for offline personalization.
 - `concrete_motivation/providers/` holds the offline provider, OpenAI provider, shared provider interface, and provider factory.
 - `concrete_motivation/bot_runner.py` coordinates the configured provider and falls back to offline output when OpenAI is unavailable.
+- `concrete_motivation/output_vault.py` saves full Markdown responses with metadata and lists recent saved outputs.
+- `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
 - Offline mode sends no input or output over the internet and saves nothing to disk.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 
