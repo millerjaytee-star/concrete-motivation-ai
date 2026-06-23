@@ -5,7 +5,8 @@ import pytest
 
 from concrete_motivation.bot_registry import get_bot, list_bots
 from concrete_motivation.bot_runner import BotRunner
-from concrete_motivation.output_vault import BOT_OUTPUT_FOLDERS, OutputVault
+from concrete_motivation.content_calendar import generate_weekly_calendar
+from concrete_motivation.output_vault import BOT_OUTPUT_FOLDERS, CONTENT_CALENDAR_FOLDER, OutputVault
 from concrete_motivation.slugify import slugify
 
 
@@ -59,3 +60,28 @@ def test_recent_saved_outputs_are_newest_first(tmp_path):
     os.utime(newer, (200, 200))
 
     assert vault.recent_outputs()[:2] == (newer, older)
+
+
+def test_save_calendar_writes_to_content_calendar_folder(tmp_path):
+    calendar = generate_weekly_calendar("discipline under pressure", "for fathers")
+    created = datetime(2026, 6, 23, 12, 30, 0, tzinfo=timezone.utc)
+
+    path = OutputVault(tmp_path).save_calendar(calendar, created)
+    text = path.read_text(encoding="utf-8")
+
+    assert path.parent == tmp_path / CONTENT_CALENDAR_FOLDER
+    assert path.name == "2026-06-23-123000-content-calendar-discipline-under-pressure.md"
+    assert "bot: Weekly Content Calendar Engine" in text
+    assert "goal: discipline under pressure" in text
+    assert "provider: offline" in text
+    assert "fallback_used: false" in text
+    assert "# Weekly Content Calendar Engine" in text
+    assert "## Monday: Mindset Reel" in text
+
+
+def test_recent_outputs_includes_saved_calendar_files(tmp_path):
+    vault = OutputVault(tmp_path)
+    calendar = generate_weekly_calendar("discipline")
+    path = vault.save_calendar(calendar, datetime(2026, 6, 23, 12, 30, 0, tzinfo=timezone.utc))
+
+    assert path in vault.recent_outputs()

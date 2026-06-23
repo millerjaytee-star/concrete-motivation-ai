@@ -6,10 +6,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
+from concrete_motivation.content_calendar import CALENDAR_NAME, WeeklyContentCalendar
 from concrete_motivation.models import Bot, BotResponse
 from concrete_motivation.slugify import slugify
 
 VAULT_DIR = Path(__file__).resolve().parent.parent / "outputs"
+CONTENT_CALENDAR_FOLDER = "content_calendars"
 
 BOT_OUTPUT_FOLDERS: dict[str, str] = {
     "brand_architect": "brand",
@@ -31,7 +33,7 @@ class OutputVault:
 
     def ensure_folders(self) -> None:
         """Create every content vault folder when missing."""
-        for folder_name in BOT_OUTPUT_FOLDERS.values():
+        for folder_name in (*BOT_OUTPUT_FOLDERS.values(), CONTENT_CALENDAR_FOLDER):
             (self.root / folder_name).mkdir(parents=True, exist_ok=True)
 
     def folder_for_bot(self, bot: Bot) -> Path:
@@ -72,6 +74,31 @@ class OutputVault:
             )
         )
         path.write_text(f"{metadata}\n\n{response.as_markdown()}\n", encoding="utf-8")
+        return path
+
+    def save_calendar(
+        self,
+        calendar: WeeklyContentCalendar,
+        created_at: datetime | None = None,
+    ) -> Path:
+        """Save a weekly content calendar with metadata and return the written path."""
+        created = (created_at or datetime.now().astimezone()).replace(microsecond=0)
+        folder = self.root / CONTENT_CALENDAR_FOLDER
+        folder.mkdir(parents=True, exist_ok=True)
+        timestamp = created.strftime("%Y-%m-%d-%H%M%S")
+        path = folder / f"{timestamp}-content-calendar-{slugify(calendar.theme)}.md"
+        metadata = "\n".join(
+            (
+                "---",
+                f"bot: {CALENDAR_NAME}",
+                f"goal: {calendar.theme}",
+                f"provider: {calendar.provider_name}",
+                f"fallback_used: {str(calendar.fallback_used).lower()}",
+                f"created_at: {created.isoformat()}",
+                "---",
+            )
+        )
+        path.write_text(f"{metadata}\n\n{calendar.as_markdown()}\n", encoding="utf-8")
         return path
 
     def recent_outputs(self, limit: int = 10) -> tuple[Path, ...]:

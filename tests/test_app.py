@@ -12,7 +12,7 @@ def scripted_app(*answers: str, vault: OutputVault | None = None) -> str:
 def test_app_recovers_from_invalid_choice_and_empty_goal(tmp_path):
     output = scripted_app("not-a-number", "9", "1", "   ", "", "0", vault=OutputVault(tmp_path))
 
-    assert "Please enter a number from 0 to 9." in output
+    assert "Please enter a number from 0 to 10." in output
     assert "No saved outputs yet." in output
     assert "Unable to run bot: Goal cannot be empty." in output
     assert output.endswith("Keep building. Goodbye.")
@@ -69,3 +69,32 @@ def test_app_lists_recent_saved_outputs(tmp_path):
     assert "Recent saved outputs:" in output
     assert "brand_architect" not in output
     assert "brand-architect-build-trust.md" in output
+
+
+def test_app_generates_calendar_and_defaults_save_to_yes(tmp_path):
+    vault = OutputVault(tmp_path)
+    output = scripted_app(
+        "10",
+        "discipline under pressure",
+        "for fathers on Instagram",
+        "",
+        "0",
+        vault=vault,
+    )
+
+    saved = list(tmp_path.rglob("*.md"))
+    assert len(saved) == 1
+    assert saved[0].parent.name == "content_calendars"
+    assert "# Weekly Content Calendar Engine" in output
+    assert "## Sunday: Reflection / Reset / Weekly Challenge" in output
+    assert "for fathers on Instagram" in output
+    assert "Saved to content vault:" in output
+
+
+def test_app_calendar_skip_save(tmp_path):
+    vault = OutputVault(tmp_path)
+    output = scripted_app("10", "legacy", "", "n", "0", vault=vault)
+
+    assert "# Weekly Content Calendar Engine" in output
+    assert not list(tmp_path.rglob("*.md"))
+    assert "Output was not saved." in output
