@@ -1,4 +1,4 @@
-# Version 6 Runbook
+# Version 7 Runbook
 
 ## Set up in VS Code
 
@@ -109,6 +109,12 @@ Run `python -m pytest`. A passing suite confirms the registry, prompt library, b
 
 Open `website/index.html` in a browser. The site is static, so it does not require a backend, build step, deployment, payment integration, or live form service. The contact form is a placeholder until a form service is connected.
 
+## Use the YouTube Launch Kit
+
+Open the files in `youtube_launch/` when setting up the channel or planning uploads. Start with `CHANNEL_SETUP.md`, paste channel text from `CHANNEL_COPY.md`, plan the first launch videos from `FIRST_10_VIDEOS.md`, then use `SHORTS_SYSTEM.md`, `THUMBNAIL_GUIDE.md`, and `UPLOAD_CHECKLIST.md` for repeatable publishing.
+
+The YouTube kit connects to the website for booking and public brand context. It connects to the output vault by giving scripts, descriptions, pinned comments, thumbnail words, Shorts cutdowns, and Community posts a place to be saved and reused.
+
 ## Troubleshooting
 
 - **Python is not found:** install Python 3.11+ and restart VS Code.
@@ -123,4 +129,4 @@ Open `website/index.html` in a browser. The site is static, so it does not requi
 
 ## Operating rhythm
 
-Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 6 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses. Use the website as the first public-facing brand foundation.
+Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 7 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses. Use the website as the public-facing brand foundation and the YouTube kit as the channel launch system.

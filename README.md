@@ -38,7 +38,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 6 includes the Python command center plus a local static website foundation for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine.
+Version 7 includes the Python command center, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine.
 
 Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
@@ -166,7 +166,13 @@ The first website foundation includes:
 - Early testimonial placeholders
 - Static booking/contact placeholder form
 
-## How Version 6 Works
+## YouTube Launch Kit
+
+The launch kit lives in `youtube_launch/` and includes channel setup guidance, paste-ready YouTube copy, video templates, the first 10 video plans, a Shorts system, thumbnail guide, and upload checklist.
+
+Use the website as the booking and brand home. Use the output vault to save scripts, descriptions, pinned comments, thumbnail text, Shorts cutdowns, and community post ideas.
+
+## How Version 7 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
@@ -178,6 +184,7 @@ The first website foundation includes:
 - `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
 - `concrete_motivation/content_calendar.py` creates the offline 7-day Weekly Content Calendar Engine output.
 - `website/` holds the static public website foundation.
+- `youtube_launch/` holds the YouTube channel launch kit and repeatable media system.
 - Offline mode sends no input or output over the internet and saves nothing to disk.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 
@@ -187,7 +194,7 @@ The first website foundation includes:
 - If OpenAI generation fails, the app prints `OpenAI generation was unavailable, so offline mode was used for this response.` and still returns a response.
 - If tests cannot import `openai`, activate your virtual environment and run `python -m pip install -r requirements.txt`.
 
-See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, [Website](docs/WEBSITE.md) for the static site, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
+See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, [Website](docs/WEBSITE.md) for the static site, [YouTube Launch Kit](docs/YOUTUBE_LAUNCH.md) for media setup, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
 
 ## Codex Build Prompt
 

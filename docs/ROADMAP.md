@@ -57,7 +57,16 @@
 - Speaking topics, programs, podcast section, testimonials placeholders, and booking placeholder
 - Mobile-friendly HTML/CSS/JS with no backend or build step
 
-## Version 7 — Web command center
+## Version 7 — YouTube channel launch kit
+
+- Channel setup guide and paste-ready channel copy
+- First 10 video plans with titles, descriptions, outlines, hooks, and CTAs
+- Reusable Shorts system
+- Thumbnail guide
+- Upload checklist
+- Connection to website and output vault
+
+## Version 8 — Web command center
 
 - FastAPI service and authenticated dashboard
 - Content calendar and approval workflow
