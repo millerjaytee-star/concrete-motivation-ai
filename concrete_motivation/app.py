@@ -4,6 +4,7 @@ from collections.abc import Callable
 
 from .bot_registry import get_bot, list_bots
 from .bot_runner import BotRunner
+from .content_calendar import generate_weekly_calendar
 from .output_vault import OutputVault
 
 Input = Callable[[str], str]
@@ -16,7 +17,7 @@ BANNER = """====================================
 
 def menu() -> str:
     choices = "\n".join(f"{bot.id}. {bot.name}" for bot in list_bots())
-    return f"{BANNER}\n\nChoose a bot:\n{choices}\n9. View recent saved outputs\n0. Exit"
+    return f"{BANNER}\n\nChoose a bot:\n{choices}\n9. View recent saved outputs\n10. Weekly Content Calendar Engine\n0. Exit"
 
 
 def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault | None = None) -> None:
@@ -28,7 +29,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
     output_fn(menu())
     while True:
         try:
-            raw_choice = input_fn("\nEnter your choice (0-9): ").strip()
+            raw_choice = input_fn("\nEnter your choice (0-10): ").strip()
         except (EOFError, KeyboardInterrupt):
             output_fn("\nKeep building. Goodbye.")
             return
@@ -44,11 +45,36 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
                 output_fn("No saved outputs yet.")
             output_fn(menu())
             continue
+        if raw_choice == "10":
+            try:
+                theme = input_fn("What is the main theme for this week?\n> ")
+                detail = input_fn("Any audience, platform, event, or business goal to include? Press Enter to skip.\n> ")
+                calendar = generate_weekly_calendar(theme, detail)
+            except ValueError as exc:
+                output_fn(f"Unable to create calendar: {exc}")
+                continue
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+
+            output_fn(f"\n{calendar.as_markdown()}\n")
+            try:
+                save_choice = input_fn("Save this output to the content vault? [Y/n] ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            if save_choice in {"", "y", "yes"}:
+                saved_path = output_vault.save_calendar(calendar)
+                output_fn(f"Saved to content vault: {saved_path}")
+            else:
+                output_fn("Output was not saved.")
+            output_fn(menu())
+            continue
         try:
             choice = int(raw_choice)
             bot = get_bot(choice)
         except (ValueError, TypeError):
-            output_fn("Please enter a number from 0 to 9.")
+            output_fn("Please enter a number from 0 to 10.")
             continue
 
         try:

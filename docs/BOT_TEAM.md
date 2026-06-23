@@ -1,6 +1,6 @@
 # Concrete Motivation Bot Team
 
-The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 4 runs offline by default, can use OpenAI when explicitly configured, and can save every response to the local content vault.
+The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 5 runs offline by default, can use OpenAI when explicitly configured, can save every response to the local content vault, and can turn one theme into a weekly content calendar.
 
 | Bot | Best used for | Response structure |
 | --- | --- | --- |
@@ -25,10 +25,14 @@ The offline provider keeps the reliable local output available with no account o
 
 Every bot maps to a local `outputs/` folder so useful responses can become reusable Markdown assets. Speeches, podcast episodes, social posts, outreach messages, business growth plans, operations plans, faith and mindset drafts, and brand work each have their own folder. Menu option `9` shows the 10 most recent saved files.
 
+## Weekly calendar engine
+
+Menu option `10` creates a 7-day execution calendar for one theme. It covers mindset reels, podcast clips, athlete/youth messages, fatherhood/faith/leadership posts, Concrete Conversations pushes, behind-the-scenes stories, and Sunday reset challenges. Calendar files save to `outputs/content_calendars` and appear in recent outputs.
+
 ## Choosing a bot
 
 Choose the specialist closest to the deliverable you need, then make the goal specific. “Create a seven-minute talk for high school athletes rebuilding after a losing season” will produce a more focused result than “motivate athletes.” Run the same goal through another bot when you want a complementary asset—for example, Speech first and Social Media second.
 
 ## Content responsibility
 
-Version 4 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.
+Version 5 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.

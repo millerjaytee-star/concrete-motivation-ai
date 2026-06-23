@@ -38,7 +38,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 4 is a working Python command center with offline generation by default, optional OpenAI-powered generation when configured, and a local Markdown content vault. Choose any of the eight specialists, enter a goal, optionally add audience, tone, or personal context, receive a structured response, and save it as a reusable asset.
+Version 5 is a working Python command center with offline generation by default, optional OpenAI-powered generation when configured, a local Markdown content vault, and a Weekly Content Calendar Engine. Choose any of the eight specialists or build a 7-day calendar from one theme, then save the output as a reusable asset.
 
 Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
@@ -71,11 +71,11 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the bot menu. Enter `1` through `8` to generate with a bot, enter `9` to view recent saved outputs, or enter `0` to exit. For example:
+The app will display the bot menu. Enter `1` through `8` to generate with a bot, enter `9` to view recent saved outputs, enter `10` to build a weekly content calendar, or enter `0` to exit. For example:
 
 ```text
 Provider: offline
-Enter your choice (0-9): 2
+Enter your choice (0-10): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
@@ -84,6 +84,8 @@ Save this output to the content vault? [Y/n]
 ```
 
 Press Enter at the optional personalization question to skip it. When you provide detail, the runner folds it into the `Concrete Motivation Angle` section so the output can target a specific audience, tone, or life context. Press Enter at the save prompt to save by default, or type `n` to skip.
+
+For the calendar workflow, choose option `10`, enter the main theme for the week, then optionally add an audience, platform, event, or business goal. The engine creates Monday through Sunday content with hooks, scripts or captions, calls to action, platforms, and repurpose ideas.
 
 ## Content Vault
 
@@ -109,6 +111,7 @@ The vault organizes files by bot type:
 - `outputs/operations`
 - `outputs/faith_mindset`
 - `outputs/brand`
+- `outputs/content_calendars`
 
 Filenames include date/time, bot slug, and a short goal slug, such as `2026-06-23-120000-motivational-speech-starting-from-bottom.md`. The folders are committed, but generated Markdown files are ignored by Git so local drafts do not accidentally enter pull requests.
 
@@ -149,7 +152,7 @@ Return to offline mode by setting `CONCRETE_AI_PROVIDER=offline` or removing the
 python -m pytest
 ```
 
-## How Version 4 Works
+## How Version 5 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
@@ -159,6 +162,7 @@ python -m pytest
 - `concrete_motivation/bot_runner.py` coordinates the configured provider and falls back to offline output when OpenAI is unavailable.
 - `concrete_motivation/output_vault.py` saves full Markdown responses with metadata and lists recent saved outputs.
 - `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
+- `concrete_motivation/content_calendar.py` creates the offline 7-day Weekly Content Calendar Engine output.
 - Offline mode sends no input or output over the internet and saves nothing to disk.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 

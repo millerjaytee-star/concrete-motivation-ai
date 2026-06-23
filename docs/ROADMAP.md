@@ -43,7 +43,14 @@
 - Recent saved outputs menu
 - Safe filenames organized by content type
 
-## Version 5 — Web command center
+## Version 5 — Weekly content calendar engine
+
+- Menu option for a local 7-day content calendar
+- Weekly theme and optional audience/platform/business detail
+- Day-by-day hooks, captions, calls to action, platforms, and repurpose ideas
+- Saved calendars in `outputs/content_calendars`
+
+## Version 6 — Web command center
 
 - FastAPI service and authenticated dashboard
 - Content calendar and approval workflow
