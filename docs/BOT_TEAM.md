@@ -1,6 +1,6 @@
 # Concrete Motivation Bot Team
 
-The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 3 runs offline by default and can use OpenAI when explicitly configured.
+The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 4 runs offline by default, can use OpenAI when explicitly configured, and can save every response to the local content vault.
 
 | Bot | Best used for | Response structure |
 | --- | --- | --- |
@@ -21,10 +21,14 @@ Every bot response now includes `Concrete Motivation Angle`, a short section con
 
 The offline provider keeps the reliable local output available with no account or API key. The OpenAI provider can create richer, custom drafts when `CONCRETE_AI_PROVIDER=openai` and `OPENAI_API_KEY` are set. If OpenAI is unavailable, the runner falls back to the offline provider for that response.
 
+## Content vault
+
+Every bot maps to a local `outputs/` folder so useful responses can become reusable Markdown assets. Speeches, podcast episodes, social posts, outreach messages, business growth plans, operations plans, faith and mindset drafts, and brand work each have their own folder. Menu option `9` shows the 10 most recent saved files.
+
 ## Choosing a bot
 
 Choose the specialist closest to the deliverable you need, then make the goal specific. “Create a seven-minute talk for high school athletes rebuilding after a losing season” will produce a more focused result than “motivate athletes.” Run the same goal through another bot when you want a complementary asset—for example, Speech first and Social Media second.
 
 ## Content responsibility
 
-Version 3 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.
+Version 4 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.
