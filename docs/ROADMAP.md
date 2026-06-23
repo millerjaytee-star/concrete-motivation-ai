@@ -26,8 +26,14 @@
 
 - A provider interface with the offline runner as the default
 - Opt-in OpenAI integration configured through environment variables
+- Offline fallback when OpenAI is unavailable
+- Provider-aware CLI status
+- OpenAI prompt construction with reusable brand context
+
+## Version 3.1 — Provider polish
+
 - Prompt versioning, safety checks, and cost visibility
-- Streaming output and reusable brand context
+- Streaming output
 
 ## Version 4 — Web command center
 

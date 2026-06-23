@@ -19,6 +19,7 @@ def test_app_recovers_from_invalid_choice_and_empty_goal():
 def test_app_runs_selected_bot_and_returns_to_menu():
     output = scripted_app("8", "renewing the mind after a setback", "", "0")
 
+    assert "Provider: offline" in output
     assert "# Faith & Mindset Bot" in output
     assert "## Scripture-inspired principle" in output
     assert "## Concrete Motivation Angle" in output

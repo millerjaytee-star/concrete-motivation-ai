@@ -38,7 +38,9 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 2 is a working, offline-first Python command center with a Concrete Motivation personalization layer. Choose any of the eight specialists, enter a goal, optionally add audience, tone, or personal context, and receive a useful response organized around that bot's required deliverables plus a `Concrete Motivation Angle`. It uses no paid services, internet connection, account, API key, or user tracking.
+Version 3 is a working Python command center with offline generation by default and optional OpenAI-powered generation when configured. Choose any of the eight specialists, enter a goal, optionally add audience, tone, or personal context, and receive a useful response organized around that bot's required deliverables plus a `Concrete Motivation Angle`.
+
+Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable.
 
 ## Recommended Tech Stack
 
@@ -72,6 +74,7 @@ On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your syste
 The app will display the bot menu. Enter `1` through `8`, then describe what you want created. Enter `0` to exit. For example:
 
 ```text
+Provider: offline
 Enter your choice (0-8): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
@@ -81,20 +84,59 @@ Any specific audience, tone, or personal detail to include? Press Enter to skip.
 
 Press Enter at the optional personalization question to skip it. When you provide detail, the offline runner folds it into the `Concrete Motivation Angle` section so the output can target a specific audience, tone, or life context.
 
+## Provider Modes
+
+Offline mode is the default:
+
+```bash
+CONCRETE_AI_PROVIDER=offline python main.py
+```
+
+To enable OpenAI mode, copy the example file and add your key:
+
+```bash
+cp .env.example .env
+```
+
+Then set:
+
+```text
+OPENAI_API_KEY=your_real_api_key
+CONCRETE_AI_PROVIDER=openai
+```
+
+Load those values in your shell before running the app:
+
+```bash
+export OPENAI_API_KEY=your_real_api_key
+export CONCRETE_AI_PROVIDER=openai
+python main.py
+```
+
+Return to offline mode by setting `CONCRETE_AI_PROVIDER=offline` or removing the provider variable. Never commit a real `.env` file.
+
 ## Run Tests
 
 ```bash
 python -m pytest
 ```
 
-## How Version 2 Works
+## How Version 3 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
 - `brand/concrete_motivation_profile.md` holds the Concrete Motivation brand identity, Jaytee Miller founder context, audience, themes, preferences, and guardrails.
 - `concrete_motivation/brand_profile.py` loads the brand profile for offline personalization.
-- `concrete_motivation/bot_runner.py` creates distinct structured output locally, appends the `Concrete Motivation Angle`, and remains the integration seam for a future opt-in AI provider.
-- No input or output is sent over the internet or saved to disk.
+- `concrete_motivation/providers/` holds the offline provider, OpenAI provider, shared provider interface, and provider factory.
+- `concrete_motivation/bot_runner.py` coordinates the configured provider and falls back to offline output when OpenAI is unavailable.
+- Offline mode sends no input or output over the internet and saves nothing to disk.
+- OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
+
+## Troubleshooting
+
+- If the app prints `Provider: offline`, offline mode is active or OpenAI mode was not fully configured.
+- If OpenAI generation fails, the app prints `OpenAI generation was unavailable, so offline mode was used for this response.` and still returns a response.
+- If tests cannot import `openai`, activate your virtual environment and run `python -m pip install -r requirements.txt`.
 
 See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
 
