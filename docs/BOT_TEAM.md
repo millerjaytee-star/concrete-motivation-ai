@@ -1,6 +1,6 @@
 # Concrete Motivation Bot Team
 
-The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Every response is generated locally in Version 2.
+The Command Center organizes eight specialists around one voice: motivational, disciplined, direct, faith-aware, real-life, family-centered, comeback-minded, and leadership-driven. Version 3 runs offline by default and can use OpenAI when explicitly configured.
 
 | Bot | Best used for | Response structure |
 | --- | --- | --- |
@@ -17,10 +17,14 @@ The Command Center organizes eight specialists around one voice: motivational, d
 
 Every bot response now includes `Concrete Motivation Angle`, a short section connecting the output back to Jaytee Miller, Concrete Motivation, Concrete Conversations, the core audience, and a practical next action. The optional follow-up question can tailor that angle to a specific audience, tone, platform, or personal theme.
 
+## Provider layer
+
+The offline provider keeps the reliable local output available with no account or API key. The OpenAI provider can create richer, custom drafts when `CONCRETE_AI_PROVIDER=openai` and `OPENAI_API_KEY` are set. If OpenAI is unavailable, the runner falls back to the offline provider for that response.
+
 ## Choosing a bot
 
 Choose the specialist closest to the deliverable you need, then make the goal specific. “Create a seven-minute talk for high school athletes rebuilding after a losing season” will produce a more focused result than “motivate athletes.” Run the same goal through another bot when you want a complementary asset—for example, Speech first and Social Media second.
 
 ## Content responsibility
 
-Version 2 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.
+Version 3 provides a strong working draft, not a claim of professional, legal, financial, pastoral, or medical advice. Review names, facts, prices, scripture wording, and promises before publishing or sending the output.

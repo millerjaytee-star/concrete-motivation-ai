@@ -23,6 +23,8 @@ class BotResponse:
     bot_name: str
     goal: str
     sections: tuple[tuple[str, str], ...]
+    provider_name: str = "offline"
+    fallback_used: bool = False
 
     def as_markdown(self) -> str:
         """Render the response for the terminal or a future export."""

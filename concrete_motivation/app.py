@@ -21,6 +21,7 @@ def menu() -> str:
 def run(input_fn: Input = input, output_fn: Output = print) -> None:
     """Run the menu loop until the user chooses Exit or sends EOF."""
     runner = BotRunner()
+    output_fn(f"Provider: {runner.provider_name}")
     output_fn(menu())
     while True:
         try:
@@ -55,5 +56,7 @@ def run(input_fn: Input = input, output_fn: Output = print) -> None:
             output_fn(f"Unable to load the bot resources: {exc}")
             continue
 
+        if response.fallback_used:
+            output_fn("OpenAI generation was unavailable, so offline mode was used for this response.")
         output_fn(f"\n{response.as_markdown()}\n")
         output_fn(menu())

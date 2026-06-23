@@ -4,6 +4,14 @@ import pytest
 
 from concrete_motivation.bot_registry import list_bots
 from concrete_motivation.bot_runner import BotRunner
+from concrete_motivation.providers.base import ProviderError
+
+
+class FailingProvider:
+    name = "openai"
+
+    def generate(self, *_args):
+        raise ProviderError("temporary outage")
 
 
 @pytest.mark.parametrize("bot", list_bots(), ids=lambda bot: bot.slug)
@@ -56,3 +64,11 @@ def test_optional_personalization_detail_changes_output():
     output = response.as_markdown()
     assert "for high school football players and make it about fatherhood" in output
     assert "No extra detail was added" not in output
+
+
+def test_openai_failure_falls_back_to_offline_provider():
+    response = BotRunner(provider=FailingProvider()).run(list_bots()[0], "build trust", "for fathers")
+
+    assert response.provider_name == "offline"
+    assert response.fallback_used is True
+    assert "Concrete Motivation Angle" in response.as_markdown()
