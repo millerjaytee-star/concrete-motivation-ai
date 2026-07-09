@@ -6,6 +6,8 @@ YOUTUBE_DIR = Path(__file__).resolve().parent.parent / "youtube_launch"
 REQUIRED_FILES = (
     "CHANNEL_SETUP.md",
     "CHANNEL_COPY.md",
+    "CONCRETEMOTIVATION444_FINAL_KIT.md",
+    "CONCRETEMOTIVATION444_VIDEO_BACKGROUNDS.md",
     "VIDEO_TEMPLATES.md",
     "FIRST_10_VIDEOS.md",
     "SHORTS_SYSTEM.md",
@@ -106,3 +108,29 @@ def test_upload_checklist_has_required_upload_steps():
         "Booking CTA",
     ):
         assert phrase in text
+
+
+def test_concretemotivation444_final_kit_has_page_scripts_and_guardrails():
+    text = read("CONCRETEMOTIVATION444_FINAL_KIT.md")
+    for phrase in (
+        "@concretemotivation444",
+        "Start Here - Why We Build",
+        "First 12 Videos",
+        "Original Dialogue Bank",
+        "Shorts Bank",
+        "Do not copy motivational speakers' exact dialogue.",
+        "Do not use other speakers' likenesses",
+    ):
+        assert phrase in text
+
+
+def test_concretemotivation444_background_assets_exist():
+    asset_dir = YOUTUBE_DIR / "concretemotivation444_assets"
+    for filename in (
+        "stage-mic-background.png",
+        "concrete-blocks-background.png",
+        "shorts-track-background.png",
+    ):
+        path = asset_dir / filename
+        assert path.is_file(), filename
+        assert path.stat().st_size > 10_000
