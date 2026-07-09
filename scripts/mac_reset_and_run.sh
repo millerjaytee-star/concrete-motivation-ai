@@ -23,12 +23,25 @@ fi
 if [ -d "$PROJECT_DIR/.git" ]; then
   echo "Found existing project at: $PROJECT_DIR"
   cd "$PROJECT_DIR"
-  echo "Resetting local files to match GitHub main..."
+  if [ -n "$(git status --porcelain)" ] && [ "${CONFIRM_RESET:-}" != "yes" ]; then
+    echo "Local changes are present. Refusing to reset without explicit confirmation."
+    echo "Commit or stash your work, or rerun with CONFIRM_RESET=yes if you intentionally want to discard local changes."
+    exit 1
+  fi
+  echo "Updating local files to match GitHub main..."
   git fetch origin
-  git reset --hard origin/main
+  if [ "${CONFIRM_RESET:-}" = "yes" ]; then
+    git reset --hard origin/main
+  else
+    git pull --ff-only origin main
+  fi
 else
   echo "Cloning fresh project into: $PROJECT_DIR"
-  rm -rf "$PROJECT_DIR"
+  if [ -e "$PROJECT_DIR" ]; then
+    echo "Target path exists but is not a Git checkout: $PROJECT_DIR"
+    echo "Move it manually before cloning to avoid deleting local files."
+    exit 1
+  fi
   git clone "$REPO_URL" "$PROJECT_DIR"
   cd "$PROJECT_DIR"
 fi

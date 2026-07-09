@@ -60,10 +60,51 @@ BOTS: tuple[Bot, ...] = (
 _BOTS_BY_ID = {bot.id: bot for bot in BOTS}
 _BOTS_BY_SLUG = {bot.slug: bot for bot in BOTS}
 
+BOT_GROUPS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    (
+        "Brand and Content",
+        (
+            "brand_architect",
+            "motivational_speech",
+            "concrete_conversations_podcast",
+            "social_media_content",
+            "faith_mindset",
+        ),
+    ),
+    (
+        "Growth and Revenue",
+        (
+            "athlete_outreach",
+            "business_growth",
+            "sales_outreach",
+            "youtube_growth",
+        ),
+    ),
+    (
+        "Operations and Workflows",
+        (
+            "operations",
+            "ceo",
+            "content_director",
+            "podcast_producer",
+            "crm",
+            "gmail_outreach",
+        ),
+    ),
+)
+
 
 def list_bots() -> tuple[Bot, ...]:
     """Return all bots in menu order."""
     return BOTS
+
+
+def grouped_bots() -> tuple[tuple[str, tuple[Bot, ...]], ...]:
+    """Return bots grouped for command center display."""
+    groups: list[tuple[str, tuple[Bot, ...]]] = []
+    for label, slugs in BOT_GROUPS:
+        groups.append((label, tuple(get_bot(slug) for slug in slugs)))
+    return tuple(groups)
 
 
 def get_bot(identifier: int | str) -> Bot:

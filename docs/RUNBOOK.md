@@ -1,4 +1,4 @@
-# Version 7 Runbook
+# Version 8 Runbook
 
 ## Set up in VS Code
 
@@ -15,7 +15,7 @@ No account, internet connection, API key, or `.env` file is required for offline
 
 ## Run the Command Center
 
-Run `python main.py`. The app prints the active provider, then shows the menu. Enter a number from 1 to 8 and describe the deliverable. Enter `9` to view recent saved outputs. Enter `10` to build a weekly content calendar. Bot workflows ask:
+Run `python main.py`. The app prints the active provider, then shows the grouped command center menu. Enter a number from `1` to `15` and describe the deliverable. Enter `16` to view recent saved outputs, `17` to build a weekly content calendar, `18` for the executive suite, `19` for the Forever Brand Factory, `20` for the system check, `H` for help, or `0` to exit. Bot workflows ask:
 
 ```text
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
@@ -33,7 +33,7 @@ Press Enter or type `y` to save. Type `n` to skip. After that, the menu appears 
 
 ## Build a Weekly Content Calendar
 
-Choose menu option `10`. The app asks:
+Choose menu option `17`. The app asks:
 
 ```text
 What is the main theme for this week?
@@ -69,9 +69,16 @@ Saved outputs are local Markdown assets under `outputs/`, organized by bot:
 - `outputs/operations`
 - `outputs/faith_mindset`
 - `outputs/brand`
+- `outputs/executive`
+- `outputs/content_direction`
+- `outputs/podcast_production`
+- `outputs/sales_outreach`
+- `outputs/youtube_growth`
+- `outputs/crm`
+- `outputs/gmail_outreach`
 - `outputs/content_calendars`
 
-Each saved file includes metadata for bot name, goal, provider, fallback status, and creation timestamp, followed by the full Markdown response. Choose menu option `9` to see the 10 most recent saved files. Generated Markdown files are ignored by Git by default; the folder structure stays committed.
+Each saved file includes metadata for bot name, goal, provider, fallback status, and creation timestamp, followed by the full Markdown response. Choose menu option `16` to see the 10 most recent saved files. Generated Markdown files are ignored by Git by default; the folder structure stays committed.
 
 ## Run Offline
 
@@ -103,7 +110,9 @@ The app should print `Provider: openai`. If OpenAI is unavailable for a response
 
 ## Verify the project
 
-Run `python -m pytest`. A passing suite confirms the registry, prompt library, brand profile, personalization layer, provider factory, OpenAI prompt construction, offline fallback, output vault, content calendar engine, runner, response structure, and important error paths.
+Run `python3 scripts/system_check.py` before serious work sessions. It checks imports, prompts, vault mappings, output folders, and every offline bot run. Warnings call out hygiene issues that should be cleaned before future production pushes.
+
+Run `python -m pytest tests`. A passing suite confirms the registry, prompt library, brand profile, personalization layer, provider factory, OpenAI prompt construction, offline fallback, output vault, content calendar engine, runner, response structure, command center help path, system check warnings, website basics, and important error paths.
 
 ## Preview the Website
 
@@ -120,13 +129,13 @@ The YouTube kit connects to the website for booking and public brand context. It
 - **Python is not found:** install Python 3.11+ and restart VS Code.
 - **pytest or openai is not found:** activate `.venv` and run the install command again.
 - **Prompt file not found:** run from the repository checkout and restore the `prompts/` directory. Paths are resolved from the package, so the app does not depend on the terminal's current folder.
-- **Input was rejected:** choose a menu number from 0 to 10 and enter a non-empty goal or calendar theme. The personalization follow-up is optional and can be blank.
+- **Input was rejected:** choose a menu number from 0 to 20 and enter a non-empty goal or calendar theme. The personalization follow-up is optional and can be blank.
 - **Output did not save:** press Enter or type `y` at the save prompt. Typing `n` skips saving.
-- **Recent outputs are empty:** save at least one response first, then choose menu option `9`.
+- **Recent outputs are empty:** save at least one response first, then choose menu option `16`.
 - **OpenAI mode shows offline:** confirm `CONCRETE_AI_PROVIDER=openai` and `OPENAI_API_KEY` are both set in the same terminal session.
 - **OpenAI generation failed:** the app automatically uses offline mode for that response. Check your key, billing, network connection, and package install before trying OpenAI mode again.
 - **Stop the app:** enter `0`, press Ctrl+C, or send end-of-file (Ctrl+D on macOS/Linux; Ctrl+Z then Enter on Windows).
 
 ## Operating rhythm
 
-Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 7 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses. Use the website as the public-facing brand foundation and the YouTube kit as the channel launch system.
+Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 8 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses. Use the website as the public-facing brand foundation and the YouTube kit as the channel launch system.

@@ -2,7 +2,7 @@
 
 from collections.abc import Callable
 
-from .bot_registry import get_bot, list_bots
+from .bot_registry import get_bot, grouped_bots, list_bots
 from .bot_runner import BotRunner
 from .content_calendar import generate_weekly_calendar
 from .executive_suite import ExecutiveSuite
@@ -28,7 +28,12 @@ MAX_CHOICE = SYSTEM_CHECK_CHOICE
 
 
 def menu() -> str:
-    choices = "\n".join(f"{bot.id}. {bot.name}" for bot in list_bots())
+    group_blocks = []
+    for group_name, bots in grouped_bots():
+        lines = [f"[{group_name}]"]
+        lines.extend(f"{bot.id}. {bot.name} - {bot.purpose}" for bot in bots)
+        group_blocks.append("\n".join(lines))
+    choices = "\n\n".join(group_blocks)
     return (
         f"{BANNER}\n\nChoose a bot or workflow:\n"
         f"{choices}\n"
@@ -37,8 +42,27 @@ def menu() -> str:
         f"{EXECUTIVE_SUITE_CHOICE}. Executive Team Full Brand Run\n"
         f"{FOREVER_BRAND_CHOICE}. Forever Brand Factory\n"
         f"{SYSTEM_CHECK_CHOICE}. System Check\n"
+        "H. Help / recommended workflow\n"
         "0. Exit"
     )
+
+
+def help_text() -> str:
+    """Return a concise command center usage guide."""
+    return """# Command Center Help
+
+Recommended daily workflow:
+1. Use CEO Bot to choose the priority.
+2. Use Content Director Bot or Weekly Content Calendar Engine to turn it into publishable work.
+3. Use Sales Outreach Bot, CRM Bot, or Gmail Outreach Workflow to move relationships forward.
+4. Save strong outputs to the vault, then edit them in Jaytee's final voice before posting or sending.
+
+Strong goals are specific:
+- Build a school speaking outreach campaign for high school athletes.
+- Create a YouTube launch plan for discipline after setbacks.
+- Draft a podcast episode with three clip moments and guest questions.
+
+Use System Check before a serious work session or before pushing changes."""
 
 
 def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault | None = None) -> None:
@@ -58,6 +82,10 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
         if raw_choice == "0":
             output_fn("Keep building. Goodbye.")
             return
+        if raw_choice.lower() in {"h", "help", "?"}:
+            output_fn(f"\n{help_text()}\n")
+            output_fn(menu())
+            continue
         if raw_choice == str(RECENT_OUTPUTS_CHOICE):
             recent = output_vault.recent_outputs()
             if recent:

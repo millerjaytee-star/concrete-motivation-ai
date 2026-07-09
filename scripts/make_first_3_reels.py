@@ -16,11 +16,16 @@ import paths on some Macs. Pillow + imageio is simpler and more reliable here.
 """
 from __future__ import annotations
 
-from pathlib import Path
 import textwrap
+from pathlib import Path
 
-import imageio.v2 as imageio
-from PIL import Image, ImageDraw, ImageFont
+try:
+    import imageio.v2 as imageio
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError as exc:  # pragma: no cover - depends on optional local media packages.
+    raise SystemExit(
+        "Missing video dependencies. Run: python3 -m pip install pillow imageio imageio-ffmpeg"
+    ) from exc
 
 WIDTH, HEIGHT = 1080, 1920
 DURATION_SECONDS = 12
@@ -114,8 +119,9 @@ def make_frame(item: dict[str, str]) -> Image.Image:
 def make_video(item: dict[str, str], output_dir: Path) -> Path:
     output = output_dir / item["filename"]
     frame = make_frame(item)
-    frames = [frame] * (DURATION_SECONDS * FPS)
-    imageio.mimsave(output, frames, fps=FPS, codec="libx264", quality=8)
+    with imageio.get_writer(output, fps=FPS, codec="libx264", quality=8) as writer:
+        for _ in range(DURATION_SECONDS * FPS):
+            writer.append_data(frame)
     return output
 
 

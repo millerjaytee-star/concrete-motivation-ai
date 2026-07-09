@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 from dataclasses import dataclass
+from pathlib import Path
 
 from concrete_motivation.bot_registry import list_bots
 from concrete_motivation.bot_runner import BotRunner
@@ -16,6 +17,7 @@ class SystemCheckResult:
 
     passed: tuple[str, ...]
     failed: tuple[str, ...]
+    warnings: tuple[str, ...] = ()
 
     @property
     def ok(self) -> bool:
@@ -30,6 +32,9 @@ class SystemCheckResult:
         if self.failed:
             lines.append("\n## Failed")
             lines.extend(f"- {item}" for item in self.failed)
+        if self.warnings:
+            lines.append("\n## Warnings")
+            lines.extend(f"- {item}" for item in self.warnings)
         return "\n".join(lines)
 
 
@@ -37,6 +42,8 @@ def run_system_check() -> SystemCheckResult:
     """Validate imports, prompts, vault mappings, and offline bot execution."""
     passed: list[str] = []
     failed: list[str] = []
+    warnings: list[str] = []
+    root = Path(__file__).resolve().parent.parent
 
     for module_name in (
         "main",
@@ -90,4 +97,28 @@ def run_system_check() -> SystemCheckResult:
             else:
                 passed.append(f"Offline run ok: {bot.slug}")
 
-    return SystemCheckResult(tuple(passed), tuple(failed))
+    for folder_name in sorted(set(BOT_OUTPUT_FOLDERS.values())):
+        folder = root / "outputs" / folder_name
+        if folder.is_dir():
+            passed.append(f"Output folder ok: outputs/{folder_name}")
+        else:
+            failed.append(f"Output folder missing: outputs/{folder_name}")
+
+    housekeeping_paths = (
+        root / ".DS_Store",
+        root / "code concrete_motivation" / "bot_registry.py",
+    )
+    for path in housekeeping_paths:
+        if path.exists():
+            warnings.append(f"Housekeeping issue present: {path.relative_to(root)}")
+
+    generated_video_dir = root / "generated_videos"
+    if generated_video_dir.exists() and any(generated_video_dir.glob("*.mp4")):
+        warnings.append("Generated MP4 files are present; keep an eye on repository size before future commits.")
+
+    markdown_prompt_dirs = [path for path in (root / "prompts").glob("*.md") if path.is_dir()]
+    if markdown_prompt_dirs:
+        formatted = ", ".join(str(path.relative_to(root)) for path in sorted(markdown_prompt_dirs))
+        warnings.append(f"Prompt paths shaped like Markdown files but stored as directories: {formatted}")
+
+    return SystemCheckResult(tuple(passed), tuple(failed), tuple(warnings))

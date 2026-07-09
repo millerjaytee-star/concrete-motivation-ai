@@ -1,4 +1,5 @@
 from concrete_motivation.app import run
+from concrete_motivation.app import help_text, menu
 from concrete_motivation.output_vault import OutputVault
 
 
@@ -16,6 +17,32 @@ def test_app_recovers_from_invalid_choice_and_empty_goal(tmp_path):
     assert "No saved outputs yet." in output
     assert "Unable to run bot: Goal cannot be empty." in output
     assert output.endswith("Keep building. Goodbye.")
+
+
+def test_menu_groups_bots_and_shows_help_choice():
+    rendered = menu()
+
+    assert "[Brand and Content]" in rendered
+    assert "[Growth and Revenue]" in rendered
+    assert "[Operations and Workflows]" in rendered
+    assert "1. Brand Architect Bot - Define and protect the brand." in rendered
+    assert "H. Help / recommended workflow" in rendered
+
+
+def test_app_help_returns_to_menu(tmp_path):
+    output = scripted_app("h", "0", vault=OutputVault(tmp_path))
+
+    assert "# Command Center Help" in output
+    assert "Recommended daily workflow" in output
+    assert output.count("CONCRETE MOTIVATION AI COMMAND CENTER") == 2
+
+
+def test_help_text_names_recommended_growth_workflow():
+    text = help_text()
+
+    assert "CEO Bot" in text
+    assert "Sales Outreach Bot" in text
+    assert "System Check" in text
 
 
 def test_app_runs_selected_bot_and_returns_to_menu(tmp_path):

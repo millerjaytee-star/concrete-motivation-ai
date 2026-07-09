@@ -44,21 +44,21 @@ def _podcast(goal: str) -> tuple[str, ...]:
 
 def _social(goal: str) -> tuple[str, ...]:
     return (
-        f"1. Nobody tells you this about {goal}.\n2. Your next level may require a quieter kind of discipline.\n3. Stop calling it failure before you collect the lesson.\n4. Pressure is not permission to quit.\n5. One brick today beats a perfect plan tomorrow.",
-        f"[Hook] If {goal} feels heavy, listen.\n[Truth] You do not need to solve the whole future today.\n[Action] Name one move you control, complete it before the day ends, and keep the promise.\n[Close] Concrete is poured one section at a time. Build yours.",
-        f"The goal is not to pretend {goal} is easy. The goal is to meet it with truth, faith, and disciplined action. Pick one promise. Keep it today. Then build again tomorrow. Save this for the day motivation gets quiet.",
+        f"1. Nobody tells you this about {goal}.\n2. Your next level may require a quieter kind of discipline.\n3. Stop calling it failure before you collect the lesson.\n4. Pressure is not permission to quit.\n5. One brick today beats a perfect plan tomorrow.\n6. The standard has to outlive the emotion.",
+        f"[0-3 sec hook] If {goal} feels heavy, listen.\n[Truth] You do not need to solve the whole future today.\n[Story beat] Name the moment where pressure exposed what needed structure.\n[Action] Choose one move you control, complete it before the day ends, and keep the promise.\n[Close] Concrete is poured one section at a time. Build yours.",
+        f"The goal is not to pretend {goal} is easy. The goal is to meet it with truth, faith, and disciplined action. Pick one promise. Keep it today. Then build again tomorrow. Save this for the day motivation gets quiet.\n\nCTA: Comment \"one brick\" if you are choosing one disciplined action today.",
         "#ConcreteMotivation #Discipline #Purpose #Leadership #Mindset #KeepBuilding",
-        "Turn each hook into a Reel; use the three action lines as a carousel; post the closing line as a quote card; ask the audience to comment with their one promise.",
+        "Turn each hook into a Reel; use the three action lines as a carousel; post the closing line as a quote card; ask the audience to comment with their one promise; save the best comment as the next podcast question.",
     )
 
 
 def _outreach(goal: str) -> tuple[str, ...]:
     return (
-        "High school and college coaches, athletic directors, trainers, youth-program leaders, and team captains who value character development.",
+        "High school and college coaches, athletic directors, trainers, youth-program leaders, school counselors, church youth leaders, community center directors, and team captains who value character development.",
         f"Lead with service: connect {goal} to discipline, identity, leadership, and performance beyond the scoreboard.",
-        f"Subject: A practical mindset session for your athletes\n\nCoach [Name], I'm Jaytee Miller with Concrete Motivation. I help athletes turn pressure, setbacks, and responsibility into disciplined action. I'm reaching out because I'd like to support your team with a practical conversation around {goal}. The session is direct, interactive, and built to leave athletes with a plan they can use immediately. Would you be open to a 15-minute call next week to see if it fits your program?",
-        "Coach [Name], following up in case this got buried. I'd be glad to send a one-page session outline or tailor a short pilot conversation to a challenge your team is facing. Is there a better person or time to connect?",
-        "A 30-45 minute team talk plus a seven-day discipline challenge and coach discussion guide. Begin with one pilot program and request feedback and a testimonial.",
+        f"Subject: A practical mindset session for your athletes\n\nCoach [Name], I'm Jaytee Miller with Concrete Motivation. I help athletes turn pressure, setbacks, and responsibility into disciplined action. I'm reaching out because I'd like to support your team with a practical conversation around {goal}. The session is direct, interactive, and built to leave athletes with a plan they can use immediately.\n\nWould you be open to a 15-minute call next week to see if this fits your program?",
+        "Follow-up 1: Coach [Name], following up in case this got buried. I can send a one-page outline for a short athlete mindset session around discipline, accountability, and pressure.\n\nFollow-up 2: If now is not the right time, should I reconnect before your next season, camp, or leadership meeting?",
+        "A 30-45 minute team talk plus a seven-day discipline challenge, coach discussion guide, and optional follow-up huddle. Begin with one pilot program, request feedback, then ask for a testimonial and referral.",
     )
 
 
@@ -95,8 +95,8 @@ def _faith(goal: str) -> tuple[str, ...]:
 def _ceo(goal: str) -> tuple[str, ...]:
     return (
         f"Make {goal} the operating priority, then judge every task by whether it builds audience, proof, trust, revenue, or execution capacity.",
-        "1. Clarify the offer and audience.\n2. Publish proof-building content.\n3. Move warm relationships into conversations.\n4. Protect the weekly execution rhythm.\n5. Review the scoreboard before adding new ideas.",
-        "Revenue conversations, content published, leads added, follow-ups sent, meetings booked, offers made, assets shipped, and lessons captured.",
+        "1. Clarify the offer and audience.\n2. Publish proof-building content.\n3. Move warm relationships into conversations.\n4. Protect the weekly execution rhythm.\n5. Review the scoreboard before adding new ideas.\n6. Decide what will not be worked on this week.",
+        "Revenue conversations, content published, leads added, follow-ups sent, meetings booked, offers made, assets shipped, testimonials requested, and lessons captured.",
         "Risk: scattered execution. Control: one weekly theme and one owner per outcome.\nRisk: content without sales motion. Control: every campaign creates a next conversation.\nRisk: vague progress. Control: numbers reviewed every Friday.",
         "Choose the one decision that unlocks the week, write it in plain language, assign the next action, and review progress within 48 hours.",
     )
@@ -124,19 +124,19 @@ def _podcast_producer(goal: str) -> tuple[str, ...]:
 
 def _sales_outreach(goal: str) -> tuple[str, ...]:
     return (
-        "Schools, athletic programs, youth organizations, churches, community groups, local businesses, podcast sponsors, and leadership teams with a values-led audience.",
+        "Schools, athletic programs, youth organizations, churches, community groups, local businesses, podcast sponsors, wellness brands, training facilities, and leadership teams with a values-led audience.",
         f"Position Concrete Motivation as a practical speaking, workshop, or media partner that helps people act on {goal}.",
-        f"Subject: Concrete Motivation conversation\n\nHello [Name],\n\nI am Jaytee Miller, founder of Concrete Motivation and host of Concrete Conversations. I am reaching out because your work seems aligned with a message around {goal}, discipline, leadership, and turning pressure into purpose.\n\nWould you be open to a brief call next week to see whether a talk, workshop, podcast conversation, or partnership could serve your audience?\n\nRespectfully,\nJaytee Miller",
-        "Open with the mission, ask what their audience is facing right now, connect the answer to one Concrete Motivation offer, confirm whether there is a fit, and close with a specific next step.",
-        "Day 2: send a short value follow-up. Day 5: send a one-page outline or episode idea. Day 10: ask whether to close the loop or reconnect later. Log every reply in the CRM.",
+        f"Subject: Concrete Motivation conversation\n\nHello [Name],\n\nI am Jaytee Miller, founder of Concrete Motivation and host of Concrete Conversations. I am reaching out because your work seems aligned with a message around {goal}, discipline, leadership, and turning pressure into purpose.\n\nI can support through a keynote, workshop, podcast conversation, or partnership built around practical action instead of empty hype. Would you be open to a brief call next week to see whether this could serve your audience?\n\nRespectfully,\nJaytee Miller",
+        "Open with the mission, ask what their audience is facing right now, connect the answer to one Concrete Motivation offer, confirm whether there is a fit, ask who else should be involved, and close with a calendar-ready next step.",
+        "Day 2: send a short value follow-up. Day 5: send a one-page outline, sample topic list, or episode idea. Day 10: ask whether to close the loop or reconnect later. Log every reply in the CRM with stage, next action, and due date.",
     )
 
 
 def _youtube_growth(goal: str) -> tuple[str, ...]:
     return (
         f"Build a searchable anchor video around {goal}, then cut it into Shorts that drive viewers back to the full message and the Concrete Conversations brand.",
-        "Title 1: The Truth About [Goal]\nTitle 2: Built Under Pressure: [Goal]\nTitle 3: How to Keep Building When [Obstacle]\nThumbnail text: PRESSURE BUILDS / KEEP BUILDING / DISCIPLINE WINS",
-        "First 5 seconds: direct tension. First 30 seconds: promise a practical outcome. Middle: story, lesson, action. Final 60 seconds: recap and invite comment with one concrete commitment.",
+        "Title 1: The Truth About [Goal]\nTitle 2: Built Under Pressure: [Goal]\nTitle 3: How to Keep Building When [Obstacle]\nThumbnail text: PRESSURE BUILDS / KEEP BUILDING / DISCIPLINE WINS\nDescription angle: name the pressure, promise one practical action, link speaking and podcast paths.",
+        "First 5 seconds: direct tension. First 30 seconds: promise a practical outcome. Middle: story, lesson, action. Every 60-90 seconds: reset attention with a question, example, or challenge. Final 60 seconds: recap and invite comment with one concrete commitment.",
         "Create five Shorts: hook, personal line, practical framework, faith-aware reflection, and closing challenge. Each Short should stand alone and point to the full video or podcast.",
         "Write title, description, tags, pinned comment, thumbnail text, chapters, three Shorts scripts, and one community post before recording the next upload.",
     )
@@ -155,9 +155,9 @@ def _crm(goal: str) -> tuple[str, ...]:
 def _gmail_outreach(goal: str) -> tuple[str, ...]:
     return (
         f"Use Gmail to create a disciplined daily outreach block for {goal}: find the right thread or lead, send a useful message, track the next action, and follow up on time.",
-        "Search Gmail for prior contacts, replies, schools, coaches, churches, sponsors, podcast guests, and local organizations. If a CSV lead list exists, work from the highest-fit names first.",
-        "Email 1: short introduction and value angle.\nFollow-up 1: helpful outline or episode/session idea.\nFollow-up 2: close-loop message with a clear yes/no next step.\nReply handling: tag interested, waiting, not now, or no fit.",
-        "Every sent email gets a CRM entry with date, recipient, segment, offer, thread status, next action, and follow-up due date. Never rely on memory for follow-up.",
+        "Search Gmail for prior contacts, replies, schools, coaches, churches, sponsors, podcast guests, and local organizations. If a CSV lead list exists, work from the highest-fit names first. Suggested Gmail searches: older_than:30d Concrete Motivation, coach OR athletic director, youth program, church youth, sponsor, podcast guest.",
+        "Email 1: short introduction and value angle.\nFollow-up 1: helpful outline or episode/session idea.\nFollow-up 2: close-loop message with a clear yes/no next step.\nReply handling: tag interested, waiting, not now, no fit, or referral needed.",
+        "Every sent email gets a CRM entry with date, recipient, segment, offer, thread status, next action, and follow-up due date. Never rely on memory for follow-up. Use labels such as CM/Interested, CM/Waiting, CM/Follow-Up, and CM/Closed.",
         "Send 10 targeted messages, process replies, update CRM, schedule follow-ups, save strong language for reuse, and stop when quality drops.",
     )
 

@@ -10,17 +10,17 @@ parameters your CLI accepted during setup.
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any
 
 OUT_DIR = Path("reports/composio")
-OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def run_command(command: list[str]) -> dict[str, Any]:
     print("\n$ " + " ".join(command))
-    completed = subprocess.run(command, capture_output=True, text=True, check=False)
+    completed = subprocess.run(command, capture_output=True, text=True, check=False, timeout=60)
     print(completed.stdout)
     if completed.stderr:
         print(completed.stderr)
@@ -33,12 +33,16 @@ def run_command(command: list[str]) -> dict[str, Any]:
 
 
 def save(name: str, payload: dict[str, Any]) -> None:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
     path = OUT_DIR / name
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(f"Saved {path}")
 
 
 def main() -> None:
+    if shutil.which("composio") is None:
+        raise SystemExit("Composio CLI was not found. Install it and log in before running this audit.")
+
     checks = {
         "01_whoami.json": ["composio", "whoami"],
         "02_connections.json": ["composio", "connections", "list"],

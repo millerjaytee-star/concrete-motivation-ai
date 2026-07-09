@@ -59,7 +59,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 8 includes the Python command center, 15-bot operating team, Gmail Outreach workflow, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine, Executive Suite, Forever Brand Factory, and System Check.
+Version 8 includes the Python command center, 15-bot operating team, Gmail Outreach workflow, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine, Executive Suite, Forever Brand Factory, System Check, and command center help screen.
 
 Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
@@ -92,7 +92,7 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the command center menu. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, or enter `0` to exit. For example:
+The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `H` for help, or enter `0` to exit. For example:
 
 ```text
 Provider: offline
@@ -188,7 +188,7 @@ python -m pytest
 python3 scripts/system_check.py
 ```
 
-The system check imports the command center modules, verifies prompt files and output vault mappings, and runs every registered bot in offline mode.
+The system check imports the command center modules, verifies prompt files and output vault mappings, confirms output folders, and runs every registered bot in offline mode. It can also show warnings for repo hygiene issues such as `.DS_Store`, duplicate empty files, generated MP4s, or prompt paths that should be normalized later.
 
 ## Preview the Website
 
@@ -210,7 +210,7 @@ The launch kit lives in `youtube_launch/` and includes channel setup guidance, p
 
 Use the website as the booking and brand home. Use the output vault to save scripts, descriptions, pinned comments, thumbnail text, Shorts cutdowns, and community post ideas.
 
-## How Version 7 Works
+## How Version 8 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
@@ -227,11 +227,19 @@ Use the website as the booking and brand home. Use the output vault to save scri
 - Offline mode sends no input or output over the internet. It only writes to disk when you choose to save an output to the local vault.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 
+## Production Notes
+
+- Treat generated videos, reports, and CRM exports as reviewable artifacts before future commits; large binary files can make the repository heavy.
+- Keep `.DS_Store`, virtual environments, caches, and local secrets out of future commits.
+- Use `python3 scripts/system_check.py` and `python3 -m pytest tests` before pushing.
+- Review outreach drafts manually before sending. The Gmail workflow drafts messages and tracking rules; it does not send email.
+- Keep the duplicate `code concrete_motivation/` path out of new work. The real package is `concrete_motivation/`.
+
 ## Troubleshooting
 
 - If the app prints `Provider: offline`, offline mode is active or OpenAI mode was not fully configured.
 - If OpenAI generation fails, the app prints `OpenAI generation was unavailable, so offline mode was used for this response.` and still returns a response.
-- If tests cannot import `openai`, activate your virtual environment and run `python -m pip install -r requirements.txt`.
+- If tests cannot import `pytest` or `openai`, activate your virtual environment and run `python -m pip install -r requirements.txt`.
 
 See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, [Website](docs/WEBSITE.md) for the static site, [YouTube Launch Kit](docs/YOUTUBE_LAUNCH.md) for media setup, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
 
