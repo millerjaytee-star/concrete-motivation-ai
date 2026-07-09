@@ -3,13 +3,36 @@ if (year) {
   year.textContent = new Date().getFullYear().toString();
 }
 
+const navToggle = document.querySelector(".nav-toggle");
+const siteNav = document.querySelector("#site-nav");
+if (navToggle && siteNav) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+    navToggle.setAttribute("aria-expanded", (!isOpen).toString());
+    siteNav.classList.toggle("is-open", !isOpen);
+    document.body.classList.toggle("nav-open", !isOpen);
+  });
+
+  siteNav.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLAnchorElement) {
+      navToggle.setAttribute("aria-expanded", "false");
+      siteNav.classList.remove("is-open");
+      document.body.classList.remove("nav-open");
+    }
+  });
+}
+
 const bookingForm = document.querySelector(".booking-form");
 if (bookingForm) {
   bookingForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    const formData = new FormData(bookingForm);
+    const name = formData.get("name") || "your name";
+    const eventType = formData.get("event-type") || "speaking event";
+    const organization = formData.get("organization") || "your organization";
     const status = bookingForm.querySelector(".form-status");
     if (status) {
-      status.textContent = "Booking details are ready to copy once a form service is connected.";
+      status.textContent = `Inquiry prepared for ${name}: ${eventType} with ${organization}. Review the details and send them through your preferred contact channel.`;
     }
   });
 }

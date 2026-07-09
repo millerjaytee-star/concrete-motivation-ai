@@ -3,93 +3,169 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Concrete Motivation is Jaytee Miller's motivational speaking, podcast, youth development, and leadership platform.">
+    <meta name="description" content="Concrete Motivation is Jaytee Miller's speaking, podcast, and leadership platform for people building through pressure.">
     <title>Concrete Motivation | Build from pressure</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header" aria-label="Site header">
       <a class="brand-mark" href="#top" aria-label="Concrete Motivation home">
-        <span class="mark">CM</span>
+        <span class="mark" aria-hidden="true">CM</span>
         <span>Concrete Motivation</span>
       </a>
-      <nav class="site-nav" aria-label="Primary navigation">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+        Menu
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
         <a href="#story">Story</a>
+        <a href="#framework">Framework</a>
         <a href="#speaking">Speaking</a>
         <a href="#podcast">Podcast</a>
-        <a href="#programs">Programs</a>
         <a href="#booking">Booking</a>
       </nav>
     </header>
 
     <main id="main">
       <section id="top" class="hero" aria-labelledby="hero-title">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
-          <p class="eyebrow">Motivational speaking | Podcast | Leadership development</p>
-          <h1 id="hero-title">Concrete Motivation</h1>
+          <p class="eyebrow">Keynotes | Team talks | Concrete Conversations</p>
+          <h1 id="hero-title"><span>Concrete</span><span>Motivation</span></h1>
           <p class="tagline">Build from pressure. Lead with purpose. Move with discipline.</p>
           <p class="hero-copy">
-            Jaytee Miller helps athletes, fathers, students, teams, and leaders turn pressure into execution without losing faith, family, or focus.
+            Jaytee Miller helps athletes, fathers, students, teams, and leaders turn hard seasons into standards, structure, and action.
           </p>
           <div class="hero-actions" aria-label="Primary calls to action">
             <a class="button button-primary" href="#booking">Book Jaytee to Speak</a>
-            <a class="button button-secondary" href="#podcast">Watch Concrete Conversations</a>
+            <a class="button button-secondary" href="#framework">See the Framework</a>
           </div>
         </div>
-      </section>
-
-      <section id="story" class="section story-section" aria-labelledby="story-title">
-        <div class="section-heading">
-          <p class="eyebrow">Founder story</p>
-          <h2 id="story-title">Built for people carrying weight and still choosing to move.</h2>
-        </div>
-        <div class="story-grid">
-          <p>
-            Concrete Motivation is rooted in Jaytee Miller's belief that pressure can become purpose when discipline, faith-aware action, and honest leadership are applied every day.
-          </p>
-          <p>
-            The message is practical: family matters, comeback seasons require structure, and leadership is proven when life is heavy. Concrete Motivation exists to help people rebuild with responsibility, courage, and a clear next step.
-          </p>
-          <ul class="proof-list" aria-label="Brand values">
-            <li>Direct voice</li>
-            <li>Family-centered leadership</li>
-            <li>Discipline under pressure</li>
-            <li>Faith-aware action</li>
+        <div class="hero-panel" aria-label="Concrete Motivation proof points">
+          <p>For rooms carrying real pressure</p>
+          <ul>
+            <li>Schools and youth programs</li>
+            <li>Teams, coaches, and athletes</li>
+            <li>Churches and community leaders</li>
+            <li>Businesses building through setbacks</li>
           </ul>
         </div>
       </section>
 
-      <section id="speaking" class="section dark-band" aria-labelledby="speaking-title">
+      <section id="story" class="section split-section" aria-labelledby="story-title">
         <div class="section-heading">
-          <p class="eyebrow">Speaking topics</p>
-          <h2 id="speaking-title">Messages for schools, teams, churches, businesses, and athletes.</h2>
+          <p class="eyebrow">Founder message</p>
+          <h2 id="story-title">Pressure can crack the foundation. Discipline decides what gets rebuilt.</h2>
         </div>
-        <div class="topic-grid">
+        <div class="story-copy">
+          <p>
+            Concrete Motivation is rooted in Jaytee Miller's belief that a hard chapter does not get the final word. The message is direct, faith-aware, family-centered, and built for people who need more than temporary hype.
+          </p>
+          <p>
+            Every talk brings the room back to ownership: tell the truth, protect your standards, keep the next promise, and become dependable for the people counting on your leadership.
+          </p>
+        </div>
+      </section>
+
+      <section class="section audience-band" aria-labelledby="audience-title">
+        <div class="section-heading">
+          <p class="eyebrow">Who it serves</p>
+          <h2 id="audience-title">Messages shaped for the people in the room.</h2>
+        </div>
+        <div class="audience-grid">
           <article>
-            <h3>Discipline Under Pressure</h3>
-            <p>Build habits that hold when the season gets heavy.</p>
+            <span>Athletes</span>
+            <h3>Compete beyond the scoreboard.</h3>
+            <p>Identity, discipline, coachability, and the next rep after disappointment.</p>
           </article>
           <article>
-            <h3>Pain Into Purpose</h3>
-            <p>Turn hard chapters into direction, not excuses.</p>
+            <span>Young men and fathers</span>
+            <h3>Carry responsibility with standards.</h3>
+            <p>Family, faith, leadership, consistency, and building legacy through daily action.</p>
           </article>
           <article>
-            <h3>Fatherhood and Legacy</h3>
-            <p>Lead at home with presence, standards, and action.</p>
+            <span>Teams and leaders</span>
+            <h3>Turn pressure into execution.</h3>
+            <p>Ownership, communication, resilience, and practical commitments that can be measured.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="framework" class="section framework-section" aria-labelledby="framework-title">
+        <div class="section-heading">
+          <p class="eyebrow">Concrete Motivation framework</p>
+          <h2 id="framework-title">Six anchors for building through adversity.</h2>
+        </div>
+        <div class="framework-grid">
+          <article>
+            <strong>01</strong>
+            <h3>Resilience</h3>
+            <p>Tell the truth about the hit, then return to the work with cleaner focus.</p>
           </article>
           <article>
-            <h3>Athlete Mindset and Leadership</h3>
-            <p>Compete with character beyond the scoreboard.</p>
+            <strong>02</strong>
+            <h3>Discipline</h3>
+            <p>Keep promises when emotion gets quiet and nobody is clapping.</p>
           </article>
           <article>
-            <h3>Building After Setbacks</h3>
-            <p>Rebuild trust with yourself through measurable promises.</p>
+            <strong>03</strong>
+            <h3>Faith</h3>
+            <p>Let belief give the work direction without pretending the work is easy.</p>
           </article>
           <article>
-            <h3>Concrete Conversations Live</h3>
-            <p>Bring honest dialogue and practical wisdom to the room.</p>
+            <strong>04</strong>
+            <h3>Leadership</h3>
+            <p>Own your part before asking anyone else to follow your example.</p>
+          </article>
+          <article>
+            <strong>05</strong>
+            <h3>Family responsibility</h3>
+            <p>Build steadier habits for the people who experience your choices up close.</p>
+          </article>
+          <article>
+            <strong>06</strong>
+            <h3>Overcoming adversity</h3>
+            <p>Turn pain into instruction, then turn instruction into accountable action.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="speaking" class="section speaking-section" aria-labelledby="speaking-title">
+        <div class="section-heading">
+          <p class="eyebrow">Speaking offers</p>
+          <h2 id="speaking-title">Keynotes and sessions built for movement, not noise.</h2>
+        </div>
+        <div class="offer-list">
+          <article>
+            <div>
+              <span>01</span>
+              <h3>Signature Keynote</h3>
+            </div>
+            <p>A high-impact message for schools, teams, churches, and organizations built around resilience, discipline, faith, leadership, family responsibility, and overcoming adversity.</p>
+          </article>
+          <article>
+            <div>
+              <span>02</span>
+              <h3>Team Talk</h3>
+            </div>
+            <p>A direct room-reset for athletes and coaches focused on standards, effort, identity, and the next measurable commitment.</p>
+          </article>
+          <article>
+            <div>
+              <span>03</span>
+              <h3>Youth Leadership Workshop</h3>
+            </div>
+            <p>An interactive session where students convert values into choices, habits, accountability, and a seven-day action challenge.</p>
+          </article>
+          <article>
+            <div>
+              <span>04</span>
+              <h3>Concrete Builder Session</h3>
+            </div>
+            <p>A practical workshop for teams and leaders who need a plan, a standard, and the courage to execute under pressure.</p>
           </article>
         </div>
       </section>
@@ -97,89 +173,56 @@
       <section id="podcast" class="section podcast-section" aria-labelledby="podcast-title">
         <div class="section-heading">
           <p class="eyebrow">Concrete Conversations</p>
-          <h2 id="podcast-title">The podcast for honest pressure, practical wisdom, and movement.</h2>
+          <h2 id="podcast-title">Honest conversations for people building in real life.</h2>
           <p>
-            Concrete Conversations creates space for real stories about discipline, fatherhood, faith, setbacks, sports, business, and the work behind a comeback.
+            The podcast expands the same mission through stories about fatherhood, faith, setbacks, sports, business, family pressure, and the discipline behind a comeback.
           </p>
-          <div class="link-row" aria-label="Podcast link placeholders">
-            <a href="#" aria-label="YouTube channel placeholder">YouTube coming soon</a>
-            <a href="#" aria-label="Podcast feed placeholder">Podcast links coming soon</a>
-          </div>
         </div>
         <div class="episode-grid">
           <article>
-            <span>Featured idea</span>
-            <h3>Starting From the Bottom Without Staying There</h3>
-            <p>A conversation on discipline, family pressure, and becoming dependable before life gets easier.</p>
+            <span>Episode lane</span>
+            <h3>Starting from the bottom without staying there</h3>
+            <p>Discipline, responsibility, and becoming dependable before life feels lighter.</p>
           </article>
           <article>
-            <span>Featured idea</span>
-            <h3>Fatherhood, Faith, and the Weight of Leadership</h3>
-            <p>How men can lead with honesty, reset their foundation, and build legacy one promise at a time.</p>
+            <span>Episode lane</span>
+            <h3>Fatherhood, faith, and the weight of leadership</h3>
+            <p>How men rebuild standards at home and lead with presence instead of performance.</p>
           </article>
           <article>
-            <span>Featured idea</span>
-            <h3>The Athlete Mindset After a Setback</h3>
-            <p>A practical look at identity, effort, coachability, and the next rep after disappointment.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="programs" class="section" aria-labelledby="programs-title">
-        <div class="section-heading">
-          <p class="eyebrow">Programs and offers</p>
-          <h2 id="programs-title">Flexible formats for rooms that need more than hype.</h2>
-        </div>
-        <div class="program-list">
-          <article>
-            <h3>Team Talk</h3>
-            <p>A direct message for athletes and coaches built around discipline, identity, pressure, and execution.</p>
-          </article>
-          <article>
-            <h3>Youth Leadership Workshop</h3>
-            <p>An interactive session that helps students turn values into daily choices and accountable action.</p>
-          </article>
-          <article>
-            <h3>Concrete Builder Session</h3>
-            <p>A practical workshop for leaders and teams who need a plan, a standard, and a next step.</p>
-          </article>
-          <article>
-            <h3>Podcast Guest / Live Conversation</h3>
-            <p>A guided conversation for communities that need honest dialogue and useful takeaways.</p>
-          </article>
-          <article>
-            <h3>Business and Leadership Keynote</h3>
-            <p>A values-led keynote for operators, teams, and organizations building through pressure.</p>
+            <span>Episode lane</span>
+            <h3>The athlete mindset after a setback</h3>
+            <p>Identity, coachability, effort, and what the next rep teaches after a loss.</p>
           </article>
         </div>
       </section>
 
-      <section class="section social-proof" aria-labelledby="proof-title">
+      <section class="section proof-section" aria-labelledby="proof-title">
         <div class="section-heading">
-          <p class="eyebrow">Social proof</p>
-          <h2 id="proof-title">Early partners and testimonials</h2>
+          <p class="eyebrow">Room outcomes</p>
+          <h2 id="proof-title">What people should leave with.</h2>
         </div>
-        <div class="testimonial-grid">
+        <div class="outcome-grid">
           <article>
-            <p>Coming soon: feedback from schools, teams, and organizations that bring Concrete Motivation into the room.</p>
-            <span>Early partner placeholder</span>
+            <h3>A clearer standard</h3>
+            <p>The audience names what pressure revealed and what standard needs to be rebuilt.</p>
           </article>
           <article>
-            <p>Coming soon: coach and leader reflections after pilot talks, workshops, and live conversations.</p>
-            <span>Program feedback placeholder</span>
+            <h3>A practical promise</h3>
+            <p>Each person leaves with one measurable action they can complete within 24 hours.</p>
           </article>
           <article>
-            <p>Coming soon: audience takeaways from practical messages on discipline, pressure, and legacy.</p>
-            <span>Audience response placeholder</span>
+            <h3>A leadership challenge</h3>
+            <p>The room connects personal discipline to family, team, community, and legacy.</p>
           </article>
         </div>
       </section>
 
       <section id="booking" class="section booking-section" aria-labelledby="booking-title">
         <div class="section-heading">
-          <p class="eyebrow">Booking and contact</p>
-          <h2 id="booking-title">Start the conversation.</h2>
-          <p>This static form is a placeholder until a form service is connected. For now, use it to shape the details Jaytee will need for a speaking or podcast conversation.</p>
+          <p class="eyebrow">Booking</p>
+          <h2 id="booking-title">Bring Concrete Motivation into the room.</h2>
+          <p>Prepare the details for a keynote, team talk, workshop, or Concrete Conversations appearance.</p>
         </div>
         <form class="booking-form" action="#" method="post" aria-describedby="form-note">
           <div class="field-group">
@@ -197,19 +240,27 @@
           <div class="field-group">
             <label for="event-type">Event type</label>
             <select id="event-type" name="event-type">
+              <option>Signature keynote</option>
               <option>Team talk</option>
-              <option>Youth workshop</option>
-              <option>Keynote</option>
+              <option>Youth leadership workshop</option>
+              <option>Concrete Builder Session</option>
               <option>Podcast / live conversation</option>
-              <option>Other</option>
             </select>
           </div>
-          <div class="field-group full">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Tell us about the audience, date, location, and goal."></textarea>
+          <div class="field-group">
+            <label for="date">Target date</label>
+            <input id="date" name="date" type="text" placeholder="Month, date, or flexible">
           </div>
-          <p id="form-note" class="form-note">Placeholder only. No message is sent until a form service is connected.</p>
-          <button class="button button-primary" type="submit">Prepare Booking Details</button>
+          <div class="field-group">
+            <label for="audience">Audience size</label>
+            <input id="audience" name="audience" type="text" placeholder="Example: 75 students">
+          </div>
+          <div class="field-group full">
+            <label for="message">Goal for the room</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell Jaytee about the audience, pressure point, location, and outcome you want."></textarea>
+          </div>
+          <p id="form-note" class="form-note">This page prepares a booking inquiry on your device. No message is sent from the site.</p>
+          <button class="button button-primary" type="submit">Prepare Booking Inquiry</button>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </section>
@@ -218,14 +269,14 @@
     <footer class="site-footer">
       <div>
         <strong>Concrete Motivation</strong>
-        <span>Concrete Conversations</span>
+        <span>Built from pressure. Led with purpose.</span>
       </div>
-      <nav aria-label="Social links placeholders">
-        <a href="#">Instagram</a>
-        <a href="#">YouTube</a>
-        <a href="#">Podcast</a>
+      <nav aria-label="Footer navigation">
+        <a href="#speaking">Speaking</a>
+        <a href="#podcast">Podcast</a>
+        <a href="#booking">Booking</a>
       </nav>
-      <p>&copy; <span id="year">2026</span> Concrete Motivation. Built from pressure.</p>
+      <p>&copy; <span id="year">2026</span> Concrete Motivation.</p>
     </footer>
 
     <script src="script.js"></script>

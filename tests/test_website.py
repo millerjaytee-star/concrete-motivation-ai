@@ -50,50 +50,51 @@ def test_required_website_files_exist():
     assert (WEBSITE_DIR / "script.js").is_file()
     assert (WEBSITE_DIR / "assets" / ".gitkeep").is_file()
     assert (WEBSITE_DIR / "assets" / "concrete-hero.png").is_file()
+    assert (WEBSITE_DIR / "assets" / "favicon.svg").is_file()
 
 
 def test_homepage_contains_required_sections_and_ctas():
     parser = parse_site()
 
-    assert {"top", "story", "speaking", "podcast", "programs", "booking"}.issubset(parser.ids)
+    assert {"top", "story", "framework", "speaking", "podcast", "booking"}.issubset(parser.ids)
     assert "Concrete Motivation" in parser.text
     assert "Build from pressure. Lead with purpose. Move with discipline." in parser.text
     assert "Book Jaytee to Speak" in parser.text
-    assert "Watch Concrete Conversations" in parser.text
+    assert "See the Framework" in parser.text
 
 
-def test_speaking_topics_programs_and_podcast_placeholders_exist():
+def test_framework_speaking_offers_and_podcast_content_exist():
     text = parse_site().text
 
     for phrase in (
-        "Discipline Under Pressure",
-        "Pain Into Purpose",
-        "Fatherhood and Legacy",
-        "Athlete Mindset and Leadership",
-        "Building After Setbacks",
-        "Concrete Conversations Live",
+        "Resilience",
+        "Discipline",
+        "Faith",
+        "Leadership",
+        "Family responsibility",
+        "Overcoming adversity",
+        "Signature Keynote",
         "Team Talk",
         "Youth Leadership Workshop",
         "Concrete Builder Session",
-        "Podcast Guest / Live Conversation",
-        "Business and Leadership Keynote",
-        "YouTube coming soon",
-        "Podcast links coming soon",
+        "Concrete Conversations",
+        "Starting from the bottom without staying there",
     ):
         assert phrase in text
 
 
-def test_booking_form_placeholder_is_accessible_and_honest():
+def test_booking_form_is_accessible_and_honest():
     parser = parse_site()
 
-    assert {"name", "email", "organization", "event-type", "message"}.issubset(parser.inputs)
+    assert {"name", "email", "organization", "event-type", "date", "audience", "message"}.issubset(parser.inputs)
     assert parser.inputs.issubset(parser.labels_for)
-    assert "Placeholder only. No message is sent until a form service is connected." in parser.text
+    assert "No message is sent from the site." in parser.text
 
 
 def test_styles_include_responsive_rules_and_hero_asset():
     css = (WEBSITE_DIR / "styles.css").read_text(encoding="utf-8")
 
+    assert "@media (max-width: 1040px)" in css
     assert "@media (max-width: 820px)" in css
     assert "@media (max-width: 520px)" in css
     assert "assets/concrete-hero.png" in css
