@@ -5,6 +5,7 @@ from collections.abc import Callable
 from .bot_registry import get_bot, list_bots
 from .bot_runner import BotRunner
 from .content_calendar import generate_weekly_calendar
+from .executive_suite import ExecutiveSuite
 from .output_vault import OutputVault
 
 Input = Callable[[str], str]
@@ -17,7 +18,7 @@ BANNER = """====================================
 
 def menu() -> str:
     choices = "\n".join(f"{bot.id}. {bot.name}" for bot in list_bots())
-    return f"{BANNER}\n\nChoose a bot:\n{choices}\n9. View recent saved outputs\n10. Weekly Content Calendar Engine\n0. Exit"
+    return f"{BANNER}\n\nChoose a bot:\n{choices}\n9. View recent saved outputs\n10. Weekly Content Calendar Engine\n11. Executive Team Full Brand Run\n0. Exit"
 
 
 def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault | None = None) -> None:
@@ -29,7 +30,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
     output_fn(menu())
     while True:
         try:
-            raw_choice = input_fn("\nEnter your choice (0-10): ").strip()
+            raw_choice = input_fn("\nEnter your choice (0-11): ").strip()
         except (EOFError, KeyboardInterrupt):
             output_fn("\nKeep building. Goodbye.")
             return
@@ -70,11 +71,25 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
                 output_fn("Output was not saved.")
             output_fn(menu())
             continue
+        if raw_choice == "11":
+            try:
+                theme = input_fn("What is the executive theme for this brand run?\n> ")
+                audience = input_fn("Who are we serving with this run? Press Enter for 'the masses'.\n> ")
+                result = ExecutiveSuite().run(theme, audience)
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except OSError as exc:
+                output_fn(f"Unable to write executive suite files: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
         try:
             choice = int(raw_choice)
             bot = get_bot(choice)
         except (ValueError, TypeError):
-            output_fn("Please enter a number from 0 to 10.")
+            output_fn("Please enter a number from 0 to 11.")
             continue
 
         try:
