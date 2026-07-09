@@ -1,0 +1,12 @@
+{
+  "command": [
+    "composio",
+    "execute",
+    "YOUTUBE_LIST_CHANNEL_VIDEOS",
+    "-d",
+    "{\"mine\": true}"
+  ],
+  "returncode": 0,
+  "stdout": "{\n  \"successful\": true,\n  \"data\": {\n    \"etag\": \"RuuXzTIr0OoDqI4S0RU6n4FqKEM\",\n    \"items\": [],\n    \"kind\": \"youtube#playlistItemListResponse\",\n    \"pageInfo\": {\n      \"resultsPerPage\": 5,\n      \"totalResults\": 0\n    }\n  },\n  \"error\": null,\n  \"logId\": \"log_MaM0GKtYjV5j\"\n}\n",
+  "stderr": ""
+}

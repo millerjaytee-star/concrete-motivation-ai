@@ -1,14 +1,14 @@
 from concrete_motivation.bot_registry import get_bot, list_bots
 
 
-def test_registry_contains_all_eight_bots_in_menu_order():
+def test_registry_contains_all_bots_in_menu_order():
     bots = list_bots()
 
-    assert len(bots) == 8
-    assert [bot.id for bot in bots] == list(range(1, 9))
-    assert len({bot.slug for bot in bots}) == 8
+    assert len(bots) == 15
+    assert [bot.id for bot in bots] == list(range(1, 16))
+    assert len({bot.slug for bot in bots}) == 15
     assert bots[0].name == "Brand Architect Bot"
-    assert bots[-1].name == "Faith & Mindset Bot"
+    assert bots[-1].name == "Gmail Outreach Workflow"
 
 
 def test_each_registered_prompt_exists_and_has_content():

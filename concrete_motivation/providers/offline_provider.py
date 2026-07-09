@@ -92,6 +92,76 @@ def _faith(goal: str) -> tuple[str, ...]:
     )
 
 
+def _ceo(goal: str) -> tuple[str, ...]:
+    return (
+        f"Make {goal} the operating priority, then judge every task by whether it builds audience, proof, trust, revenue, or execution capacity.",
+        "1. Clarify the offer and audience.\n2. Publish proof-building content.\n3. Move warm relationships into conversations.\n4. Protect the weekly execution rhythm.\n5. Review the scoreboard before adding new ideas.",
+        "Revenue conversations, content published, leads added, follow-ups sent, meetings booked, offers made, assets shipped, and lessons captured.",
+        "Risk: scattered execution. Control: one weekly theme and one owner per outcome.\nRisk: content without sales motion. Control: every campaign creates a next conversation.\nRisk: vague progress. Control: numbers reviewed every Friday.",
+        "Choose the one decision that unlocks the week, write it in plain language, assign the next action, and review progress within 48 hours.",
+    )
+
+
+def _content_director(goal: str) -> tuple[str, ...]:
+    return (
+        f"The campaign should make the audience believe this: {goal} can become a disciplined next step, not just an emotional idea.",
+        "YouTube: one anchor video. Shorts/Reels: five cutdowns. Podcast: one conversation angle. Email/Gmail: one relationship-building message. Website: one proof or booking update.",
+        "1. Built under pressure.\n2. Discipline after motivation fades.\n3. Family, faith, and legacy.\n4. Leadership in real life.\n5. Practical next actions.",
+        "Anchor script, five hooks, three captions, one carousel outline, one podcast segment, one outreach email, and one CTA tied to booking or conversation.",
+        "Plan on Monday, record Tuesday, edit Wednesday, publish Thursday through Sunday, and review comments, replies, saves, and leads every Friday.",
+    )
+
+
+def _podcast_producer(goal: str) -> tuple[str, ...]:
+    return (
+        f"Concrete Conversations episode: {goal.title()} -- a grounded conversation about pressure, purpose, discipline, and the next honest move.",
+        "Cold open (45 sec), host intro (2 min), personal story (8 min), guest or teaching segment (18 min), Concrete Challenge (5 min), closing CTA (90 sec).",
+        "Send the guest the episode promise, audience, three core questions, recording logistics, clip expectations, and one prompt asking for a real story behind the lesson.",
+        "Create one hook clip, one story clip, one practical framework clip, one quote card, and one YouTube Short with the Concrete Challenge.",
+        "Confirm topic, prepare questions, check audio, record backup, name files clearly, capture timestamps, write title/description, export clips, and log the episode in the content tracker.",
+    )
+
+
+def _sales_outreach(goal: str) -> tuple[str, ...]:
+    return (
+        "Schools, athletic programs, youth organizations, churches, community groups, local businesses, podcast sponsors, and leadership teams with a values-led audience.",
+        f"Position Concrete Motivation as a practical speaking, workshop, or media partner that helps people act on {goal}.",
+        f"Subject: Concrete Motivation conversation\n\nHello [Name],\n\nI am Jaytee Miller, founder of Concrete Motivation and host of Concrete Conversations. I am reaching out because your work seems aligned with a message around {goal}, discipline, leadership, and turning pressure into purpose.\n\nWould you be open to a brief call next week to see whether a talk, workshop, podcast conversation, or partnership could serve your audience?\n\nRespectfully,\nJaytee Miller",
+        "Open with the mission, ask what their audience is facing right now, connect the answer to one Concrete Motivation offer, confirm whether there is a fit, and close with a specific next step.",
+        "Day 2: send a short value follow-up. Day 5: send a one-page outline or episode idea. Day 10: ask whether to close the loop or reconnect later. Log every reply in the CRM.",
+    )
+
+
+def _youtube_growth(goal: str) -> tuple[str, ...]:
+    return (
+        f"Build a searchable anchor video around {goal}, then cut it into Shorts that drive viewers back to the full message and the Concrete Conversations brand.",
+        "Title 1: The Truth About [Goal]\nTitle 2: Built Under Pressure: [Goal]\nTitle 3: How to Keep Building When [Obstacle]\nThumbnail text: PRESSURE BUILDS / KEEP BUILDING / DISCIPLINE WINS",
+        "First 5 seconds: direct tension. First 30 seconds: promise a practical outcome. Middle: story, lesson, action. Final 60 seconds: recap and invite comment with one concrete commitment.",
+        "Create five Shorts: hook, personal line, practical framework, faith-aware reflection, and closing challenge. Each Short should stand alone and point to the full video or podcast.",
+        "Write title, description, tags, pinned comment, thumbnail text, chapters, three Shorts scripts, and one community post before recording the next upload.",
+    )
+
+
+def _crm(goal: str) -> tuple[str, ...]:
+    return (
+        f"Track {goal} by source, relationship strength, offer fit, last touch, next action, owner, and due date.",
+        "Warm relationships, schools, coaches, churches, youth programs, businesses, sponsors, podcast guests, content collaborators, and past replies.",
+        "Add every new contact, assign a stage, write one next action, set a follow-up date, and move any stale lead to nurture instead of letting it disappear.",
+        "Daily: new replies and urgent follow-ups. Monday: new prospect list. Wednesday: second-touch messages. Friday: pipeline review and next-week priorities.",
+        "Name, organization, role, email, phone, source, segment, stage, offer, last contact, next action, due date, notes, and outcome.",
+    )
+
+
+def _gmail_outreach(goal: str) -> tuple[str, ...]:
+    return (
+        f"Use Gmail to create a disciplined daily outreach block for {goal}: find the right thread or lead, send a useful message, track the next action, and follow up on time.",
+        "Search Gmail for prior contacts, replies, schools, coaches, churches, sponsors, podcast guests, and local organizations. If a CSV lead list exists, work from the highest-fit names first.",
+        "Email 1: short introduction and value angle.\nFollow-up 1: helpful outline or episode/session idea.\nFollow-up 2: close-loop message with a clear yes/no next step.\nReply handling: tag interested, waiting, not now, or no fit.",
+        "Every sent email gets a CRM entry with date, recipient, segment, offer, thread status, next action, and follow-up due date. Never rely on memory for follow-up.",
+        "Send 10 targeted messages, process replies, update CRM, schedule follow-ups, save strong language for reuse, and stop when quality drops.",
+    )
+
+
 BUILDERS: dict[str, SectionBuilder] = {
     "brand_architect": _brand,
     "motivational_speech": _speech,
@@ -101,6 +171,13 @@ BUILDERS: dict[str, SectionBuilder] = {
     "business_growth": _business,
     "operations": _operations,
     "faith_mindset": _faith,
+    "ceo": _ceo,
+    "content_director": _content_director,
+    "podcast_producer": _podcast_producer,
+    "sales_outreach": _sales_outreach,
+    "youtube_growth": _youtube_growth,
+    "crm": _crm,
+    "gmail_outreach": _gmail_outreach,
 }
 
 

@@ -22,6 +22,13 @@ BOT_OUTPUT_FOLDERS: dict[str, str] = {
     "business_growth": "business_growth",
     "operations": "operations",
     "faith_mindset": "faith_mindset",
+    "ceo": "executive",
+    "content_director": "content_direction",
+    "podcast_producer": "podcast_production",
+    "sales_outreach": "sales_outreach",
+    "youtube_growth": "youtube_growth",
+    "crm": "crm",
+    "gmail_outreach": "gmail_outreach",
 }
 
 

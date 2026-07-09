@@ -1,0 +1,11 @@
+category,organization,contact_name,email,status,next_action
+School,Example High School,Principal Name,email@example.com,New,Draft intro email
+Youth Program,Example Youth Program,Director Name,email@example.com,New,Draft intro email
+Church,Example Church,Pastor Name,email@example.com,New,Draft intro email
+Sports Program,Example Athletics,Coach Name,email@example.com,New,Draft intro email
+Business,Example Company,HR Director,email@example.com,New,Draft leadership email
+x
+
+^O WriteOut
+^X Exit
+

@@ -7,6 +7,13 @@ from .models import Bot
 PROMPT_DIR = Path(__file__).resolve().parent.parent / "prompts"
 
 
+def _prompt_path(slug: str) -> Path:
+    path = PROMPT_DIR / f"{slug}.md"
+    if path.is_dir():
+        return path / "PROMPT.md"
+    return path
+
+
 def _bot(
     bot_id: int,
     slug: str,
@@ -14,7 +21,7 @@ def _bot(
     purpose: str,
     sections: tuple[str, ...],
 ) -> Bot:
-    return Bot(bot_id, slug, name, purpose, PROMPT_DIR / f"{slug}.md", sections)
+    return Bot(bot_id, slug, name, purpose, _prompt_path(slug), sections)
 
 
 BOTS: tuple[Bot, ...] = (
@@ -34,6 +41,20 @@ BOTS: tuple[Bot, ...] = (
          ("Weekly priorities", "Task checklist", "SOP idea", "Owner", "Deadline suggestions")),
     _bot(8, "faith_mindset", "Faith & Mindset Bot", "Create spiritually grounded mindset content.",
          ("Theme", "Reflection", "Scripture-inspired principle", "Practical action", "Closing affirmation")),
+    _bot(9, "ceo", "CEO Bot", "Set executive priorities, standards, and decisions.",
+         ("Executive decision", "Top priorities", "Scoreboard", "Risks", "Next command")),
+    _bot(10, "content_director", "Content Director Bot", "Plan campaigns across every brand channel.",
+         ("Campaign thesis", "Channel plan", "Content pillars", "Production queue", "Publishing rhythm")),
+    _bot(11, "podcast_producer", "Podcast Producer Bot", "Produce Concrete Conversations episodes end to end.",
+         ("Episode concept", "Run of show", "Guest prep", "Clip plan", "Production checklist")),
+    _bot(12, "sales_outreach", "Sales Outreach Bot", "Create sales messaging for speaking, sponsors, and partners.",
+         ("Target segment", "Offer angle", "Email draft", "Call script", "Follow-up plan")),
+    _bot(13, "youtube_growth", "YouTube Growth Bot", "Grow the YouTube channel with searchable, repeatable video systems.",
+         ("Video opportunity", "Title and thumbnail angles", "Retention plan", "Shorts plan", "Next upload actions")),
+    _bot(14, "crm", "CRM Bot", "Organize leads, pipeline stages, and next actions.",
+         ("Pipeline snapshot", "Lead segments", "Next actions", "Follow-up schedule", "Data fields")),
+    _bot(15, "gmail_outreach", "Gmail Outreach Workflow", "Draft Gmail-ready outreach workflows and follow-ups.",
+         ("Workflow goal", "Search or lead list", "Message sequence", "Tracking rules", "Daily execution checklist")),
 )
 
 _BOTS_BY_ID = {bot.id: bot for bot in BOTS}

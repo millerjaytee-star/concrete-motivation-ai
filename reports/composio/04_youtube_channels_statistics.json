@@ -1,0 +1,12 @@
+{
+  "command": [
+    "composio",
+    "execute",
+    "YOUTUBE_LIST_CHANNELS",
+    "-d",
+    "{\"mine\": true, \"part\": \"statistics\"}"
+  ],
+  "returncode": 0,
+  "stdout": "{\n  \"successful\": true,\n  \"data\": {\n    \"etag\": \"u80LGf_q3QTNxh__VcWu3KdJTYQ\",\n    \"items\": [\n      {\n        \"etag\": \"mv-Ogx1ypCiXBrpNGKFUO-WLB-o\",\n        \"id\": \"UCUY3F-FRATp4djFYk64QElA\",\n        \"kind\": \"youtube#channel\",\n        \"statistics\": {\n          \"hiddenSubscriberCount\": false,\n          \"subscriberCount\": \"0\",\n          \"videoCount\": \"0\",\n          \"viewCount\": \"0\"\n        }\n      }\n    ],\n    \"kind\": \"youtube#channelListResponse\",\n    \"pageInfo\": {\n      \"resultsPerPage\": 5,\n      \"totalResults\": 1\n    }\n  },\n  \"error\": null,\n  \"logId\": \"log_UhBhuJCu5Mbj\"\n}\n",
+  "stderr": ""
+}

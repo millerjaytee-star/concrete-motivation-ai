@@ -1,0 +1,9 @@
+{
+  "command": [
+    "composio",
+    "whoami"
+  ],
+  "returncode": 0,
+  "stdout": "{\"account_type\":\"human\",\"email\":\"millerjaytee@gmail.com\",\"current_org_name\":\"millerjaytee_workspace\",\"enhanced_controls_enabled\":false}\n",
+  "stderr": ""
+}

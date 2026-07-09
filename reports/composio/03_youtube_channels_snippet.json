@@ -1,0 +1,12 @@
+{
+  "command": [
+    "composio",
+    "execute",
+    "YOUTUBE_LIST_CHANNELS",
+    "-d",
+    "{\"mine\": true, \"part\": \"snippet\"}"
+  ],
+  "returncode": 0,
+  "stdout": "{\n  \"successful\": true,\n  \"data\": {\n    \"etag\": \"aBsFgI5mkESJjtguHCkuqAeuoVM\",\n    \"items\": [\n      {\n        \"etag\": \"60y2I2epBRiKilm9iprhzrjy6Gw\",\n        \"id\": \"UCUY3F-FRATp4djFYk64QElA\",\n        \"kind\": \"youtube#channel\",\n        \"snippet\": {\n          \"customUrl\": \"@jayteemiller-w6i\",\n          \"description\": \"\",\n          \"localized\": {\n            \"description\": \"\",\n            \"title\": \"ConcreteMotivation444\"\n          },\n          \"publishedAt\": \"2026-07-09T02:18:27.75911Z\",\n          \"thumbnails\": {\n            \"default\": {\n              \"height\": 88,\n              \"url\": \"https://yt3.ggpht.com/ytc/AIdro_nBDeZ9mqdIFB9ZVjY1L_Zestnzoo5Sf1l4wqCS9M9x7GOn4Ieia6TOKEF-97zhMtLXgw=s88-c-k-c0x00ffffff-no-rj\",\n              \"width\": 88\n            },\n            \"high\": {\n              \"height\": 800,\n              \"url\": \"https://yt3.ggpht.com/ytc/AIdro_nBDeZ9mqdIFB9ZVjY1L_Zestnzoo5Sf1l4wqCS9M9x7GOn4Ieia6TOKEF-97zhMtLXgw=s800-c-k-c0x00ffffff-no-rj\",\n              \"width\": 800\n            },\n            \"medium\": {\n              \"height\": 240,\n              \"url\": \"https://yt3.ggpht.com/ytc/AIdro_nBDeZ9mqdIFB9ZVjY1L_Zestnzoo5Sf1l4wqCS9M9x7GOn4Ieia6TOKEF-97zhMtLXgw=s240-c-k-c0x00ffffff-no-rj\",\n              \"width\": 240\n            }\n          },\n          \"title\": \"ConcreteMotivation444\"\n        }\n      }\n    ],\n    \"kind\": \"youtube#channelListResponse\",\n    \"pageInfo\": {\n      \"resultsPerPage\": 5,\n      \"totalResults\": 1\n    }\n  },\n  \"error\": null,\n  \"logId\": \"log_YuzHIA2affaa\"\n}\n",
+  "stderr": ""
+}

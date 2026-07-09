@@ -8,6 +8,7 @@ from .content_calendar import generate_weekly_calendar
 from .executive_suite import ExecutiveSuite
 from .forever_brand import ForeverBrandFactory
 from .output_vault import OutputVault
+from .system_check import run_system_check
 
 Input = Callable[[str], str]
 Output = Callable[[str], None]
@@ -17,9 +18,27 @@ BANNER = """====================================
 ===================================="""
 
 
+BOT_COUNT = len(list_bots())
+RECENT_OUTPUTS_CHOICE = BOT_COUNT + 1
+CALENDAR_CHOICE = BOT_COUNT + 2
+EXECUTIVE_SUITE_CHOICE = BOT_COUNT + 3
+FOREVER_BRAND_CHOICE = BOT_COUNT + 4
+SYSTEM_CHECK_CHOICE = BOT_COUNT + 5
+MAX_CHOICE = SYSTEM_CHECK_CHOICE
+
+
 def menu() -> str:
     choices = "\n".join(f"{bot.id}. {bot.name}" for bot in list_bots())
-    return f"{BANNER}\n\nChoose a bot:\n{choices}\n9. View recent saved outputs\n10. Weekly Content Calendar Engine\n11. Executive Team Full Brand Run\n12. Forever Brand Factory\n0. Exit"
+    return (
+        f"{BANNER}\n\nChoose a bot or workflow:\n"
+        f"{choices}\n"
+        f"{RECENT_OUTPUTS_CHOICE}. View recent saved outputs\n"
+        f"{CALENDAR_CHOICE}. Weekly Content Calendar Engine\n"
+        f"{EXECUTIVE_SUITE_CHOICE}. Executive Team Full Brand Run\n"
+        f"{FOREVER_BRAND_CHOICE}. Forever Brand Factory\n"
+        f"{SYSTEM_CHECK_CHOICE}. System Check\n"
+        "0. Exit"
+    )
 
 
 def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault | None = None) -> None:
@@ -31,7 +50,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
     output_fn(menu())
     while True:
         try:
-            raw_choice = input_fn("\nEnter your choice (0-12): ").strip()
+            raw_choice = input_fn(f"\nEnter your choice (0-{MAX_CHOICE}): ").strip()
         except (EOFError, KeyboardInterrupt):
             output_fn("\nKeep building. Goodbye.")
             return
@@ -39,7 +58,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
         if raw_choice == "0":
             output_fn("Keep building. Goodbye.")
             return
-        if raw_choice == "9":
+        if raw_choice == str(RECENT_OUTPUTS_CHOICE):
             recent = output_vault.recent_outputs()
             if recent:
                 output_fn("Recent saved outputs:\n" + "\n".join(str(path) for path in recent))
@@ -47,7 +66,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
                 output_fn("No saved outputs yet.")
             output_fn(menu())
             continue
-        if raw_choice == "10":
+        if raw_choice == str(CALENDAR_CHOICE):
             try:
                 theme = input_fn("What is the main theme for this week?\n> ")
                 detail = input_fn("Any audience, platform, event, or business goal to include? Press Enter to skip.\n> ")
@@ -72,7 +91,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
                 output_fn("Output was not saved.")
             output_fn(menu())
             continue
-        if raw_choice == "11":
+        if raw_choice == str(EXECUTIVE_SUITE_CHOICE):
             try:
                 theme = input_fn("What is the executive theme for this brand run?\n> ")
                 audience = input_fn("Who are we serving with this run? Press Enter for 'the masses'.\n> ")
@@ -86,7 +105,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
             output_fn(f"\n{result.as_markdown()}\n")
             output_fn(menu())
             continue
-        if raw_choice == "12":
+        if raw_choice == str(FOREVER_BRAND_CHOICE):
             try:
                 theme = input_fn("What is the forever brand theme? Press Enter for Built Under Pressure.\n> ")
                 result = ForeverBrandFactory().run(theme)
@@ -99,11 +118,16 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
             output_fn(f"\n{result.as_markdown()}\n")
             output_fn(menu())
             continue
+        if raw_choice == str(SYSTEM_CHECK_CHOICE):
+            result = run_system_check()
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
         try:
             choice = int(raw_choice)
             bot = get_bot(choice)
         except (ValueError, TypeError):
-            output_fn("Please enter a number from 0 to 12.")
+            output_fn(f"Please enter a number from 0 to {MAX_CHOICE}.")
             continue
 
         try:

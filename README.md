@@ -36,9 +36,30 @@ The system is organized as a team of specialist bots:
 8. **Faith & Mindset Bot**  
    Builds spiritually grounded motivation, self-discipline messages, leadership reflections, and renewal-of-the-mind content.
 
+9. **CEO Bot**  
+   Sets executive priorities, scoreboards, risks, decisions, and next commands.
+
+10. **Content Director Bot**  
+    Plans campaigns across YouTube, Shorts, podcast, social, email, website, and outreach.
+
+11. **Podcast Producer Bot**  
+    Produces Concrete Conversations episodes from concept through clips and release prep.
+
+12. **Sales Outreach Bot**  
+    Creates ethical sales messaging for speaking, sponsors, partnerships, and podcast opportunities.
+
+13. **YouTube Growth Bot**  
+    Builds searchable video ideas, title and thumbnail angles, retention plans, Shorts, and upload actions.
+
+14. **CRM Bot**  
+    Organizes leads, pipeline stages, follow-up schedules, and daily relationship tracking.
+
+15. **Gmail Outreach Workflow**  
+    Creates Gmail-ready search, message, follow-up, and CRM tracking workflows.
+
 ## Current Status
 
-Version 7 includes the Python command center, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine.
+Version 8 includes the Python command center, 15-bot operating team, Gmail Outreach workflow, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine, Executive Suite, Forever Brand Factory, and System Check.
 
 Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
@@ -71,11 +92,11 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the bot menu. Enter `1` through `8` to generate with a bot, enter `9` to view recent saved outputs, enter `10` to build a weekly content calendar, or enter `0` to exit. For example:
+The app will display the command center menu. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, or enter `0` to exit. For example:
 
 ```text
 Provider: offline
-Enter your choice (0-10): 2
+Enter your choice (0-20): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
@@ -85,7 +106,9 @@ Save this output to the content vault? [Y/n]
 
 Press Enter at the optional personalization question to skip it. When you provide detail, the runner folds it into the `Concrete Motivation Angle` section so the output can target a specific audience, tone, or life context. Press Enter at the save prompt to save by default, or type `n` to skip.
 
-For the calendar workflow, choose option `10`, enter the main theme for the week, then optionally add an audience, platform, event, or business goal. The engine creates Monday through Sunday content with hooks, scripts or captions, calls to action, platforms, and repurpose ideas.
+For the calendar workflow, choose option `17`, enter the main theme for the week, then optionally add an audience, platform, event, or business goal. The engine creates Monday through Sunday content with hooks, scripts or captions, calls to action, platforms, and repurpose ideas.
+
+For the Gmail Outreach workflow, choose option `15`. It drafts a daily Gmail outreach system with search or lead-list guidance, message sequences, tracking rules, and execution checklists. It does not send email by itself.
 
 ## Content Vault
 
@@ -111,6 +134,13 @@ The vault organizes files by bot type:
 - `outputs/operations`
 - `outputs/faith_mindset`
 - `outputs/brand`
+- `outputs/executive`
+- `outputs/content_direction`
+- `outputs/podcast_production`
+- `outputs/sales_outreach`
+- `outputs/youtube_growth`
+- `outputs/crm`
+- `outputs/gmail_outreach`
 - `outputs/content_calendars`
 
 Filenames include date/time, bot slug, and a short goal slug, such as `2026-06-23-120000-motivational-speech-starting-from-bottom.md`. The folders are committed, but generated Markdown files are ignored by Git so local drafts do not accidentally enter pull requests.
@@ -152,6 +182,14 @@ Return to offline mode by setting `CONCRETE_AI_PROVIDER=offline` or removing the
 python -m pytest
 ```
 
+## Run System Check
+
+```bash
+python3 scripts/system_check.py
+```
+
+The system check imports the command center modules, verifies prompt files and output vault mappings, and runs every registered bot in offline mode.
+
 ## Preview the Website
 
 Open `website/index.html` in a browser. The website is static and needs no backend, build step, API key, payment setup, form service, or deployment.
@@ -183,9 +221,10 @@ Use the website as the booking and brand home. Use the output vault to save scri
 - `concrete_motivation/output_vault.py` saves full Markdown responses with metadata and lists recent saved outputs.
 - `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
 - `concrete_motivation/content_calendar.py` creates the offline 7-day Weekly Content Calendar Engine output.
+- `concrete_motivation/system_check.py` validates imports, prompt files, output mappings, and offline bot execution.
 - `website/` holds the static public website foundation.
 - `youtube_launch/` holds the YouTube channel launch kit and repeatable media system.
-- Offline mode sends no input or output over the internet and saves nothing to disk.
+- Offline mode sends no input or output over the internet. It only writes to disk when you choose to save an output to the local vault.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 
 ## Troubleshooting

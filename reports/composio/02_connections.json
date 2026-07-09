@@ -1,0 +1,10 @@
+{
+  "command": [
+    "composio",
+    "connections",
+    "list"
+  ],
+  "returncode": 0,
+  "stdout": "{\n  \"gmail\": [\n    {\n      \"status\": \"EXPIRED\",\n      \"alias\": null,\n      \"word_id\": \"gmail_razee-palpi\",\n      \"permission_group\": null\n    },\n    {\n      \"status\": \"ACTIVE\",\n      \"alias\": null,\n      \"word_id\": \"gmail_ablate-ignore\",\n      \"permission_group\": null\n    }\n  ],\n  \"youtube\": [\n    {\n      \"status\": \"ACTIVE\",\n      \"word_id\": \"youtube_bruce-payee\",\n      \"permission_group\": null\n    }\n  ]\n}\n",
+  "stderr": ""
+}
