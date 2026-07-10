@@ -58,6 +58,14 @@ def run_system_check() -> SystemCheckResult:
         "concrete_motivation.reels_script_writer",
         "concrete_motivation.content_reels_factory",
         "concrete_motivation.content_batch_runner",
+        "concrete_motivation.school_outreach_bot",
+        "concrete_motivation.sponsorship_bot",
+        "concrete_motivation.podcast_guest_bot",
+        "concrete_motivation.crm_pipeline_manager",
+        "dashboard.ceo_dashboard",
+        "dashboard.metrics",
+        "dashboard.content_metrics",
+        "dashboard.crm_metrics",
     ):
         try:
             importlib.import_module(module_name)

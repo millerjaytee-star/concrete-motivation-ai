@@ -13,7 +13,7 @@ def scripted_app(*answers: str, vault: OutputVault | None = None) -> str:
 def test_app_recovers_from_invalid_choice_and_empty_goal(tmp_path):
     output = scripted_app("not-a-number", "16", "1", "   ", "", "0", vault=OutputVault(tmp_path))
 
-    assert "Please enter a number from 0 to 20." in output
+    assert "Please enter a number from 0 to 32." in output
     assert "No saved outputs yet." in output
     assert "Unable to run bot: Goal cannot be empty." in output
     assert output.endswith("Keep building. Goodbye.")
@@ -26,6 +26,14 @@ def test_menu_groups_bots_and_shows_help_choice():
     assert "[Growth and Revenue]" in rendered
     assert "[Operations and Workflows]" in rendered
     assert "1. Brand Architect Bot - Define and protect the brand." in rendered
+    assert "25. Executive Dashboard" in rendered
+    assert "26. CRM Dashboard" in rendered
+    assert "27. School Outreach Campaign" in rendered
+    assert "28. Sponsor Campaign" in rendered
+    assert "29. Podcast Guest Campaign" in rendered
+    assert "30. Content/Reels Package" in rendered
+    assert "31. YouTube Package" in rendered
+    assert "32. YouTube Upload Dry Run" in rendered
     assert "H. Help / recommended workflow" in rendered
 
 
@@ -43,6 +51,9 @@ def test_help_text_names_recommended_growth_workflow():
     assert "CEO Bot" in text
     assert "Sales Outreach Bot" in text
     assert "System Check" in text
+    assert "School Outreach" in text
+    assert "CRM Pipeline" in text
+    assert "Executive Dashboard" in text
 
 
 def test_app_runs_selected_bot_and_returns_to_menu(tmp_path):

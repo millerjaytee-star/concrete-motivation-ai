@@ -1,17 +1,23 @@
-# Concrete Conversations CEO Metrics
+# Concrete Motivation Executive Dashboard
 
-## Weekly Targets
-- Outreach emails drafted:
-- Follow-ups drafted:
-- Speaking opportunities opened:
-- Discovery calls booked:
-- Content posts created:
-- YouTube videos planned:
-- Podcast episodes planned:
+| Metric | Value |
+|---|---:|
+| Total content packages | 132 |
+| Total reels created | 9 |
+| Total shorts created | 120 |
+| YouTube packages created | 9 |
+| Last generated content package | /Users/jayteemiller/AI-Bots/concrete-motivation/outputs/content_packages/2026-07-10-105140-day-30-pressure-has-a-purpose-day-30/package.md |
+| School outreach contacts | 3 |
+| Sponsor contacts | 3 |
+| Podcast guests | 4 |
+| Pending follow-ups | 0 |
 
-## Revenue Pipeline
-- New leads:
-- Warm leads:
-- Meetings booked:
-- Proposals sent:
-- Deals closed:
+## Weekly Scoreboard
+- Content packages ready: 132
+- Reels queued: 9
+- Shorts queued: 120
+- YouTube packages ready: 9
+- School outreach contacts: 3
+- Sponsor contacts: 3
+- Podcast guests: 4
+- Pending follow-ups: 0

@@ -9,4 +9,9 @@ htmlcov/
 outputs/**/*.md
 outputs/content_packages/
 outputs/youtube_packages/
+outputs/outreach_messages/school_outreach/
+outputs/sales_outreach/sponsorship/
+outputs/podcast_production/guest_outreach/
+outputs/crm/pipeline_manager/
+outputs/crm/concrete_motivation_pipeline.csv
 generated_videos/*.mp4

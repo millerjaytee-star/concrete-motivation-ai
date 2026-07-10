@@ -92,11 +92,11 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `H` for help, or enter `0` to exit. For example:
+The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `21` through `24` for the phase 2 outreach and CRM workflows, enter `25` for the executive dashboard, enter `26` for the CRM dashboard, enter `27` through `29` for school/sponsor/podcast campaigns, enter `30` for a content/reels package, enter `31` for a YouTube package, enter `32` for a YouTube upload dry run, enter `H` for help, or enter `0` to exit. For example:
 
 ```text
 Provider: offline
-Enter your choice (0-20): 2
+Enter your choice (0-32): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
@@ -237,6 +237,47 @@ python3 scripts/create_30_day_content_batch.py --theme "Pressure Has a Purpose" 
 ```
 
 The factory does not post, upload, or send anything automatically.
+
+## Phase 2 Outreach and CRM Workflows
+
+The command center now also includes:
+
+- School Outreach Workflow
+- Sponsor Outreach Workflow
+- Podcast Guest Workflow
+- CRM Pipeline Manager
+
+These generate local, reviewable files for lead tracking, outreach, guest booking, and pipeline management.
+
+## Executive Dashboard
+
+Run the CEO dashboard with:
+
+```bash
+python3 dashboard/ceo_dashboard.py
+```
+
+It reads the existing content, YouTube, outreach, podcast, and CRM outputs and writes a fresh report to `dashboard/metrics.md`.
+
+## CRM Pipeline and Outreach
+
+Use these commands for the phase 3 operating system:
+
+```bash
+python3 scripts/create_crm_pipeline.py
+python3 scripts/add_crm_lead.py --lead-name "Lead 1" --organization "School A"
+python3 scripts/show_crm_dashboard.py
+python3 scripts/create_school_outreach_campaign.py --audience "high school athletes" --region "DMV"
+python3 scripts/create_sponsor_campaign.py --segment "local gyms and barbershops"
+python3 scripts/create_podcast_guest_campaign.py --theme "pressure to purpose"
+```
+
+Docs:
+
+- `docs/CONCRETE_MOTIVATION_OPERATING_SYSTEM.md`
+- `docs/DAILY_EXECUTION_WORKFLOW.md`
+- `docs/CONTENT_TO_REVENUE_PIPELINE.md`
+- `docs/YOUTUBE_UPLOAD_CONFIRMATION.md`
 
 ## How Version 8 Works
 
