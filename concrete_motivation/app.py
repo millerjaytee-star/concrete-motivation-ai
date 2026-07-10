@@ -9,10 +9,17 @@ from .content_reels_factory import create_content_package
 from .content_calendar import generate_weekly_calendar
 from .executive_suite import ExecutiveSuite
 from .forever_brand import ForeverBrandFactory
+from .gmail_sales_stager import build_gmail_sales_sequence, save_gmail_sales_sequence
+from .membership_program import build_membership_program, save_membership_program
+from .payment_link_manager import PaymentLinkManager
 from .podcast_guest_bot import PodcastGuestBot
 from .output_vault import OutputVault
+from .revenue_commander import RevenueCommander
+from .revenue_website_pages import save_revenue_website_pages
 from .school_outreach_bot import SchoolOutreachBot
+from .social_sales_campaign import build_social_sales_campaign, save_social_sales_campaign
 from .sponsorship_bot import SponsorshipBot
+from .speaker_booking_engine import build_speaker_booking_package, save_speaker_booking_package
 from .youtube_publish_package import build_package, build_execute_command, save_package
 from .system_check import run_system_check
 from dashboard.metrics import build_dashboard_metrics
@@ -43,7 +50,14 @@ PODCAST_CAMPAIGN_CHOICE = BOT_COUNT + 14
 CONTENT_PACKAGE_CHOICE = BOT_COUNT + 15
 YOUTUBE_PACKAGE_CHOICE = BOT_COUNT + 16
 YOUTUBE_DRY_RUN_CHOICE = BOT_COUNT + 17
-MAX_CHOICE = YOUTUBE_DRY_RUN_CHOICE
+REVENUE_COMMANDER_CHOICE = BOT_COUNT + 18
+MEMBERSHIP_PROGRAM_CHOICE = BOT_COUNT + 19
+PAYMENT_LINK_STATUS_CHOICE = BOT_COUNT + 20
+REVENUE_WEBSITE_CHOICE = BOT_COUNT + 21
+SOCIAL_SALES_CHOICE = BOT_COUNT + 22
+GMAIL_MEMBERSHIP_CHOICE = BOT_COUNT + 23
+SPEAKER_BOOKING_CHOICE = BOT_COUNT + 24
+MAX_CHOICE = SPEAKER_BOOKING_CHOICE
 
 
 def menu() -> str:
@@ -73,6 +87,13 @@ def menu() -> str:
         f"{CONTENT_PACKAGE_CHOICE}. Content/Reels Package\n"
         f"{YOUTUBE_PACKAGE_CHOICE}. YouTube Package\n"
         f"{YOUTUBE_DRY_RUN_CHOICE}. YouTube Upload Dry Run\n"
+        f"{REVENUE_COMMANDER_CHOICE}. Revenue Commander\n"
+        f"{MEMBERSHIP_PROGRAM_CHOICE}. Membership Program Builder\n"
+        f"{PAYMENT_LINK_STATUS_CHOICE}. Payment Link Status\n"
+        f"{REVENUE_WEBSITE_CHOICE}. Revenue Website Pages\n"
+        f"{SOCIAL_SALES_CHOICE}. Social Sales Campaign\n"
+        f"{GMAIL_MEMBERSHIP_CHOICE}. Membership Gmail Sequence\n"
+        f"{SPEAKER_BOOKING_CHOICE}. Speaker Booking Package\n"
         "H. Help / recommended workflow\n"
         "0. Exit"
     )
@@ -87,8 +108,9 @@ Recommended daily workflow:
 2. Use Content Director Bot or Weekly Content Calendar Engine to turn it into publishable work.
 3. Use Sales Outreach Bot, CRM Bot, or Gmail Outreach Workflow to move relationships forward.
 4. Use School Outreach, Sponsor Outreach, Podcast Guest, and CRM Pipeline workflows to keep the pipeline moving.
-5. Use the Executive Dashboard and CRM Dashboard to check the scoreboard before starting new work.
-6. Save strong outputs to the vault, then edit them in Jaytee's final voice before posting or sending.
+5. Use Revenue Commander, Membership Program Builder, Payment Link Status, Revenue Website Pages, Social Sales Campaign, Membership Gmail Sequence, and Speaker Booking Package to stage revenue before any posting or sending.
+6. Use the Executive Dashboard and CRM Dashboard to check the scoreboard before starting new work.
+7. Save strong outputs to the vault, then edit them in Jaytee's final voice before posting or sending.
 
 Strong goals are specific:
 - Build a school speaking outreach campaign for high school athletes.
@@ -96,6 +118,7 @@ Strong goals are specific:
 - Draft a podcast episode with three clip moments and guest questions.
 - Review the Executive Dashboard before starting new work.
 - Use the CRM Dashboard to clear follow-ups before the day ends.
+- Stage the revenue stack before shipping a membership launch.
 
 Use System Check before a serious work session or before pushing changes."""
 
@@ -343,6 +366,112 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
             output_fn(f"\n{package.as_markdown()}\n")
             output_fn("Dry run command:")
             output_fn(" ".join(command))
+            output_fn(menu())
+            continue
+        if raw_choice == str(REVENUE_COMMANDER_CHOICE):
+            try:
+                theme = input_fn("What revenue theme should we build around? Press Enter for Concrete Builders Membership.\n> ")
+                monthly = input_fn("Monthly price [40]\n> ").strip() or "40"
+                annual = input_fn("Annual launch price [400]\n> ").strip() or "400"
+                premium = input_fn("Premium annual price [444]\n> ").strip() or "444"
+                result = RevenueCommander().run(theme or "Concrete Builders Membership", int(monthly), int(annual), int(premium))
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except (OSError, ValueError) as exc:
+                output_fn(f"Unable to run Revenue Commander: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
+        if raw_choice == str(MEMBERSHIP_PROGRAM_CHOICE):
+            try:
+                offer = input_fn("What membership offer should we build? Press Enter for Concrete Builders Membership.\n> ")
+                monthly = input_fn("Monthly price [40]\n> ").strip() or "40"
+                annual = input_fn("Annual launch price [400]\n> ").strip() or "400"
+                premium = input_fn("Premium annual price [444]\n> ").strip() or "444"
+                audience = input_fn("Who is this for? Press Enter for Concrete Motivation supporters.\n> ")
+                program = build_membership_program(
+                    offer=offer or "Concrete Builders Membership",
+                    monthly_price=int(monthly),
+                    annual_price=int(annual),
+                    premium_annual_price=int(premium),
+                    audience=audience or "Concrete Motivation supporters",
+                )
+                result = save_membership_program(program)
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except (OSError, ValueError) as exc:
+                output_fn(f"Unable to write membership program: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
+        if raw_choice == str(PAYMENT_LINK_STATUS_CHOICE):
+            manager = PaymentLinkManager()
+            output_fn(f"\n{manager.status().as_markdown()}\n")
+            output_fn(menu())
+            continue
+        if raw_choice == str(REVENUE_WEBSITE_CHOICE):
+            try:
+                offer = input_fn("What membership offer should the website pages use? Press Enter for Concrete Builders Membership.\n> ")
+                result = save_revenue_website_pages(
+                    offer=offer or "Concrete Builders Membership",
+                )
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except OSError as exc:
+                output_fn(f"Unable to write revenue website pages: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
+        if raw_choice == str(SOCIAL_SALES_CHOICE):
+            try:
+                offer = input_fn("What offer should we launch? Press Enter for Concrete Builders Membership.\n> ")
+                days = input_fn("How many days should the campaign run? Press Enter for 14.\n> ").strip() or "14"
+                audience = input_fn("Who is this for? Press Enter for Concrete Motivation supporters.\n> ")
+                campaign = build_social_sales_campaign(offer or "Concrete Builders Membership", days=int(days), audience=audience or "Concrete Motivation supporters")
+                result = save_social_sales_campaign(campaign)
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except (OSError, ValueError) as exc:
+                output_fn(f"Unable to write social sales campaign: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
+        if raw_choice == str(GMAIL_MEMBERSHIP_CHOICE):
+            try:
+                offer = input_fn("What membership offer should the Gmail sequence use? Press Enter for Concrete Builders Membership.\n> ")
+                audience = input_fn("Who should this speak to? Press Enter for Concrete Motivation supporters.\n> ")
+                sequence = build_gmail_sales_sequence(offer or "Concrete Builders Membership", audience=audience or "Concrete Motivation supporters")
+                result = save_gmail_sales_sequence(sequence)
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except OSError as exc:
+                output_fn(f"Unable to stage Gmail sequence: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
+            output_fn(menu())
+            continue
+        if raw_choice == str(SPEAKER_BOOKING_CHOICE):
+            try:
+                segment = input_fn("What speaker booking segment should we build? Press Enter for schools.\n> ")
+                theme = input_fn("What speaking theme should we build around? Press Enter for Pressure Has a Purpose.\n> ")
+                package = build_speaker_booking_package(segment=segment or "schools", theme=theme or "Pressure Has a Purpose")
+                result = save_speaker_booking_package(package)
+            except (EOFError, KeyboardInterrupt):
+                output_fn("\nKeep building. Goodbye.")
+                return
+            except OSError as exc:
+                output_fn(f"Unable to write speaker booking package: {exc}")
+                continue
+            output_fn(f"\n{result.as_markdown()}\n")
             output_fn(menu())
             continue
         try:

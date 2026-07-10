@@ -13,7 +13,7 @@ def scripted_app(*answers: str, vault: OutputVault | None = None) -> str:
 def test_app_recovers_from_invalid_choice_and_empty_goal(tmp_path):
     output = scripted_app("not-a-number", "16", "1", "   ", "", "0", vault=OutputVault(tmp_path))
 
-    assert "Please enter a number from 0 to 32." in output
+    assert "Please enter a number from 0 to 39." in output
     assert "No saved outputs yet." in output
     assert "Unable to run bot: Goal cannot be empty." in output
     assert output.endswith("Keep building. Goodbye.")
@@ -34,6 +34,13 @@ def test_menu_groups_bots_and_shows_help_choice():
     assert "30. Content/Reels Package" in rendered
     assert "31. YouTube Package" in rendered
     assert "32. YouTube Upload Dry Run" in rendered
+    assert "33. Revenue Commander" in rendered
+    assert "34. Membership Program Builder" in rendered
+    assert "35. Payment Link Status" in rendered
+    assert "36. Revenue Website Pages" in rendered
+    assert "37. Social Sales Campaign" in rendered
+    assert "38. Membership Gmail Sequence" in rendered
+    assert "39. Speaker Booking Package" in rendered
     assert "H. Help / recommended workflow" in rendered
 
 
@@ -54,6 +61,8 @@ def test_help_text_names_recommended_growth_workflow():
     assert "School Outreach" in text
     assert "CRM Pipeline" in text
     assert "Executive Dashboard" in text
+    assert "Revenue Commander" in text
+    assert "Membership Program Builder" in text
 
 
 def test_app_runs_selected_bot_and_returns_to_menu(tmp_path):
@@ -65,6 +74,15 @@ def test_app_runs_selected_bot_and_returns_to_menu(tmp_path):
     assert "## Scripture-inspired principle" in output
     assert "## Concrete Motivation Angle" in output
     assert "Output was not saved." in output
+    assert output.count("CONCRETE MOTIVATION AI COMMAND CENTER") == 2
+
+
+def test_app_runs_revenue_commander_and_returns_to_menu(tmp_path):
+    vault = OutputVault(tmp_path)
+    output = scripted_app("33", "Concrete Builders Membership", "40", "400", "444", "0", vault=vault)
+
+    assert "# Revenue Commander Complete" in output
+    assert "## Weekly Revenue Scoreboard" in output
     assert output.count("CONCRETE MOTIVATION AI COMMAND CENTER") == 2
 
 

@@ -8,6 +8,7 @@ from dashboard.ceo_dashboard import main as dashboard_main
 from dashboard.content_metrics import build_content_metrics
 from dashboard.crm_metrics import build_crm_metrics
 from dashboard.metrics import build_dashboard_metrics
+from dashboard.revenue_metrics import build_revenue_metrics
 
 
 def _write_csv(path: Path, headers: list[str], rows: list[dict[str, str]]) -> None:
@@ -97,7 +98,46 @@ def test_crm_metrics_count_workflow_artifacts(tmp_path):
     assert metrics.pending_follow_ups == 3
 
 
+def test_revenue_metrics_count_workflow_artifacts(monkeypatch, tmp_path):
+    monkeypatch.setenv("CONCRETE_MOTIVATION_MONTHLY_PAYMENT_LINK", "https://pay.concretemotivation.test/monthly")
+    monkeypatch.setenv("CONCRETE_MOTIVATION_ANNUAL_PAYMENT_LINK", "https://pay.concretemotivation.test/annual")
+    monkeypatch.setenv("CONCRETE_MOTIVATION_BOOKING_PAYMENT_LINK", "https://pay.concretemotivation.test/booking")
+    monkeypatch.setenv("CONCRETE_MOTIVATION_SPONSOR_PAYMENT_LINK", "https://pay.concretemotivation.test/sponsor")
+
+    for folder in (
+        tmp_path / "outputs" / "membership" / "2026-01-01-alpha",
+        tmp_path / "outputs" / "revenue_commander" / "2026-01-02-bravo",
+        tmp_path / "outputs" / "social_sales" / "2026-01-03-charlie",
+        tmp_path / "outputs" / "speaker_booking" / "2026-01-04-delta",
+        tmp_path / "outputs" / "sales_outreach" / "sponsorship" / "2026-01-05-echo",
+    ):
+        folder.mkdir(parents=True, exist_ok=True)
+
+    metrics = build_revenue_metrics(tmp_path)
+
+    assert metrics.membership_packages_created == 1
+    assert metrics.configured_payment_links == 4
+    assert metrics.revenue_campaign_packages == 2
+    assert metrics.speaker_booking_packages == 1
+    assert metrics.sponsor_packages == 1
+    assert metrics.membership_launch_readiness_score == 100
+    assert metrics.next_revenue_command == "Review the CEO dashboard and stage the next revenue push"
+
+
 def test_dashboard_script_writes_report(monkeypatch, tmp_path, capsys):
+    monkeypatch.setenv("CONCRETE_MOTIVATION_MONTHLY_PAYMENT_LINK", "https://pay.concretemotivation.test/monthly")
+    monkeypatch.setenv("CONCRETE_MOTIVATION_ANNUAL_PAYMENT_LINK", "https://pay.concretemotivation.test/annual")
+    monkeypatch.setenv("CONCRETE_MOTIVATION_BOOKING_PAYMENT_LINK", "https://pay.concretemotivation.test/booking")
+    monkeypatch.setenv("CONCRETE_MOTIVATION_SPONSOR_PAYMENT_LINK", "https://pay.concretemotivation.test/sponsor")
+    for folder in (
+        tmp_path / "outputs" / "membership" / "2026-01-01-alpha",
+        tmp_path / "outputs" / "revenue_commander" / "2026-01-02-bravo",
+        tmp_path / "outputs" / "social_sales" / "2026-01-03-charlie",
+        tmp_path / "outputs" / "speaker_booking" / "2026-01-04-delta",
+        tmp_path / "outputs" / "sales_outreach" / "sponsorship" / "2026-01-05-echo",
+    ):
+        folder.mkdir(parents=True, exist_ok=True)
+
     dashboard_path = tmp_path / "ceo_dashboard.md"
     metrics = build_dashboard_metrics(tmp_path)
     monkeypatch.setattr("dashboard.ceo_dashboard.build_dashboard_metrics", lambda _root: metrics)
@@ -117,5 +157,7 @@ def test_dashboard_script_writes_report(monkeypatch, tmp_path, capsys):
     assert dashboard_path.is_file()
     assert "# Concrete Motivation Executive Dashboard" in dashboard_path.read_text(encoding="utf-8")
     assert "Total content packages" in output
+    assert "Membership packages created" in output
     assert "Weekly Scoreboard" in output
+    assert "Next revenue command" in output
     assert "Saved dashboard:" in output

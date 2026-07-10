@@ -59,7 +59,7 @@ The system is organized as a team of specialist bots:
 
 ## Current Status
 
-Version 8 includes the Python command center, 15-bot operating team, Gmail Outreach workflow, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine, Executive Suite, Forever Brand Factory, System Check, and command center help screen.
+Version 9 includes the Python command center, 15-bot operating team, Gmail Outreach workflow, local static website foundation, revenue commander layer, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine, Executive Suite, Forever Brand Factory, System Check, revenue tooling, and command center help screen.
 
 Offline mode uses no paid services, internet connection, account, API key, or user tracking. OpenAI mode is opt-in through environment variables and falls back to offline mode if generation is unavailable. Saved outputs stay local in `outputs/`.
 
@@ -92,11 +92,11 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `21` through `24` for the phase 2 outreach and CRM workflows, enter `25` for the executive dashboard, enter `26` for the CRM dashboard, enter `27` through `29` for school/sponsor/podcast campaigns, enter `30` for a content/reels package, enter `31` for a YouTube package, enter `32` for a YouTube upload dry run, enter `H` for help, or enter `0` to exit. CEO Bot now stages YouTube, Gmail, website, CRM, and dashboard actions before any posting or sending. For example:
+The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `21` through `24` for the phase 2 outreach and CRM workflows, enter `25` for the executive dashboard, enter `26` for the CRM dashboard, enter `27` through `29` for school/sponsor/podcast campaigns, enter `30` for a content/reels package, enter `31` for a YouTube package, enter `32` for a YouTube upload dry run, enter `33` for the Revenue Commander, `34` for the Membership Program Builder, `35` for Payment Link Status, `36` for Revenue Website Pages, `37` for Social Sales Campaign, `38` for Membership Gmail Sequence, `39` for Speaker Booking Package, enter `H` for help, or enter `0` to exit. CEO Bot now stages YouTube, Gmail, website, CRM, and dashboard actions before any posting or sending. For example:
 
 ```text
 Provider: offline
-Enter your choice (0-32): 2
+Enter your choice (0-39): 2
 What do you want this bot to create today?
 > Create a 7-minute speech about discipline after failure.
 Any specific audience, tone, or personal detail to include? Press Enter to skip.
@@ -142,6 +142,11 @@ The vault organizes files by bot type:
 - `outputs/crm`
 - `outputs/gmail_outreach`
 - `outputs/content_calendars`
+- `outputs/revenue_commander`
+- `outputs/membership`
+- `outputs/social_sales`
+- `outputs/gmail_staging`
+- `outputs/speaker_booking`
 
 Filenames include date/time, bot slug, and a short goal slug, such as `2026-06-23-120000-motivational-speech-starting-from-bottom.md`. The folders are committed, but generated Markdown files are ignored by Git so local drafts do not accidentally enter pull requests.
 
@@ -279,7 +284,7 @@ Docs:
 - `docs/CONTENT_TO_REVENUE_PIPELINE.md`
 - `docs/YOUTUBE_UPLOAD_CONFIRMATION.md`
 
-## How Version 8 Works
+## How Version 9 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
 - `prompts/` holds each specialist's durable voice and safety guidance.
@@ -313,7 +318,7 @@ Docs:
 - If OpenAI generation fails, the app prints `OpenAI generation was unavailable, so offline mode was used for this response.` and still returns a response.
 - If tests cannot import `pytest` or `openai`, activate your virtual environment and run `python -m pip install -r requirements.txt`.
 
-See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, [Website](docs/WEBSITE.md) for the static site, [YouTube Launch Kit](docs/YOUTUBE_LAUNCH.md) for media setup, and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
+See [Bot Team](docs/BOT_TEAM.md) for specialist guidance, [Runbook](docs/RUNBOOK.md) for setup and troubleshooting, [Website](docs/WEBSITE.md) for the static site, [YouTube Launch Kit](docs/YOUTUBE_LAUNCH.md) for media setup, [Revenue Commander](docs/REVENUE_COMMANDER.md), [Membership Program](docs/MEMBERSHIP_PROGRAM.md), [Payment Link Setup](docs/PAYMENT_LINK_SETUP.md), [Website Revenue Funnel](docs/WEBSITE_REVENUE_FUNNEL.md), [Social Membership Launch](docs/SOCIAL_MEMBERSHIP_LAUNCH.md), and [Roadmap](docs/ROADMAP.md) for the path beyond Version 1.
 
 ## Codex Build Prompt
 

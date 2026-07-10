@@ -62,10 +62,18 @@ def run_system_check() -> SystemCheckResult:
         "concrete_motivation.sponsorship_bot",
         "concrete_motivation.podcast_guest_bot",
         "concrete_motivation.crm_pipeline_manager",
+        "concrete_motivation.payment_link_manager",
+        "concrete_motivation.membership_program",
+        "concrete_motivation.revenue_commander",
+        "concrete_motivation.revenue_website_pages",
+        "concrete_motivation.social_sales_campaign",
+        "concrete_motivation.gmail_sales_stager",
+        "concrete_motivation.speaker_booking_engine",
         "dashboard.ceo_dashboard",
         "dashboard.metrics",
         "dashboard.content_metrics",
         "dashboard.crm_metrics",
+        "dashboard.revenue_metrics",
     ):
         try:
             importlib.import_module(module_name)
@@ -111,7 +119,11 @@ def run_system_check() -> SystemCheckResult:
             else:
                 passed.append(f"Offline run ok: {bot.slug}")
 
-    for folder_name in sorted(set(BOT_OUTPUT_FOLDERS.values()) | {CONTENT_CALENDAR_FOLDER, CONTENT_PACKAGE_FOLDER}):
+    for folder_name in sorted(
+        set(BOT_OUTPUT_FOLDERS.values())
+        | {CONTENT_CALENDAR_FOLDER, CONTENT_PACKAGE_FOLDER}
+        | {"revenue_commander", "membership", "social_sales", "gmail_staging", "speaker_booking"}
+    ):
         folder = root / "outputs" / folder_name
         if folder.is_dir():
             passed.append(f"Output folder ok: outputs/{folder_name}")

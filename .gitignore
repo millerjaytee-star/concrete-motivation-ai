@@ -3,6 +3,8 @@ __pycache__/
 .pytest_cache/
 .venv/
 .env
+*.key
+*.pem
 .coverage
 htmlcov/
 .DS_Store
@@ -14,4 +16,10 @@ outputs/sales_outreach/sponsorship/
 outputs/podcast_production/guest_outreach/
 outputs/crm/pipeline_manager/
 outputs/crm/concrete_motivation_pipeline.csv
+outputs/revenue_commander/
+outputs/membership/
+outputs/social_sales/
+outputs/gmail_staging/
+outputs/speaker_booking/
+config/payment_links.local.json
 generated_videos/*.mp4

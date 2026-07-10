@@ -13,6 +13,13 @@ from concrete_motivation.slugify import slugify
 
 VAULT_DIR = Path(__file__).resolve().parent.parent / "outputs"
 CONTENT_CALENDAR_FOLDER = "content_calendars"
+REVENUE_FOLDERS = (
+    "revenue_commander",
+    "membership",
+    "social_sales",
+    "gmail_staging",
+    "speaker_booking",
+)
 
 BOT_OUTPUT_FOLDERS: dict[str, str] = {
     "brand_architect": "brand",
@@ -41,7 +48,7 @@ class OutputVault:
 
     def ensure_folders(self) -> None:
         """Create every content vault folder when missing."""
-        for folder_name in (*BOT_OUTPUT_FOLDERS.values(), CONTENT_CALENDAR_FOLDER, CONTENT_PACKAGE_FOLDER):
+        for folder_name in (*BOT_OUTPUT_FOLDERS.values(), CONTENT_CALENDAR_FOLDER, CONTENT_PACKAGE_FOLDER, *REVENUE_FOLDERS):
             (self.root / folder_name).mkdir(parents=True, exist_ok=True)
 
     def folder_for_bot(self, bot: Bot) -> Path:
