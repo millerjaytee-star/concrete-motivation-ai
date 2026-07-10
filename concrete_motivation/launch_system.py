@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -115,6 +116,35 @@ def command_available(name: str) -> bool:
     return shutil.which(name) is not None
 
 
+def find_ffmpeg() -> str | None:
+    """Find FFmpeg from PATH, an explicit env var, or common local build locations."""
+    candidates: list[str | None] = [
+        os.environ.get("FFMPEG_BINARY"),
+        shutil.which("ffmpeg"),
+    ]
+    home = Path.home()
+    candidates.extend(
+        str(path)
+        for path in (
+            home / "Downloads" / "ffmpeg-8.1.2" / "ffmpeg",
+            home
+            / "AI-Bots"
+            / "concrete-motivation"
+            / ".venv"
+            / "lib"
+            / "python3.14"
+            / "site-packages"
+            / "imageio_ffmpeg"
+            / "binaries"
+            / "ffmpeg-macos-x86_64-v7.1",
+        )
+    )
+    for candidate in candidates:
+        if candidate and Path(candidate).is_file() and os.access(candidate, os.X_OK):
+            return candidate
+    return None
+
+
 def command_version(command: tuple[str, ...]) -> str:
     """Run a local version command without raising into the caller."""
     try:
@@ -197,9 +227,10 @@ def _check_elevenlabs() -> IntegrationCheck:
 
 
 def _check_ffmpeg() -> IntegrationCheck:
-    if command_available("ffmpeg"):
-        return IntegrationCheck("FFmpeg", "ready", f"FFmpeg is available: {command_version(('ffmpeg', '-version'))}", "Use FFmpeg for local render checks before uploads.")
-    return IntegrationCheck("FFmpeg", "manual_action_required", "ffmpeg is not on PATH for this shell.", "Install or add FFmpeg to PATH before video production.")
+    ffmpeg = find_ffmpeg()
+    if ffmpeg:
+        return IntegrationCheck("FFmpeg", "ready", f"FFmpeg is available: {command_version((ffmpeg, '-version'))}", "Use FFmpeg for local render checks before uploads.")
+    return IntegrationCheck("FFmpeg", "manual_action_required", "ffmpeg was not found on PATH, in FFMPEG_BINARY, or in known local build locations.", "Install or add FFmpeg to PATH before video production.")
 
 
 def _check_crm(root: Path) -> IntegrationCheck:
@@ -221,4 +252,3 @@ def _check_social_handoff(root: Path) -> IntegrationCheck:
     if handoff.is_file():
         return IntegrationCheck("Social Handoff", "ready", "Social handoff checklist is present.", "Use the checklist to review assets before posting manually.")
     return IntegrationCheck("Social Handoff", "blocked", "Social handoff document is missing.", "Restore social_handoff/launch_handoff.md.")
-
