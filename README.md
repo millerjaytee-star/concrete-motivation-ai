@@ -37,7 +37,7 @@ The system is organized as a team of specialist bots:
    Builds spiritually grounded motivation, self-discipline messages, leadership reflections, and renewal-of-the-mind content.
 
 9. **CEO Bot**  
-   Sets executive priorities, scoreboards, risks, decisions, and next commands.
+   Sets executive priorities, stages YouTube, Gmail, website, CRM, and dashboard actions, and issues the next command.
 
 10. **Content Director Bot**  
     Plans campaigns across YouTube, Shorts, podcast, social, email, website, and outreach.
@@ -92,7 +92,7 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `21` through `24` for the phase 2 outreach and CRM workflows, enter `25` for the executive dashboard, enter `26` for the CRM dashboard, enter `27` through `29` for school/sponsor/podcast campaigns, enter `30` for a content/reels package, enter `31` for a YouTube package, enter `32` for a YouTube upload dry run, enter `H` for help, or enter `0` to exit. For example:
+The app will display the command center menu grouped by brand/content, growth/revenue, and operations/workflows. Enter `1` through `15` to generate with a bot or workflow, enter `16` to view recent saved outputs, enter `17` to build a weekly content calendar, enter `18` for the executive team brand run, enter `19` for the Forever Brand Factory, enter `20` for the system check, enter `21` through `24` for the phase 2 outreach and CRM workflows, enter `25` for the executive dashboard, enter `26` for the CRM dashboard, enter `27` through `29` for school/sponsor/podcast campaigns, enter `30` for a content/reels package, enter `31` for a YouTube package, enter `32` for a YouTube upload dry run, enter `H` for help, or enter `0` to exit. CEO Bot now stages YouTube, Gmail, website, CRM, and dashboard actions before any posting or sending. For example:
 
 ```text
 Provider: offline

@@ -68,6 +68,25 @@ def test_app_runs_selected_bot_and_returns_to_menu(tmp_path):
     assert output.count("CONCRETE MOTIVATION AI COMMAND CENTER") == 2
 
 
+def test_ceo_bot_stages_priority_actions(tmp_path):
+    vault = OutputVault(tmp_path)
+    output = scripted_app(
+        "9",
+        "stage the next weekly move",
+        "focus on YouTube, Gmail, website, CRM, and dashboard actions",
+        "n",
+        "0",
+        vault=vault,
+    )
+
+    assert "# CEO Bot" in output
+    assert "## YouTube stage" in output
+    assert "## Gmail stage" in output
+    assert "## Website stage" in output
+    assert "## CRM stage" in output
+    assert "## Dashboard stage" in output
+
+
 def test_app_uses_optional_personalization_follow_up(tmp_path):
     output = scripted_app(
         "4",

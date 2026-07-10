@@ -96,8 +96,13 @@ def _ceo(goal: str) -> tuple[str, ...]:
     return (
         f"Make {goal} the operating priority, then judge every task by whether it builds audience, proof, trust, revenue, or execution capacity.",
         "1. Clarify the offer and audience.\n2. Publish proof-building content.\n3. Move warm relationships into conversations.\n4. Protect the weekly execution rhythm.\n5. Review the scoreboard before adding new ideas.\n6. Decide what will not be worked on this week.",
-        "Revenue conversations, content published, leads added, follow-ups sent, meetings booked, offers made, assets shipped, testimonials requested, and lessons captured.",
+        "Stage YouTube: package one anchor video, three Shorts, thumbnail notes, title options, description notes, and a no-upload checklist so the channel is ready without posting automatically.",
+        "Stage Gmail: draft the opening email, follow-up 1, follow-up 2, label rules, and a daily send block so outreach moves in a controlled sequence.",
+        "Stage Website: prepare the next proof section, booking call-to-action, podcast entry point, and any copy updates that support the current theme.",
+        "Stage CRM: add or update leads, set stage, next follow-up date, source, and owner, then identify the three contacts that need attention first.",
+        "Stage Dashboard: record the weekly scoreboard, pending follow-ups, new assets shipped, and the one bottleneck that needs a decision today.",
         "Risk: scattered execution. Control: one weekly theme and one owner per outcome.\nRisk: content without sales motion. Control: every campaign creates a next conversation.\nRisk: vague progress. Control: numbers reviewed every Friday.",
+        "Revenue conversations, content published, leads added, follow-ups sent, meetings booked, offers made, assets shipped, testimonials requested, and lessons captured.",
         "Choose the one decision that unlocks the week, write it in plain language, assign the next action, and review progress within 48 hours.",
     )
 
