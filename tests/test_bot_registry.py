@@ -1,14 +1,14 @@
 from concrete_motivation.bot_registry import get_bot, list_bots
 
 
-def test_registry_contains_all_eight_bots_in_menu_order():
+def test_registry_contains_all_nine_bots_in_menu_order():
     bots = list_bots()
 
-    assert len(bots) == 8
-    assert [bot.id for bot in bots] == list(range(1, 9))
-    assert len({bot.slug for bot in bots}) == 8
+    assert len(bots) == 9
+    assert [bot.id for bot in bots] == list(range(1, 10))
+    assert len({bot.slug for bot in bots}) == 9
     assert bots[0].name == "Brand Architect Bot"
-    assert bots[-1].name == "Faith & Mindset Bot"
+    assert bots[-1].name == "CEO Bot"
 
 
 def test_each_registered_prompt_exists_and_has_content():
@@ -19,6 +19,7 @@ def test_each_registered_prompt_exists_and_has_content():
 
 def test_get_bot_supports_number_and_slug():
     assert get_bot(2) is get_bot("motivational_speech")
+    assert get_bot(9) is get_bot("ceo_bot")
 
 
 def test_get_bot_rejects_unknown_identifier():

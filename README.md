@@ -36,6 +36,9 @@ The system is organized as a team of specialist bots:
 8. **Faith & Mindset Bot**  
    Builds spiritually grounded motivation, self-discipline messages, leadership reflections, and renewal-of-the-mind content.
 
+9. **CEO Bot**  
+   Coordinates the championship launch operating system across YouTube, Gmail, website, Stripe, ElevenLabs, FFmpeg, CRM, dashboard, and social handoff with safety controls.
+
 ## Current Status
 
 Version 7 includes the Python command center, local static website foundation, and YouTube Channel Launch Kit for Concrete Motivation and Concrete Conversations. The command center still runs offline by default, supports optional OpenAI generation when configured, saves Markdown assets to the output vault, and includes a Weekly Content Calendar Engine.
@@ -71,7 +74,7 @@ python main.py
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. If your system exposes Python as `python3`, use that command in place of `python`.
 
-The app will display the bot menu. Enter `1` through `8` to generate with a bot, enter `9` to view recent saved outputs, enter `10` to build a weekly content calendar, or enter `0` to exit. For example:
+The app will display the bot menu. Enter `1` through `9` to generate with a bot, enter `10` to view recent saved outputs, enter `11` to build a weekly content calendar, or enter `0` to exit. For example:
 
 ```text
 Provider: offline
@@ -172,6 +175,18 @@ The launch kit lives in `youtube_launch/` and includes channel setup guidance, p
 
 Use the website as the booking and brand home. Use the output vault to save scripts, descriptions, pinned comments, thumbnail text, Shorts cutdowns, and community post ideas.
 
+## Championship Launch System
+
+The championship launch system adds a CEO Bot, local verification script, private-only YouTube upload harness, CRM template, local launch dashboard, and social handoff checklist.
+
+```bash
+python scripts/verify_launch_system.py
+python scripts/verify_launch_system.py --json
+python scripts/test_youtube_upload.py
+```
+
+The default flow is safe by design: no Gmail sends, public YouTube publishing, live Stripe actions, or secret commits happen from these scripts. The YouTube harness is locked to one private verification video and requires an explicit operator gate before it can execute.
+
 ## How Version 7 Works
 
 - `concrete_motivation/bot_registry.py` is the single source of truth for bot metadata and response sections.
@@ -183,7 +198,11 @@ Use the website as the booking and brand home. Use the output vault to save scri
 - `concrete_motivation/output_vault.py` saves full Markdown responses with metadata and lists recent saved outputs.
 - `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
 - `concrete_motivation/content_calendar.py` creates the offline 7-day Weekly Content Calendar Engine output.
+- `concrete_motivation/launch_system.py` verifies the local championship launch system without external side effects.
 - `website/` holds the static public website foundation.
+- `dashboard/` holds the local launch readiness dashboard.
+- `crm/` holds a safe lead pipeline template, not private lead data.
+- `social_handoff/` holds manual posting and launch handoff guidance.
 - `youtube_launch/` holds the YouTube channel launch kit and repeatable media system.
 - Offline mode sends no input or output over the internet and saves nothing to disk.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.

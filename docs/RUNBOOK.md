@@ -120,9 +120,9 @@ The YouTube kit connects to the website for booking and public brand context. It
 - **Python is not found:** install Python 3.11+ and restart VS Code.
 - **pytest or openai is not found:** activate `.venv` and run the install command again.
 - **Prompt file not found:** run from the repository checkout and restore the `prompts/` directory. Paths are resolved from the package, so the app does not depend on the terminal's current folder.
-- **Input was rejected:** choose a menu number from 0 to 10 and enter a non-empty goal or calendar theme. The personalization follow-up is optional and can be blank.
+- **Input was rejected:** choose a menu number from 0 to 11 and enter a non-empty goal or calendar theme. The personalization follow-up is optional and can be blank.
 - **Output did not save:** press Enter or type `y` at the save prompt. Typing `n` skips saving.
-- **Recent outputs are empty:** save at least one response first, then choose menu option `9`.
+- **Recent outputs are empty:** save at least one response first, then choose menu option `10`.
 - **OpenAI mode shows offline:** confirm `CONCRETE_AI_PROVIDER=openai` and `OPENAI_API_KEY` are both set in the same terminal session.
 - **OpenAI generation failed:** the app automatically uses offline mode for that response. Check your key, billing, network connection, and package install before trying OpenAI mode again.
 - **Stop the app:** enter `0`, press Ctrl+C, or send end-of-file (Ctrl+D on macOS/Linux; Ctrl+Z then Enter on Windows).
@@ -130,3 +130,13 @@ The YouTube kit connects to the website for booking and public brand context. It
 ## Operating rhythm
 
 Start with one clear business or content goal, select the best specialist or build a weekly calendar, add any audience or personal context that matters, save useful drafts to the vault, edit the draft in your own voice, verify factual or scriptural claims, and move the finished asset into the tool where it will be used. Version 7 offline mode sends nothing over the internet; OpenAI mode sends bot prompt context to OpenAI to generate bot responses. Use the website as the public-facing brand foundation and the YouTube kit as the channel launch system.
+
+## Championship Launch Verification
+
+Use CEO Bot when launch decisions span multiple systems. Run:
+
+```bash
+python scripts/verify_launch_system.py
+```
+
+Review `dashboard/launch_dashboard.html`, `crm/lead_pipeline_template.csv`, and `social_handoff/launch_handoff.md` before public launch work. YouTube verification stays private, Gmail stays draft/review only, Stripe stays manual until approved, and no secrets or private lead data should be committed.

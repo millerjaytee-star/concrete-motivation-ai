@@ -22,6 +22,7 @@ BOT_OUTPUT_FOLDERS: dict[str, str] = {
     "business_growth": "business_growth",
     "operations": "operations",
     "faith_mindset": "faith_mindset",
+    "ceo_bot": "operations",
 }
 
 

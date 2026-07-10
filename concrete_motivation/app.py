@@ -17,7 +17,7 @@ BANNER = """====================================
 
 def menu() -> str:
     choices = "\n".join(f"{bot.id}. {bot.name}" for bot in list_bots())
-    return f"{BANNER}\n\nChoose a bot:\n{choices}\n9. View recent saved outputs\n10. Weekly Content Calendar Engine\n0. Exit"
+    return f"{BANNER}\n\nChoose a bot:\n{choices}\n10. View recent saved outputs\n11. Weekly Content Calendar Engine\n0. Exit"
 
 
 def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault | None = None) -> None:
@@ -29,7 +29,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
     output_fn(menu())
     while True:
         try:
-            raw_choice = input_fn("\nEnter your choice (0-10): ").strip()
+            raw_choice = input_fn("\nEnter your choice (0-11): ").strip()
         except (EOFError, KeyboardInterrupt):
             output_fn("\nKeep building. Goodbye.")
             return
@@ -37,7 +37,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
         if raw_choice == "0":
             output_fn("Keep building. Goodbye.")
             return
-        if raw_choice == "9":
+        if raw_choice == "10":
             recent = output_vault.recent_outputs()
             if recent:
                 output_fn("Recent saved outputs:\n" + "\n".join(str(path) for path in recent))
@@ -45,7 +45,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
                 output_fn("No saved outputs yet.")
             output_fn(menu())
             continue
-        if raw_choice == "10":
+        if raw_choice == "11":
             try:
                 theme = input_fn("What is the main theme for this week?\n> ")
                 detail = input_fn("Any audience, platform, event, or business goal to include? Press Enter to skip.\n> ")
@@ -74,7 +74,7 @@ def run(input_fn: Input = input, output_fn: Output = print, vault: OutputVault |
             choice = int(raw_choice)
             bot = get_bot(choice)
         except (ValueError, TypeError):
-            output_fn("Please enter a number from 0 to 10.")
+            output_fn("Please enter a number from 0 to 11.")
             continue
 
         try:

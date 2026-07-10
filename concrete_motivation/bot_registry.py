@@ -34,6 +34,8 @@ BOTS: tuple[Bot, ...] = (
          ("Weekly priorities", "Task checklist", "SOP idea", "Owner", "Deadline suggestions")),
     _bot(8, "faith_mindset", "Faith & Mindset Bot", "Create spiritually grounded mindset content.",
          ("Theme", "Reflection", "Scripture-inspired principle", "Practical action", "Closing affirmation")),
+    _bot(9, "ceo_bot", "CEO Bot", "Coordinate the launch operating system across content, revenue, and operations.",
+         ("Executive decision", "Launch scoreboard", "System alignment", "Risk controls", "Next 72 hours")),
 )
 
 _BOTS_BY_ID = {bot.id: bot for bot in BOTS}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Concrete Motivation Launch Dashboard</title>
+    <style>
+      :root { color-scheme: dark; font-family: Arial, sans-serif; background: #111; color: #f5f1e8; }
+      body { margin: 0; padding: 32px; }
+      main { max-width: 1040px; margin: 0 auto; }
+      h1, h2 { margin: 0 0 12px; }
+      p { line-height: 1.55; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+      .tile { border: 1px solid #4a463e; border-radius: 8px; padding: 16px; background: #1b1a17; }
+      .status { color: #d9b35f; font-weight: 700; text-transform: uppercase; font-size: 12px; }
+      .ready { color: #85d18a; }
+      .guard { color: #f0c46b; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="status guard">Private launch review</p>
+      <h1>Concrete Motivation Championship Launch Dashboard</h1>
+      <p>Use this local dashboard to review readiness across CEO Bot, YouTube, Gmail, Website, Stripe, ElevenLabs, FFmpeg, CRM, and social handoff before any public launch action.</p>
+      <section class="grid" aria-label="Launch systems">
+        <article class="tile"><p class="status ready">Ready</p><h2>CEO Bot</h2><p>Coordinates launch decisions, risk controls, and next actions.</p></article>
+        <article class="tile"><p class="status guard">Private only</p><h2>YouTube</h2><p>Verification upload must stay private until manually approved.</p></article>
+        <article class="tile"><p class="status guard">Draft only</p><h2>Gmail</h2><p>Prepare copy, but do not send emails from automation.</p></article>
+        <article class="tile"><p class="status ready">Ready</p><h2>Website</h2><p>Static booking and brand home with honest no-send form language.</p></article>
+        <article class="tile"><p class="status guard">Manual</p><h2>Stripe</h2><p>No live payment actions until offer and pricing are approved.</p></article>
+        <article class="tile"><p class="status guard">Manual</p><h2>ElevenLabs</h2><p>No API keys or generated voice artifacts committed.</p></article>
+        <article class="tile"><p class="status ready">Local check</p><h2>FFmpeg</h2><p>Used for render inspection before upload handoff.</p></article>
+        <article class="tile"><p class="status ready">Template</p><h2>CRM</h2><p>Lead pipeline template exists; private lead data stays local.</p></article>
+        <article class="tile"><p class="status ready">Checklist</p><h2>Social Handoff</h2><p>Manual posting pack for captions, clips, and follow-up.</p></article>
+      </section>
+    </main>
+  </body>
+</html>

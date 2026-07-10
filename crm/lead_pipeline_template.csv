@@ -1,0 +1,4 @@
+stage,lead_name,organization,contact_name,email,source,next_action,owner,follow_up_date,notes
+new,,,,website booking form,review fit,Jaytee,,Do not commit private lead data in this template.
+warm,,,,manual referral,prepare draft outreach,Jaytee,,Send only after explicit approval.
+proposal,,,,speaking inquiry,confirm offer and pricing,Jaytee,,Keep Stripe/payment details out of Git.

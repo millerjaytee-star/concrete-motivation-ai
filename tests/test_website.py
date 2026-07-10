@@ -51,6 +51,7 @@ def test_required_website_files_exist():
     assert (WEBSITE_DIR / "assets" / ".gitkeep").is_file()
     assert (WEBSITE_DIR / "assets" / "concrete-hero.png").is_file()
     assert (WEBSITE_DIR / "assets" / "favicon.svg").is_file()
+    assert (WEBSITE_DIR.parent / "dashboard" / "launch_dashboard.html").is_file()
 
 
 def test_homepage_contains_required_sections_and_ctas():
@@ -89,6 +90,24 @@ def test_booking_form_is_accessible_and_honest():
     assert {"name", "email", "organization", "event-type", "date", "audience", "message"}.issubset(parser.inputs)
     assert parser.inputs.issubset(parser.labels_for)
     assert "No message is sent from the site." in parser.text
+
+
+def test_launch_dashboard_names_required_systems():
+    dashboard = (WEBSITE_DIR.parent / "dashboard" / "launch_dashboard.html").read_text(encoding="utf-8")
+
+    for phrase in (
+        "CEO Bot",
+        "YouTube",
+        "Gmail",
+        "Website",
+        "Stripe",
+        "ElevenLabs",
+        "FFmpeg",
+        "CRM",
+        "Social Handoff",
+        "Private launch review",
+    ):
+        assert phrase in dashboard
 
 
 def test_styles_include_responsive_rules_and_hero_asset():

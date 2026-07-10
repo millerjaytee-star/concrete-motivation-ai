@@ -92,6 +92,16 @@ def _faith(goal: str) -> tuple[str, ...]:
     )
 
 
+def _ceo(goal: str) -> tuple[str, ...]:
+    return (
+        f"Treat {goal} as the operating priority. The CEO Bot's job is to protect the mission, sequence the work, and keep every tool aligned to one measurable launch outcome.",
+        "North star: private verified media upload, ready website funnel, safe outreach queue, revenue path prepared, CRM pipeline visible, and dashboard status reviewed before anything public goes live.",
+        "YouTube stays private until approved. Gmail drafts may be prepared but not sent. Stripe links may be documented but no charges are created. ElevenLabs and FFmpeg support production readiness. CRM, dashboard, and social handoff keep the next human action clear.",
+        "Never commit secrets, never send email without explicit approval, never publish public video from automation, never create live payments without approval, and never treat an unverified integration as launch-ready.",
+        "1. Verify each integration in read-only or dry-run mode.\n2. Fix local errors and rerun tests.\n3. Review the launch dashboard.\n4. Move approved assets into the CRM and social handoff queue.\n5. Ask for explicit approval before any external send, charge, or public publish.",
+    )
+
+
 BUILDERS: dict[str, SectionBuilder] = {
     "brand_architect": _brand,
     "motivational_speech": _speech,
@@ -101,6 +111,7 @@ BUILDERS: dict[str, SectionBuilder] = {
     "business_growth": _business,
     "operations": _operations,
     "faith_mindset": _faith,
+    "ceo_bot": _ceo,
 }
 
 
