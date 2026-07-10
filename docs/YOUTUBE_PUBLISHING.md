@@ -9,6 +9,7 @@ This repo now has a local YouTube publishing workflow built around Composio and 
 - `scripts/create_youtube_package.py` creates a package without uploading.
 - `scripts/youtube_upload_dry_run.py` prints the exact upload command without running it.
 - `scripts/youtube_upload_confirmed.py` only runs after the user types `UPLOAD TO YOUTUBE`.
+- `scripts/test_youtube_upload.py` performs a single private verification upload of `generated_videos/01_built_under_pressure.mp4` and reports upload status, video ID, video URL, and channel name.
 
 ## Exact YouTube Action
 
@@ -67,6 +68,23 @@ UPLOAD TO YOUTUBE
 ```
 
 If the upload fails because the account is not connected, connect with `composio link youtube` and rerun the script.
+
+## Verification Upload
+
+This verification path is intentionally limited to one video:
+
+```bash
+python3 scripts/test_youtube_upload.py
+```
+
+It uses:
+
+- Title: `Built Under Pressure`
+- Description: `Test upload from Concrete Motivation AI Operating System.`
+- Visibility: `private`
+- Video file: `generated_videos/01_built_under_pressure.mp4`
+
+The script first checks the Composio YouTube connection, then uploads the single generated video, then queries the channel list so it can print the channel name. It never publishes publicly and never uploads more than one video.
 
 ## Recommended Flow
 

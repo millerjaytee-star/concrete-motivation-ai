@@ -33,3 +33,12 @@ If the Composio connection fails, run:
 composio link youtube
 ```
 
+## Verification Upload
+
+To run the private verification upload against the generated reel, use:
+
+```bash
+python3 scripts/test_youtube_upload.py
+```
+
+That script uploads only `generated_videos/01_built_under_pressure.mp4` with the title `Built Under Pressure` and the description `Test upload from Concrete Motivation AI Operating System.` It reports upload status, video ID, video URL, and channel name after the upload attempt.

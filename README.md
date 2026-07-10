@@ -240,6 +240,7 @@ The launch kit lives in `youtube_launch/` and includes channel setup guidance, p
 
 The publishing workflow lives in `docs/YOUTUBE_PUBLISHING.md` and is built around the cached Composio YouTube action `YOUTUBE_MULTIPART_UPLOAD_VIDEO`.
 Use `scripts/create_youtube_package.py` to draft a package, `scripts/youtube_upload_dry_run.py` to preview the exact command, and `scripts/youtube_upload_confirmed.py` only after typing `UPLOAD TO YOUTUBE`.
+Use `scripts/test_youtube_upload.py` to run the private verification upload against `generated_videos/01_built_under_pressure.mp4`. It checks the Composio connection first, uploads one video only, and reports upload status, video ID, video URL, and channel name.
 
 Use the website as the booking and brand home. Use the output vault to save scripts, descriptions, pinned comments, thumbnail text, Shorts cutdowns, and community post ideas.
 

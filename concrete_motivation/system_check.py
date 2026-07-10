@@ -59,6 +59,7 @@ def run_system_check() -> SystemCheckResult:
         "concrete_motivation.reels_script_writer",
         "concrete_motivation.content_reels_factory",
         "concrete_motivation.content_batch_runner",
+        "concrete_motivation.youtube_upload_verification",
         "concrete_motivation.school_outreach_bot",
         "concrete_motivation.sponsorship_bot",
         "concrete_motivation.podcast_guest_bot",
