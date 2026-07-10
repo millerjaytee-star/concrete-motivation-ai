@@ -16,16 +16,28 @@ import paths on some Macs. Pillow + imageio is simpler and more reliable here.
 """
 from __future__ import annotations
 
+import argparse
+import os
+import sys
 import textwrap
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 try:
     import imageio.v2 as imageio
+    import imageio_ffmpeg
     from PIL import Image, ImageDraw, ImageFont
+    import numpy as np
 except ImportError as exc:  # pragma: no cover - depends on optional local media packages.
     raise SystemExit(
         "Missing video dependencies. Run: python3 -m pip install pillow imageio imageio-ffmpeg"
     ) from exc
+
+from concrete_motivation.ffmpeg_tools import configure_imageio_ffmpeg, ffmpeg_status
+from concrete_motivation.ffmpeg_tools import bundled_imageio_ffmpeg_binary, ffmpeg_supports_encoder
 
 WIDTH, HEIGHT = 1080, 1920
 DURATION_SECONDS = 12
@@ -116,20 +128,41 @@ def make_frame(item: dict[str, str]) -> Image.Image:
     return image
 
 
-def make_video(item: dict[str, str], output_dir: Path) -> Path:
-    output = output_dir / item["filename"]
+def _write_video(item: dict[str, str], output: Path) -> Path:
     frame = make_frame(item)
-    with imageio.get_writer(output, fps=FPS, codec="libx264", quality=8) as writer:
+    with imageio.get_writer(
+        output,
+        fps=FPS,
+        codec="libx264",
+        quality=8,
+        macro_block_size=1,
+    ) as writer:
         for _ in range(DURATION_SECONDS * FPS):
-            writer.append_data(frame)
+            writer.append_data(np.asarray(frame))
     return output
-
-
 def main() -> None:
-    output_dir = Path("generated_videos")
+    parser = argparse.ArgumentParser(description="Create the first 3 Concrete Motivation reels.")
+    parser.add_argument(
+        "--ffmpeg-bin",
+        default=os.getenv("CONCRETE_MOTIVATION_FFMPEG_BIN", ""),
+        help="Preferred ffmpeg binary path or directory",
+    )
+    args = parser.parse_args()
+
+    resolved = configure_imageio_ffmpeg(args.ffmpeg_bin or None)
+    bundled = bundled_imageio_ffmpeg_binary() or Path(imageio_ffmpeg.get_ffmpeg_exe())
+    if args.ffmpeg_bin and not ffmpeg_supports_encoder(resolved, "libx264"):
+        print(f"Preferred ffmpeg does not support libx264: {resolved}")
+        print(f"Falling back to bundled ffmpeg: {bundled}")
+        resolved = configure_imageio_ffmpeg(bundled)
+    status = ffmpeg_status(args.ffmpeg_bin or None)
+    print(status.as_markdown())
+    print(f"Using ffmpeg binary: {resolved}")
+
+    output_dir = ROOT / "generated_videos"
     output_dir.mkdir(exist_ok=True)
     for item in VIDEOS:
-        path = make_video(item, output_dir)
+        path = _write_video(item, output_dir / item["filename"])
         print(f"Created {path}")
 
 

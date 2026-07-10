@@ -55,6 +55,7 @@ def run_system_check() -> SystemCheckResult:
         "concrete_motivation.providers.offline_provider",
         "concrete_motivation.output_vault",
         "concrete_motivation.content_package_models",
+        "concrete_motivation.ffmpeg_tools",
         "concrete_motivation.reels_script_writer",
         "concrete_motivation.content_reels_factory",
         "concrete_motivation.content_batch_runner",

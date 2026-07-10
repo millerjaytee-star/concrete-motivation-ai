@@ -195,6 +195,31 @@ python3 scripts/system_check.py
 
 The system check imports the command center modules, verifies prompt files and output vault mappings, confirms output folders, and runs every registered bot in offline mode. It can also show warnings for repo hygiene issues such as `.DS_Store`, duplicate empty files, generated MP4s, or prompt paths that should be normalized later.
 
+## Local FFmpeg Setup
+
+Concrete Motivation will use a locally available ffmpeg binary when generating MP4 assets.
+
+By default the repo falls back to the `imageio-ffmpeg` bundled binary in the virtual environment if a system binary is not found.
+You can point the project at a specific binary or build tree with:
+
+```bash
+export CONCRETE_MOTIVATION_FFMPEG_BIN="/Users/jayteemiller/Downloads/ffmpeg-8.1.2"
+```
+
+If that path contains a built executable, the reel generator and FFmpeg check script will use it. Otherwise they fall back to the bundled binary.
+
+To inspect the active encoder:
+
+```bash
+python3 scripts/check_ffmpeg.py
+```
+
+To render the first three reels with a specific binary:
+
+```bash
+python3 scripts/make_first_3_reels.py --ffmpeg-bin "/Users/jayteemiller/Downloads/ffmpeg-8.1.2"
+```
+
 ## Preview the Website
 
 Open `website/index.html` in a browser. The website is static and needs no backend, build step, API key, payment setup, form service, or deployment.
