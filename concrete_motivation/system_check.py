@@ -8,7 +8,8 @@ from pathlib import Path
 
 from concrete_motivation.bot_registry import list_bots
 from concrete_motivation.bot_runner import BotRunner
-from concrete_motivation.output_vault import BOT_OUTPUT_FOLDERS
+from concrete_motivation.output_vault import BOT_OUTPUT_FOLDERS, CONTENT_CALENDAR_FOLDER, OutputVault
+from concrete_motivation.content_package_models import CONTENT_PACKAGE_FOLDER
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,6 +45,7 @@ def run_system_check() -> SystemCheckResult:
     failed: list[str] = []
     warnings: list[str] = []
     root = Path(__file__).resolve().parent.parent
+    OutputVault().ensure_folders()
 
     for module_name in (
         "main",
@@ -52,6 +54,10 @@ def run_system_check() -> SystemCheckResult:
         "concrete_motivation.bot_runner",
         "concrete_motivation.providers.offline_provider",
         "concrete_motivation.output_vault",
+        "concrete_motivation.content_package_models",
+        "concrete_motivation.reels_script_writer",
+        "concrete_motivation.content_reels_factory",
+        "concrete_motivation.content_batch_runner",
     ):
         try:
             importlib.import_module(module_name)
@@ -97,7 +103,7 @@ def run_system_check() -> SystemCheckResult:
             else:
                 passed.append(f"Offline run ok: {bot.slug}")
 
-    for folder_name in sorted(set(BOT_OUTPUT_FOLDERS.values())):
+    for folder_name in sorted(set(BOT_OUTPUT_FOLDERS.values()) | {CONTENT_CALENDAR_FOLDER, CONTENT_PACKAGE_FOLDER}):
         folder = root / "outputs" / folder_name
         if folder.is_dir():
             passed.append(f"Output folder ok: outputs/{folder_name}")

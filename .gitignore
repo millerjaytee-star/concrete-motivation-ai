@@ -7,4 +7,6 @@ __pycache__/
 htmlcov/
 .DS_Store
 outputs/**/*.md
+outputs/content_packages/
+outputs/youtube_packages/
 generated_videos/*.mp4

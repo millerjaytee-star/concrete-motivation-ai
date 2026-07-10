@@ -208,7 +208,35 @@ The first website foundation includes:
 
 The launch kit lives in `youtube_launch/` and includes channel setup guidance, paste-ready YouTube copy, video templates, the first 10 video plans, a Shorts system, thumbnail guide, and upload checklist.
 
+The publishing workflow lives in `docs/YOUTUBE_PUBLISHING.md` and is built around the cached Composio YouTube action `YOUTUBE_MULTIPART_UPLOAD_VIDEO`.
+Use `scripts/create_youtube_package.py` to draft a package, `scripts/youtube_upload_dry_run.py` to preview the exact command, and `scripts/youtube_upload_confirmed.py` only after typing `UPLOAD TO YOUTUBE`.
+
 Use the website as the booking and brand home. Use the output vault to save scripts, descriptions, pinned comments, thumbnail text, Shorts cutdowns, and community post ideas.
+
+## Content + Reels Factory
+
+The new offline content factory lives in `docs/CONTENT_REELS_FACTORY.md` and writes to `outputs/content_packages/`.
+
+Use it to generate:
+
+- YouTube concepts
+- 60-second reel scripts
+- 30-second short scripts
+- 15-second hooks
+- Instagram, Facebook, and LinkedIn copy
+- YouTube title, description, tags, and thumbnail notes
+- Podcast segment ideas
+- Repurpose plans
+
+Commands:
+
+```bash
+python3 scripts/create_content_package.py "discipline after pressure" --audience "high school athletes"
+python3 scripts/create_reels_batch.py --theme "one brick at a time" --count 3
+python3 scripts/create_30_day_content_batch.py --theme "Pressure Has a Purpose" --audience "students and fathers"
+```
+
+The factory does not post, upload, or send anything automatically.
 
 ## How Version 8 Works
 
@@ -221,9 +249,12 @@ Use the website as the booking and brand home. Use the output vault to save scri
 - `concrete_motivation/output_vault.py` saves full Markdown responses with metadata and lists recent saved outputs.
 - `concrete_motivation/slugify.py` creates safe file slugs for vault filenames.
 - `concrete_motivation/content_calendar.py` creates the offline 7-day Weekly Content Calendar Engine output.
+- `concrete_motivation/content_package_models.py`, `reels_script_writer.py`, `content_reels_factory.py`, and `content_batch_runner.py` power the offline content + reels factory.
 - `concrete_motivation/system_check.py` validates imports, prompt files, output mappings, and offline bot execution.
 - `website/` holds the static public website foundation.
 - `youtube_launch/` holds the YouTube channel launch kit and repeatable media system.
+- `docs/YOUTUBE_PUBLISHING.md` documents the Composio-backed upload workflow and confirmation gate.
+- `docs/CONTENT_REELS_FACTORY.md` documents the offline content and reels factory.
 - Offline mode sends no input or output over the internet. It only writes to disk when you choose to save an output to the local vault.
 - OpenAI mode sends the selected bot, goal, optional personalization detail, and brand profile to OpenAI for generation.
 

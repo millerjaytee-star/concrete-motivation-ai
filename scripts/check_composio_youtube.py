@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
-"""Check local Composio readiness for YouTube publishing.
-
-This script is safe: it does not upload, modify, or delete anything.
-It only runs local Composio CLI discovery commands and prints what it finds.
-"""
+"""Check local Composio readiness for YouTube publishing."""
 
 from __future__ import annotations
 
 import shutil
 import subprocess
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -54,6 +51,11 @@ def print_result(result: CommandResult) -> None:
         print("(no output)")
 
 
+def load_cached_youtube_actions() -> list[str]:
+    cache_dir = Path.home() / ".composio" / "tool_definitions"
+    return sorted(path.stem for path in cache_dir.glob("YOUTUBE*.json"))
+
+
 def main() -> int:
     print_section("Concrete Motivation YouTube Publishing Readiness Check")
 
@@ -64,10 +66,10 @@ def main() -> int:
 
     checks = [
         ("Composio version/help", ("composio", "--help")),
-        ("Connected accounts", ("composio", "connections", "list")),
+        ("Toolkit connection list", ("composio", "connections", "list", "--toolkit", "youtube")),
         ("Developer connected accounts", ("composio", "dev", "connected-accounts", "list")),
-        ("Tool/action discovery", ("composio", "tools", "list")),
-        ("Action discovery", ("composio", "actions", "list")),
+        ("YouTube toolkit tools", ("composio", "tools", "list", "youtube", "--limit", "50")),
+        ("YouTube upload tool schema", ("composio", "execute", "YOUTUBE_MULTIPART_UPLOAD_VIDEO", "--get-schema", "--skip-checks")),
     ]
 
     combined = []
@@ -77,23 +79,39 @@ def main() -> int:
         print_result(result)
         combined.append(result.text.lower())
 
+    print_section("Cached YouTube Actions")
+    cached_actions = load_cached_youtube_actions()
+    if cached_actions:
+        for slug in cached_actions:
+            print(slug)
+    else:
+        print("(no cached YouTube tool definitions found)")
+
     searchable = "\n".join(combined)
     print_section("YouTube Result")
-    youtube_found = "youtube" in searchable
-    upload_found = any(word in searchable for word in ("upload", "video", "publish")) and youtube_found
+    youtube_found = "youtube" in searchable or bool(cached_actions)
+    upload_found = "YOUTUBE_MULTIPART_UPLOAD_VIDEO" in cached_actions
+    connected_confirmed = "active" in searchable and "youtube" in searchable
 
     if youtube_found:
-        print("YouTube appears somewhere in the local Composio output.")
+        print("YouTube toolkit definitions are available locally.")
     else:
         print("YouTube was not found in the visible local Composio output.")
         print("Next step: run `composio dev init`, then connect/enable YouTube in Composio.")
 
     if upload_found:
-        print("A likely YouTube publishing/upload capability appears to be available.")
-        print("Next step: build the confirmed uploader around the exact action name shown above.")
+        print("Upload/publish action confirmed: YOUTUBE_MULTIPART_UPLOAD_VIDEO")
+        print("Use this exact Composio command shape when uploading:")
+        print("composio execute YOUTUBE_MULTIPART_UPLOAD_VIDEO --file <video-path> -d '<payload-json>'")
     else:
-        print("No confirmed YouTube upload/publish action was detected from these CLI checks.")
-        print("Next step: paste this full output into Codex/ChatGPT so the exact CLI path can be wired up.")
+        print("No confirmed YouTube upload/publish action was detected from the cached tool list.")
+        print("Next step: inspect ~/.composio/tool_definitions or rerun Composio sync after login.")
+
+    if connected_confirmed:
+        print("YouTube appears connected in the available CLI output.")
+    else:
+        print("YouTube connection was not confirmed from this environment.")
+        print("Exact connect command: composio link youtube")
 
     return 0 if youtube_found else 2
 

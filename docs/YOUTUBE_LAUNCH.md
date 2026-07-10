@@ -15,3 +15,5 @@ Version 7 adds a YouTube launch kit in `youtube_launch/` for Concrete Motivation
 ## Workflow
 
 Use the website as the public home and booking destination. Use the output vault to save scripts, captions, pinned comments, thumbnail text, upload notes, and repurposed Shorts plans. No YouTube API, posting automation, payments, or deployment are included in Version 7.
+
+For the Composio-backed publishing workflow, see [YouTube Publishing](docs/YOUTUBE_PUBLISHING.md).

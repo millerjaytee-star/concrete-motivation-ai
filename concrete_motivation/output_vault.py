@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 from concrete_motivation.content_calendar import CALENDAR_NAME, WeeklyContentCalendar
+from concrete_motivation.content_package_models import CONTENT_PACKAGE_FOLDER
 from concrete_motivation.models import Bot, BotResponse
 from concrete_motivation.slugify import slugify
 
@@ -40,7 +41,7 @@ class OutputVault:
 
     def ensure_folders(self) -> None:
         """Create every content vault folder when missing."""
-        for folder_name in (*BOT_OUTPUT_FOLDERS.values(), CONTENT_CALENDAR_FOLDER):
+        for folder_name in (*BOT_OUTPUT_FOLDERS.values(), CONTENT_CALENDAR_FOLDER, CONTENT_PACKAGE_FOLDER):
             (self.root / folder_name).mkdir(parents=True, exist_ok=True)
 
     def folder_for_bot(self, bot: Bot) -> Path:

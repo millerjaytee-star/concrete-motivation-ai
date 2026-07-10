@@ -7,11 +7,12 @@ integration after explicit confirmation.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from pathlib import Path
 import json
 import re
 from datetime import datetime
+from dataclasses import dataclass, field
+from pathlib import Path
+from shlex import join as shell_join
 
 
 DEFAULT_TAGS = [
@@ -26,6 +27,8 @@ DEFAULT_TAGS = [
     "mindset",
     "Concrete Conversations",
 ]
+YOUTUBE_UPLOAD_TOOL = "YOUTUBE_MULTIPART_UPLOAD_VIDEO"
+YOUTUBE_DEFAULT_CATEGORY_ID = "22"
 
 
 @dataclass(frozen=True)
@@ -81,6 +84,15 @@ class YouTubePublishPackage:
 {shorts}
 """
 
+    def composio_payload(self, category_id: str = YOUTUBE_DEFAULT_CATEGORY_ID) -> dict[str, object]:
+        return {
+            "title": self.title,
+            "description": self.description,
+            "categoryId": category_id,
+            "privacyStatus": self.visibility,
+            "tags": self.tags,
+        }
+
 
 def slugify(value: str) -> str:
     cleaned = re.sub(r"[^a-zA-Z0-9]+", "-", value.strip().lower()).strip("-")
@@ -119,6 +131,33 @@ def build_package(topic: str, video_path: str = "", visibility: str = "private")
         thumbnail_notes=thumbnail_notes,
         shorts_plan=shorts_plan,
     )
+
+
+def build_execute_command(
+    package: YouTubePublishPackage,
+    *,
+    category_id: str = YOUTUBE_DEFAULT_CATEGORY_ID,
+) -> list[str]:
+    if not package.video_path:
+        raise ValueError("video_path is required to build an upload command")
+    video_file = Path(package.video_path)
+    if not video_file.is_file():
+        raise FileNotFoundError(f"Video file not found: {video_file}")
+
+    payload = json.dumps(package.composio_payload(category_id=category_id), ensure_ascii=False)
+    return [
+        "composio",
+        "execute",
+        YOUTUBE_UPLOAD_TOOL,
+        "--file",
+        str(video_file),
+        "-d",
+        payload,
+    ]
+
+
+def render_execute_command(package: YouTubePublishPackage, *, category_id: str = YOUTUBE_DEFAULT_CATEGORY_ID) -> str:
+    return shell_join(build_execute_command(package, category_id=category_id))
 
 
 def save_package(package: YouTubePublishPackage, output_dir: Path | str = "outputs/youtube_packages") -> Path:
