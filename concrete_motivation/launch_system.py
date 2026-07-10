@@ -160,7 +160,7 @@ def verify_launch_system(root: Path = ROOT) -> LaunchVerificationReport:
     checks = [
         _check_ceo_bot(root),
         _check_youtube(root),
-        _check_gmail(),
+        _check_gmail(root),
         _check_website(root),
         _check_stripe(),
         _check_elevenlabs(),
@@ -182,29 +182,47 @@ def _check_ceo_bot(root: Path) -> IntegrationCheck:
 def _check_youtube(root: Path) -> IntegrationCheck:
     script = root / "scripts" / "test_youtube_upload.py"
     docs = root / "docs" / "YOUTUBE_PUBLISHING_VERIFICATION.md"
-    if script.is_file() and docs.is_file():
+    batch = root / "scripts" / "prepare_youtube_batch.py"
+    manifest = root / "youtube_launch" / "video_manifest.json"
+    if script.is_file() and docs.is_file() and batch.is_file() and manifest.is_file():
         return IntegrationCheck(
             "YouTube",
             "manual_action_required",
-            "Private-only verification harness is installed; OAuth/upload requires an explicit operator run.",
-            "Run scripts/test_youtube_upload.py first in dry-run mode, then use --execute only after reviewing metadata.",
+            "Private-only verification harness and three-video batch manifest are installed; OAuth/upload requires explicit operator approval.",
+            "Run scripts/prepare_youtube_batch.py --copy-missing, then use private upload only after reviewing metadata.",
         )
     return IntegrationCheck("YouTube", "blocked", "YouTube verification script or docs are missing.", "Add the private-only upload harness.")
 
 
-def _check_gmail() -> IntegrationCheck:
+def _check_gmail(root: Path = ROOT) -> IntegrationCheck:
+    targets = root / "outreach" / "qualified_outreach_targets.csv"
+    playbook = root / "outreach" / "gmail_outreach_playbook.md"
+    script = root / "scripts" / "generate_gmail_outreach_drafts.py"
+    if targets.is_file() and playbook.is_file() and script.is_file():
+        return IntegrationCheck(
+            "Gmail",
+            "manual_action_required",
+            "Gmail outreach targets, playbook, and draft generator are present; sends remain approval-gated.",
+            "Generate drafts, review fit, then approve messages manually before any send.",
+        )
     return IntegrationCheck(
         "Gmail",
         "manual_action_required",
         "Launch system is allowed to prepare outreach copy only; no email send command is automated.",
-        "Keep Gmail work in draft/review until explicit send approval is given.",
+        "Add outreach targets/playbook and keep Gmail work in draft/review until explicit send approval is given.",
     )
 
 
 def _check_website(root: Path) -> IntegrationCheck:
-    required = (root / "website" / "index.html", root / "website" / "styles.css", root / "website" / "script.js")
+    required = (
+        root / "website" / "index.html",
+        root / "website" / "styles.css",
+        root / "website" / "script.js",
+        root / "website" / "stripe_links.example.json",
+        root / "docs" / "MEMBERSHIP_STRIPE.md",
+    )
     if all(path.is_file() for path in required):
-        return IntegrationCheck("Website", "ready", "Static website files exist and tests cover the booking form.", "Preview website/index.html before external launch.")
+        return IntegrationCheck("Website", "ready", "Static website, membership section, and Stripe setup docs exist.", "Preview website/index.html and add live Stripe Payment Links only outside Git.")
     return IntegrationCheck("Website", "blocked", "One or more static website files are missing.", "Restore website files and rerun tests.")
 
 

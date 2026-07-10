@@ -51,17 +51,19 @@ def test_required_website_files_exist():
     assert (WEBSITE_DIR / "assets" / ".gitkeep").is_file()
     assert (WEBSITE_DIR / "assets" / "concrete-hero.png").is_file()
     assert (WEBSITE_DIR / "assets" / "favicon.svg").is_file()
+    assert (WEBSITE_DIR / "stripe_links.example.json").is_file()
     assert (WEBSITE_DIR.parent / "dashboard" / "launch_dashboard.html").is_file()
 
 
 def test_homepage_contains_required_sections_and_ctas():
     parser = parse_site()
 
-    assert {"top", "story", "framework", "speaking", "podcast", "booking"}.issubset(parser.ids)
+    assert {"top", "story", "framework", "speaking", "membership", "podcast", "booking"}.issubset(parser.ids)
     assert "Concrete Motivation" in parser.text
     assert "Build from pressure. Lead with purpose. Move with discipline." in parser.text
     assert "Book Jaytee to Speak" in parser.text
     assert "See the Framework" in parser.text
+    assert "Join the Membership" in parser.text
 
 
 def test_framework_speaking_offers_and_podcast_content_exist():
@@ -80,8 +82,25 @@ def test_framework_speaking_offers_and_podcast_content_exist():
         "Concrete Builder Session",
         "Concrete Conversations",
         "Starting from the bottom without staying there",
+        "Concrete Builder Membership",
+        "Weekly Builder",
+        "Concrete Builder",
+        "$29 / month",
     ):
         assert phrase in text
+
+
+def test_membership_stripe_buttons_are_safe_placeholders():
+    html = (WEBSITE_DIR / "index.html").read_text(encoding="utf-8")
+    js = (WEBSITE_DIR / "script.js").read_text(encoding="utf-8")
+    docs = (WEBSITE_DIR.parent / "docs" / "MEMBERSHIP_STRIPE.md").read_text(encoding="utf-8")
+
+    assert 'data-stripe-link="starter"' in html
+    assert 'data-stripe-link="builder"' in html
+    assert "No payment is collected" in html
+    assert 'starter: ""' in js
+    assert 'builder: ""' in js
+    assert "Do not commit Stripe secret keys" in docs
 
 
 def test_booking_form_is_accessible_and_honest():
@@ -117,3 +136,4 @@ def test_styles_include_responsive_rules_and_hero_asset():
     assert "@media (max-width: 820px)" in css
     assert "@media (max-width: 520px)" in css
     assert "assets/concrete-hero.png" in css
+    assert ".membership-grid" in css

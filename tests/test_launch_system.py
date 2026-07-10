@@ -38,9 +38,12 @@ def test_launch_artifacts_exist_and_do_not_store_secrets():
     required = (
         ROOT / "docs" / "CHAMPIONSHIP_LAUNCH_SYSTEM.md",
         ROOT / "docs" / "YOUTUBE_PUBLISHING_VERIFICATION.md",
+        ROOT / "docs" / "MEMBERSHIP_STRIPE.md",
         ROOT / "crm" / "lead_pipeline_template.csv",
         ROOT / "dashboard" / "launch_dashboard.html",
         ROOT / "social_handoff" / "launch_handoff.md",
+        ROOT / "outreach" / "gmail_outreach_playbook.md",
+        ROOT / "outreach" / "qualified_outreach_targets.csv",
     )
 
     for path in required:
@@ -49,6 +52,44 @@ def test_launch_artifacts_exist_and_do_not_store_secrets():
         assert "sk-" not in text
         assert "API_KEY=" not in text
         assert "ya29." not in text
+
+
+def test_youtube_batch_manifest_is_private_only():
+    from scripts.prepare_youtube_batch import build_upload_queue, load_manifest
+
+    manifest = load_manifest()
+    queue = build_upload_queue(manifest)
+
+    assert len(queue) == 3
+    assert all(item["visibility"] == "private" for item in queue)
+    assert {item["title"] for item in queue} == {
+        "Built Under Pressure",
+        "Discipline After Motivation Leaves",
+        "The Leadership Standard",
+    }
+
+
+def test_gmail_outreach_drafts_are_review_only(tmp_path, monkeypatch):
+    from scripts import generate_gmail_outreach_drafts
+
+    target_dir = tmp_path / "outreach"
+    target_dir.mkdir()
+    targets = target_dir / "qualified_outreach_targets.csv"
+    drafts = target_dir / "generated_drafts.md"
+    targets.write_text(
+        "segment,who_to_help,fit_signal,offer,next_step\n"
+        "school,principal,Needs student leadership,Team talk,Prepare school outreach draft only\n",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(generate_gmail_outreach_drafts, "TARGETS", targets)
+    monkeypatch.setattr(generate_gmail_outreach_drafts, "DRAFTS", drafts)
+    monkeypatch.setattr(generate_gmail_outreach_drafts, "ROOT", tmp_path)
+
+    assert generate_gmail_outreach_drafts.main() == 0
+    output = drafts.read_text(encoding="utf-8")
+    assert "These drafts are review-only. No email was sent." in output
+    assert "Do not send until Jaytee approves" in output
 
 
 def test_youtube_upload_harness_is_private_and_single_video_only(tmp_path):

@@ -36,3 +36,25 @@ if (bookingForm) {
     }
   });
 }
+
+const stripeButtons = document.querySelectorAll(".stripe-button");
+const stripeNote = document.querySelector(".stripe-note");
+const stripeLinks = {
+  starter: "",
+  builder: "",
+};
+
+stripeButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const plan = button.getAttribute("data-stripe-link") || "";
+    const checkoutUrl = stripeLinks[plan];
+    if (!checkoutUrl) {
+      event.preventDefault();
+      if (stripeNote) {
+        stripeNote.textContent = "Stripe checkout is ready for live payment links. Add approved Stripe Payment Links before launch; no payment was collected.";
+      }
+      return;
+    }
+    button.setAttribute("href", checkoutUrl);
+  });
+});

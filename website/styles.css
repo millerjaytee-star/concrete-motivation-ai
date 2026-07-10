@@ -331,7 +331,8 @@ h1 span {
 .audience-grid,
 .framework-grid,
 .episode-grid,
-.outcome-grid {
+.outcome-grid,
+.membership-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
@@ -340,7 +341,8 @@ h1 span {
 .audience-grid article,
 .framework-grid article,
 .episode-grid article,
-.outcome-grid article {
+.outcome-grid article,
+.membership-card {
   min-height: 14rem;
   padding: 1.25rem;
   border: 1px solid var(--line);
@@ -349,7 +351,8 @@ h1 span {
 
 .audience-grid span,
 .episode-grid span,
-.offer-list span {
+.offer-list span,
+.membership-card span {
   display: inline-block;
   margin-bottom: 0.75rem;
   color: var(--gold);
@@ -368,7 +371,8 @@ h3 {
 .framework-grid p,
 .episode-grid p,
 .outcome-grid p,
-.offer-list p {
+.offer-list p,
+.membership-card p {
   margin: 0;
   color: var(--muted);
 }
@@ -421,6 +425,47 @@ h3 {
   background:
     linear-gradient(120deg, rgba(210, 168, 79, 0.12), transparent 42%),
     #0b0b0b;
+}
+
+.membership-section {
+  background:
+    linear-gradient(135deg, rgba(111, 138, 106, 0.18), transparent 38%),
+    #10100e;
+  border-block: 1px solid var(--line);
+}
+
+.membership-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.membership-card.featured {
+  border-color: rgba(210, 168, 79, 0.78);
+  background: rgba(210, 168, 79, 0.1);
+}
+
+.membership-card .price {
+  color: var(--white);
+  font-size: 1.45rem;
+  font-weight: 950;
+}
+
+.membership-card ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--stone);
+}
+
+.membership-card .button {
+  margin-top: auto;
+}
+
+.stripe-note {
+  margin-top: 1rem;
+  color: var(--muted);
 }
 
 .booking-section {
@@ -572,6 +617,7 @@ textarea {
   .audience-grid,
   .episode-grid,
   .outcome-grid,
+  .membership-grid,
   .booking-form {
     grid-template-columns: 1fr;
   }
@@ -609,7 +655,8 @@ textarea {
   .audience-grid article,
   .framework-grid article,
   .episode-grid article,
-  .outcome-grid article {
+  .outcome-grid article,
+  .membership-card {
     min-height: 0;
   }
 }
