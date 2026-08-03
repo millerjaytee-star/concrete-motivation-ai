@@ -1,15 +1,1 @@
-const year = document.querySelector("#year");
-if (year) {
-  year.textContent = new Date().getFullYear().toString();
-}
-
-const bookingForm = document.querySelector(".booking-form");
-if (bookingForm) {
-  bookingForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const status = bookingForm.querySelector(".form-status");
-    if (status) {
-      status.textContent = "Booking details are ready to copy once a form service is connected.";
-    }
-  });
-}
+document.querySelectorAll("#year").forEach((node)=>{node.textContent=new Date().getFullYear().toString()});const toggle=document.querySelector(".menu-toggle");const nav=document.querySelector("#site-nav");if(toggle&&nav){toggle.addEventListener("click",()=>{const open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",String(open));toggle.textContent=open?"Close":"Menu"});nav.querySelectorAll("a").forEach((link)=>link.addEventListener("click",()=>{nav.classList.remove("open");toggle.setAttribute("aria-expanded","false");toggle.textContent="Menu"}))}document.querySelectorAll(".contact-form").forEach((form)=>{form.addEventListener("submit",(event)=>{event.preventDefault();const status=form.querySelector(".form-status");const trap=form.querySelector('[name="website"]');if(trap&&trap.value){if(status)status.textContent="Unable to submit.";return}if(!form.checkValidity()){form.reportValidity();if(status)status.textContent="Please complete the required fields.";return}const data=new FormData(form);const recipient=form.dataset.email||"concretemotivation444@gmail.com";const subject=encodeURIComponent(`Concrete Motivation introduction — ${data.get("path")||"General inquiry"}`);const body=encodeURIComponent([`Name: ${data.get("name")||""}`,`Email: ${data.get("email")||""}`,`Location: ${data.get("location")||""}`,`Participation: ${data.get("path")||""}`,"",`90-day goal:\n${data.get("goal")||""}`,"",`Support requested:\n${data.get("support")||""}`,"",`Contribution:\n${data.get("contribution")||""}`].join("\n"));if(status)status.textContent="Your introduction is ready. Your email app will open next.";window.location.href=`mailto:${recipient}?subject=${subject}&body=${body}`})});
