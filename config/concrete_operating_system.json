@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "brand": {
+    "parent": "Concrete Motivation",
+    "trust_engine": "Concrete Conversations",
+    "community_engine": "Concrete Nation",
+    "master_phrase": "Build from pressure. Lead with purpose. Move with discipline.",
+    "master_promise": "You do not have to build alone.",
+    "strategic_enemy": "isolated potential"
+  },
+  "journey": ["discover", "trust", "join", "build", "contribute", "multiply"],
+  "method": ["face_it", "own_it", "release_it", "choose_it", "build_it", "connect_it", "prove_it", "share_it"],
+  "audiences": [
+    {"id": "providers", "label": "Parents, guardians, and providers"},
+    {"id": "young_builders", "label": "Students and young adults"},
+    {"id": "athletes", "label": "Athletes and coaches"},
+    {"id": "emerging_leaders", "label": "Frontline workers and emerging leaders"},
+    {"id": "entrepreneurs", "label": "Entrepreneurs, creators, and business builders"},
+    {"id": "community_builders", "label": "Educators, mentors, and community leaders"}
+  ],
+  "values": [
+    "truth_before_image",
+    "responsibility_before_excuses",
+    "discipline_before_emotion",
+    "people_before_platforms",
+    "contribution_before_recognition",
+    "family_before_vanity",
+    "purpose_before_popularity",
+    "systems_before_hype",
+    "collaboration_before_isolation",
+    "legacy_before_ego"
+  ],
+  "revenue_pillars": [
+    "speaking",
+    "workshops_and_programs",
+    "concrete_nation_membership",
+    "institutional_contracts",
+    "media_and_sponsorship",
+    "intellectual_property_and_commerce"
+  ],
+  "content_pillars": [
+    "pressure_and_emotional_honesty",
+    "discipline_and_habits",
+    "leadership_and_accountability",
+    "family_and_legacy",
+    "relationships_and_communication",
+    "career_business_and_money_fundamentals",
+    "faith_aware_purpose",
+    "health_as_stewardship",
+    "community_success_and_opportunity"
+  ],
+  "approval_gates": {
+    "send_email": true,
+    "publish_content": true,
+    "upload_video": true,
+    "charge_payment": true,
+    "use_personal_story": true,
+    "make_high_stakes_claim": true
+  },
+  "prohibited": [
+    "fake_testimonials",
+    "fake_metrics",
+    "fake_clients",
+    "fake_partnerships",
+    "mass_spam",
+    "living_speaker_imitation",
+    "unqualified_medical_legal_financial_claims",
+    "public_private_data_without_consent"
+  ]
+}
