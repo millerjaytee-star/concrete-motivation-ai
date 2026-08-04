@@ -3,7 +3,7 @@ import { publicSlugs } from "@/lib/public-pages";
 import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteConfig.url.replace(/\/$/, "");
+  const base = siteConfig.links.website.replace(/\/$/, "");
   return [
     { url: base, changeFrequency: "weekly", priority: 1 },
     ...publicSlugs.map((slug) => ({
