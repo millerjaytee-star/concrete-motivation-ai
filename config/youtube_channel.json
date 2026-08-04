@@ -1,0 +1,53 @@
+{
+  "channel_name": "Concrete Motivation",
+  "handle": "@ConcreteMotivation444",
+  "channel_url": "https://www.youtube.com/@ConcreteMotivation444",
+  "role": "discovery_engine",
+  "master_phrase": "Build from pressure. Lead with purpose. Move with discipline.",
+  "supporting_promise": "You do not have to build alone.",
+  "ecosystem": [
+    {"name": "Concrete Motivation", "role": "inspiration"},
+    {"name": "Concrete Conversations", "role": "trust"},
+    {"name": "Concrete Nation", "role": "action_and_community"}
+  ],
+  "content_lanes": [
+    "pressure_to_purpose",
+    "discipline_and_habits",
+    "leadership_and_accountability",
+    "family_and_legacy",
+    "athlete_mindset",
+    "business_and_ownership",
+    "relationships_and_community",
+    "healing_reflection_and_faith_aware_growth"
+  ],
+  "playlists": [
+    "Start Here — The Concrete Motivation Method",
+    "Concrete Conversations",
+    "Built Under Pressure",
+    "Discipline Over Feelings",
+    "Leadership Before the Title",
+    "Fathers, Families, and Legacy",
+    "More Than an Athlete",
+    "Business, Ownership, and Opportunity",
+    "Concrete Nation Challenges",
+    "Concrete Motivation Shorts"
+  ],
+  "link_slots": {
+    "join_concrete_nation": "REPLACE_WITH_FINAL_JOIN_URL",
+    "app": "REPLACE_WITH_FINAL_APP_URL",
+    "booking": "REPLACE_WITH_FINAL_BOOKING_URL",
+    "conversations": "REPLACE_WITH_FINAL_CONVERSATIONS_URL",
+    "instagram": "REPLACE_WITH_FINAL_INSTAGRAM_URL",
+    "tiktok": "REPLACE_WITH_FINAL_TIKTOK_URL",
+    "facebook": "REPLACE_WITH_FINAL_FACEBOOK_URL",
+    "linkedin": "REPLACE_WITH_FINAL_LINKEDIN_URL"
+  },
+  "approval_required": [
+    "channel_profile_change",
+    "banner_change",
+    "public_link_change",
+    "video_upload",
+    "video_publish",
+    "community_post_publish"
+  ]
+}
