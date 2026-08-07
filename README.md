@@ -1,5 +1,13 @@
 # Concrete Motivation AI
 
+> **Canonical product notice:** The official production product is the Lovable project **Concrete Motivation AI / concrete-motivation-app**, project ID `09f0d02d-8d41-40c7-9c36-bbdbf8d11adf`, live at <https://concrete-motivation-app.lovable.app>. The owner-supplied canonical commit is `f52ad32139ebffea6b413a475b4dd46dd5585b2c` (`Rebuilt Concrete Nation public`). Lovable is the source of truth; this GitHub repository is its collaborative/version-control mirror plus the durable home for bots, automation, tests, documentation, and release evidence.
+>
+> The current `apps/web/` and `website/` implementations predate the canonical Lovable build and are **not production deployment sources** until the Lovable source has been exported and reconciled. Codex must reconcile from Lovable before production product changes. Stale branches cannot be deployed. See [the reconciliation report](docs/LOVABLE_GITHUB_RECONCILIATION.md) and [release checklist](docs/RELEASE_CHECKLIST.md).
+
+## Release requirements
+
+Production release candidates must pass canonical metadata validation, dependency installation, formatting/linting, type checking, production build, unit/integration/route/accessibility tests, Python tests, the Python system check, and secret scanning. Secrets belong in environment variables or platform secret managers and must never be committed. Production deployment, live-money activation, DNS changes, and app-store submissions require owner approval.
+
 Concrete Motivation AI is the operating system for the Concrete Motivation brand and the Concrete Conversations podcast.
 
 This repo is designed for Codex, ChatGPT, GitHub, and your local VS Code setup to work together to build a full bot team for content creation, podcast preparation, motivational speaking, business growth, outreach, and operations.
