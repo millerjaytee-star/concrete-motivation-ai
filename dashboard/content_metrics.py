@@ -55,7 +55,9 @@ def build_content_metrics(root: Path | str | None = None) -> ContentMetrics:
     content_packages = _package_dirs(base, "outputs/content_packages")
     youtube_packages = _package_files(base, "outputs/youtube_packages")
     all_candidates = [path / "package.md" for path in content_packages] + youtube_packages
-    last_generated = max(all_candidates, key=lambda path: path.stat().st_mtime) if all_candidates else None
+    # Files can share a timestamp on fast CI filesystems. The path name is a
+    # deterministic tie-breaker and our generated names are date-prefixed.
+    last_generated = max(all_candidates, key=lambda path: (path.stat().st_mtime, path.name)) if all_candidates else None
 
     return ContentMetrics(
         total_content_packages=len(content_packages),

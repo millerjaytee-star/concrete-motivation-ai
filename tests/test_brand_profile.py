@@ -9,4 +9,4 @@ def test_brand_profile_loads_successfully():
     assert profile.founder == "Jaytee Miller"
     assert "discipline" in profile.core_themes
     assert "athletes" in profile.primary_audience
-    assert "generic motivational fluff" in profile.avoid
+    assert "No empty hype" in profile.avoid

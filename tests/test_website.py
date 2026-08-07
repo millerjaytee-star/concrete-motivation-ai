@@ -55,45 +55,53 @@ def test_required_website_files_exist():
 def test_homepage_contains_required_sections_and_ctas():
     parser = parse_site()
 
-    assert {"top", "story", "speaking", "podcast", "programs", "booking"}.issubset(parser.ids)
+    assert "main" in parser.ids
     assert "Concrete Motivation" in parser.text
     assert "Build from pressure. Lead with purpose. Move with discipline." in parser.text
-    assert "Book Jaytee to Speak" in parser.text
-    assert "Watch Concrete Conversations" in parser.text
+    assert "Become a Founding Member" in parser.text
+    assert "Join Concrete Nation" in parser.text
 
 
-def test_speaking_topics_programs_and_podcast_placeholders_exist():
+def test_brand_engines_audiences_and_member_journey_exist():
     text = parse_site().text
 
     for phrase in (
-        "Discipline Under Pressure",
-        "Pain Into Purpose",
-        "Fatherhood and Legacy",
-        "Athlete Mindset and Leadership",
-        "Building After Setbacks",
-        "Concrete Conversations Live",
-        "Team Talk",
-        "Youth Leadership Workshop",
-        "Concrete Builder Session",
-        "Podcast Guest / Live Conversation",
-        "Business and Leadership Keynote",
-        "YouTube coming soon",
-        "Podcast links coming soon",
+        "Concrete Motivation",
+        "Concrete Conversations",
+        "Concrete Nation",
+        "Parents & Providers",
+        "Students & Athletes",
+        "Workers & Leaders",
+        "Builders & Entrepreneurs",
+        "Connect",
+        "Clarify",
+        "Commit",
+        "Contribute",
+        "Compound",
     ):
         assert phrase in text
 
 
-def test_booking_form_placeholder_is_accessible_and_honest():
+def test_navigation_and_calls_to_action_use_real_local_routes():
     parser = parse_site()
 
-    assert {"name", "email", "organization", "event-type", "message"}.issubset(parser.inputs)
-    assert parser.inputs.issubset(parser.labels_for)
-    assert "Placeholder only. No message is sent until a form service is connected." in parser.text
+    expected = {
+        "index.html",
+        "story.html",
+        "who-we-serve.html",
+        "conversations.html",
+        "nation.html",
+        "join.html",
+    }
+    assert expected.issubset(set(parser.links))
+    for href in expected:
+        assert (WEBSITE_DIR / href).is_file()
 
 
 def test_styles_include_responsive_rules_and_hero_asset():
     css = (WEBSITE_DIR / "styles.css").read_text(encoding="utf-8")
 
-    assert "@media (max-width: 820px)" in css
-    assert "@media (max-width: 520px)" in css
-    assert "assets/concrete-hero.png" in css
+    assert "@media(max-width:900px)" in css
+    assert "@media(max-width:620px)" in css
+    assert "--gold:" in css
+    assert "prefers-reduced-motion:reduce" in css

@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
 import { publicPages, publicSlugs } from "@/lib/public-pages";
+
+function CtaLink({ className, href, label }: { className: string; href: string; label: string }) {
+  if (/^(https?:|mailto:)/.test(href)) {
+    return <a className={className} href={href}>{label}</a>;
+  }
+  return <Link className={className} href={href as Route}>{label}</Link>;
+}
 
 export function generateStaticParams() {
   return publicSlugs.map((slug) => ({ slug }));
@@ -15,13 +22,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: page.title,
     description: page.description,
+    keywords: ["Concrete Motivation", page.title, "Jaytee Miller", "leadership", "discipline"],
     alternates: { canonical: `/${page.slug}` },
     openGraph: {
       title: `${page.title} | Concrete Motivation`,
       description: page.description,
       url: `/${page.slug}`,
       type: "website"
-    }
+    },
+    twitter: { card: "summary", title: page.title, description: page.description },
   };
 }
 
@@ -39,8 +48,8 @@ export default async function PublicPageRoute({ params }: { params: Promise<{ sl
             <h1>{page.title}</h1>
             <p className="page-lead">{page.description}</p>
             <div className="button-row">
-              <Link className="button button-primary" href={page.primaryCta.href}>{page.primaryCta.label}</Link>
-              {page.secondaryCta ? <Link className="button button-secondary" href={page.secondaryCta.href}>{page.secondaryCta.label}</Link> : null}
+              <CtaLink className="button button-primary" href={page.primaryCta.href} label={page.primaryCta.label} />
+              {page.secondaryCta ? <CtaLink className="button button-secondary" href={page.secondaryCta.href} label={page.secondaryCta.label} /> : null}
             </div>
           </div>
         </section>
@@ -69,7 +78,7 @@ export default async function PublicPageRoute({ params }: { params: Promise<{ sl
             <p className="eyebrow">Your next move</p>
             <h2>{page.primaryCta.label}</h2>
           </div>
-          <Link className="button button-primary" href={page.primaryCta.href}>{page.primaryCta.label}</Link>
+          <CtaLink className="button button-primary" href={page.primaryCta.href} label={page.primaryCta.label} />
         </section>
       </main>
     </SiteShell>
