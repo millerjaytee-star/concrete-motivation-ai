@@ -1,0 +1,59 @@
+name: Python CI
+
+on:
+  pull_request:
+    paths:
+      - "concrete_motivation/**"
+      - "dashboard/**"
+      - "scripts/**"
+      - "tests/**"
+      - "prompts/**"
+      - "brand/**"
+      - "website/**"
+      - "requirements.txt"
+      - "config/canonical-product.json"
+      - "AGENTS.md"
+      - ".github/workflows/python-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "concrete_motivation/**"
+      - "dashboard/**"
+      - "scripts/**"
+      - "tests/**"
+      - "prompts/**"
+      - "brand/**"
+      - "website/**"
+      - "requirements.txt"
+      - "config/canonical-product.json"
+      - "AGENTS.md"
+      - ".github/workflows/python-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Verify canonical product metadata
+        run: python scripts/verify_canonical_product.py
+
+      - name: Run test suite
+        run: python -m pytest -q
+
+      - name: Run system check
+        run: python scripts/system_check.py

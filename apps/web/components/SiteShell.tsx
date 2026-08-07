@@ -50,6 +50,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <a href={siteConfig.links.tiktok}>TikTok</a>
           <a href={siteConfig.links.facebook}>Facebook</a>
         </div>
+        <div className="footer-links" aria-label="Operator links"><Link href="/command-center">Owner command center</Link></div>
         <p>© 2026 Concrete Motivation. Built for real change. No fake metrics, testimonials, partners, or promises.</p>
       </footer>
     </>

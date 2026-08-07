@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { SiteShell } from "@/components/SiteShell";
 import { siteConfig } from "@/lib/site-config";
 
@@ -40,7 +41,7 @@ export default function HomePage() {
           </div>
           <div className="ecosystem-grid">
             {ecosystem.map((item, index) => (
-              <Link className="feature-card" key={item.title} href={item.href}>
+              <Link className="feature-card" key={item.title} href={item.href as Route}>
                 <span className="card-number">0{index + 1}</span>
                 <p className="eyebrow">{item.label}</p>
                 <h3>{item.title}</h3>
