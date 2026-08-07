@@ -1,12 +1,12 @@
 # Launch Status
 
-Verified 2026-08-07. `READY` means evidence exists; it does not authorize an external action.
+Verified 2026-08-07 (America/New_York). `READY` means evidence exists; it does not authorize an external action. Current gate: Step 1 Lovable/GitHub source synchronization.
 
 | System | Status | Evidence | Next action | Codex / owner |
 |---|---|---|---|---|
 | Website | READY | Lovable production HTTP 200; deployment ID recorded | Import source, then full interactive QA | Both |
 | GitHub sync | BLOCKED | canonical commit absent from all fetched refs | Lovable Git sync or source ZIP | Owner |
-| CI | READY | web/Python workflows plus canonical guard | Run on reconciliation PR | Codex |
+| CI | READY | PR #33 checks green on commit `3a4eebf`; web/Python workflows plus canonical guard | Keep green while canonical source is imported | Codex |
 | Custom domain | OWNER ACTION REQUIRED | no approved DNS/domain change | approve domain and Lovable-provided records | Owner |
 | Stripe test | BLOCKED | active connection; no payment links; source unavailable | import source/configure test secrets and E2E | Both |
 | Stripe live | OWNER ACTION REQUIRED | live money intentionally disabled | approve after complete test evidence | Owner |
