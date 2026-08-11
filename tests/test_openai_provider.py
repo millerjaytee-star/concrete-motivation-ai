@@ -23,7 +23,7 @@ def test_openai_prompt_includes_brand_goal_sections_and_personalization():
     assert bot.purpose in prompt
     assert "starting from the bottom" in prompt
     assert "for fathers building a legacy" in prompt
-    assert "Concrete Motivation Brand Profile" in prompt
+    assert "Concrete Motivation Master Brand Profile" in prompt
     assert "Jaytee Miller" in prompt
     assert "Opening hook" in prompt
     assert "Concrete Motivation Angle" in prompt

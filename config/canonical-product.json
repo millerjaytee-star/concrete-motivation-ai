@@ -1,0 +1,14 @@
+{
+  "lovableProjectId": "09f0d02d-8d41-40c7-9c36-bbdbf8d11adf",
+  "lovableProjectName": "concrete-motivation-app",
+  "displayName": "Concrete Motivation AI",
+  "productionUrl": "https://concrete-motivation-app.lovable.app",
+  "lovableEditorUrl": "https://lovable.dev/projects/09f0d02d-8d41-40c7-9c36-bbdbf8d11adf",
+  "githubRepo": "millerjaytee-star/concrete-motivation-ai",
+  "canonicalCommit": "f52ad32139ebffea6b413a475b4dd46dd5585b2c",
+  "canonicalCommitMessage": "Rebuilt Concrete Nation public",
+  "sourceOfTruth": "lovable",
+  "githubRole": "collaborative-version-control-mirror",
+  "localProductStatus": "reconciliation-blocked-pending-lovable-source-export",
+  "lastVerifiedAt": "2026-08-07T19:10:00-04:00"
+}

@@ -51,8 +51,9 @@ def print_result(result: CommandResult) -> None:
         print("(no output)")
 
 
-def load_cached_youtube_actions() -> list[str]:
-    cache_dir = Path.home() / ".composio" / "tool_definitions"
+def load_cached_youtube_actions(cache_dir: Path | None = None) -> list[str]:
+    """Return cached action slugs without requiring a developer workstation."""
+    cache_dir = cache_dir or Path.home() / ".composio" / "tool_definitions"
     return sorted(path.stem for path in cache_dir.glob("YOUTUBE*.json"))
 
 
