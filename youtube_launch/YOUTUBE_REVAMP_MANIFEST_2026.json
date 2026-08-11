@@ -1,0 +1,98 @@
+{
+  "channel": {
+    "name": "Concrete Motivation",
+    "handle": "@concretemotivation444",
+    "description": "Welcome to Concrete Motivation — where pressure becomes purpose.\n\nThis is more than a motivational channel. This is a community built around real life, real pressure, real growth, and the discipline it takes to keep moving forward.\n\nI’m Jaytee Miller — husband, father, leader, entrepreneur, and founder of Concrete Motivation and Concrete Nation. My story was not built in perfect conditions. It was built through responsibility, setbacks, family, leadership, loss, career pressure, rebuilding, and learning how to keep showing up when life gets heavy.\n\nConcrete Motivation exists for people who know they are capable of more but need the mindset, structure, accountability, and belief to build it.\n\nHere we talk about motivation and mindset, discipline and consistency, leadership and career growth, faith, family and relationships, fatherhood and legacy, overcoming adversity, business and entrepreneurship, health and confidence, and real conversations about real life.\n\nYou’ll also find Concrete Conversations — honest interviews, discussions, and stories from people who have lived through pressure and kept building. Everything connects back to Concrete Nation — our growing community for people committed to becoming stronger mentally, physically, professionally, financially, and personally.\n\nBUILD FROM PRESSURE.\nLEAD WITH PURPOSE.\nMOVE WITH DISCIPLINE.\n\nSubscribe and become part of Concrete Nation.\n\nConcrete Motivation — Motivation. Real Talk. Real Life. Real Impact.",
+    "keywords": [
+      "Concrete Motivation",
+      "Concrete Nation",
+      "Jaytee Miller",
+      "motivation",
+      "discipline",
+      "leadership",
+      "mindset",
+      "fatherhood",
+      "family",
+      "personal growth",
+      "resilience",
+      "faith",
+      "entrepreneurship"
+    ]
+  },
+  "playlists": [
+    {
+      "title": "START HERE — CONCRETE MOTIVATION",
+      "description": "New to Concrete Motivation? Start here. These videos explain who we are, what Concrete Motivation represents, and how we turn life's pressure into purpose, leadership, discipline, and growth. Build from pressure. Lead with purpose. Move with discipline.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "CONCRETE CONVERSATIONS",
+      "description": "Real people. Real stories. Real pressure. Concrete Conversations goes beyond surface-level motivation to talk about leadership, family, adversity, faith, relationships, business, success, failure, and the lessons people learn while building their lives.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "BUILD FROM PRESSURE",
+      "description": "Pressure does not automatically make you stronger. What you choose to do with it does. These messages are about adversity, setbacks, pain, loss, rebuilding, and refusing to let difficult seasons define the rest of your life.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "DISCIPLINE OVER FEELINGS",
+      "description": "Motivation gets you moving. Discipline keeps you moving. This playlist focuses on habits, accountability, consistency, execution, and doing what needs to be done even when you do not feel like doing it.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "LEAD WITH PURPOSE",
+      "description": "Leadership starts before the title. Learn how to lead yourself, your family, your team, your career, and your business with accountability, confidence, empathy, and purpose.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "FAITH, FAMILY & LEGACY",
+      "description": "Success means more when the people you love can experience it with you. Conversations and moments about marriage, fatherhood, parenting, faith, relationships, and building a legacy bigger than yourself.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "REAL LIFE. REAL TALK.",
+      "description": "No stage. No script. Just life. Behind-the-scenes moments, family experiences, travel, celebrations, challenges, and honest conversations from the life behind Concrete Motivation.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "MINDSET & PERSONAL GROWTH",
+      "description": "Confidence, self-development, mental toughness, goal setting, identity, and the mindset required to keep building under pressure.",
+      "privacyStatus": "public"
+    },
+    {
+      "title": "CONCRETE NATION",
+      "description": "Concrete Nation is the community behind the movement. Challenges, events, products, conversations, and resources designed to help people grow mentally, physically, professionally, financially, and personally.",
+      "privacyStatus": "public"
+    }
+  ],
+  "home_sections": [
+    "START HERE — CONCRETE MOTIVATION",
+    "LATEST FROM CONCRETE MOTIVATION",
+    "CONCRETE MOTIVATION SHORTS",
+    "CONCRETE CONVERSATIONS",
+    "BUILD FROM PRESSURE",
+    "DISCIPLINE OVER FEELINGS",
+    "LEAD WITH PURPOSE",
+    "FAITH, FAMILY & LEGACY",
+    "REAL LIFE. REAL TALK.",
+    "MINDSET & PERSONAL GROWTH",
+    "CONCRETE NATION"
+  ],
+  "standard_description": "BUILD FROM PRESSURE. LEAD WITH PURPOSE. MOVE WITH DISCIPLINE.\n\nWelcome to Concrete Motivation.\n\nIf this message speaks to you, subscribe and share it with somebody who needs it today.\n\nJOIN CONCRETE NATION\nhttps://concrete-nation.lovable.app\n\nSHOP CONCRETE MOTIVATION\nhttps://concrete-nation.lovable.app/catalog\n\nWATCH MORE\nhttps://concrete-nation.lovable.app/watch\n\nSPEAKING / PARTNERSHIPS / BUSINESS\nconcretemotivation444@gmail.com\n\nConcrete Motivation — Motivation. Real Talk. Real Life. Real Impact.\n\n#ConcreteMotivation #ConcreteNation #Motivation #Discipline #Leadership #Mindset #PersonalGrowth",
+  "visual_rules": {
+    "use_real_photos_only": true,
+    "preserve_faces_and_body_structure": true,
+    "palette": ["#070708", "#1A1A1A", "#FFFFFF", "construction gold"],
+    "banner_copy": [
+      "CONCRETE MOTIVATION",
+      "BUILD FROM PRESSURE.",
+      "LEAD WITH PURPOSE.",
+      "MOVE WITH DISCIPLINE.",
+      "MINDSET • FAMILY • LEADERSHIP • DISCIPLINE • LEGACY",
+      "MOTIVATION. REAL TALK. REAL LIFE. REAL IMPACT.",
+      "@CONCRETEMOTIVATION444"
+    ],
+    "thumbnail_rule": "2-5 words max, real photo, black/charcoal concrete background, white text, construction-gold emphasis"
+  }
+}
