@@ -3,14 +3,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
 import { publicPages, publicSlugs } from "@/lib/public-pages";
+import { programPages, programSlugs } from "@/lib/program-pages";
+
+const allPages = { ...publicPages, ...programPages };
+const allSlugs = [...new Set([...publicSlugs, ...programSlugs])];
 
 export function generateStaticParams() {
-  return publicSlugs.map((slug) => ({ slug }));
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const page = publicPages[slug];
+  const page = allPages[slug];
   if (!page) return {};
   return {
     title: page.title,
@@ -27,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function PublicPageRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const page = publicPages[slug];
+  const page = allPages[slug];
   if (!page) notFound();
 
   return (
