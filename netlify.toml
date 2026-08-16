@@ -1,8 +1,7 @@
 [build]
-  publish = "website"
-  command = ""
+  base = "apps/web"
+  command = "npm run build"
+  publish = ".next"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[build.environment]
+  NODE_VERSION = "20"
