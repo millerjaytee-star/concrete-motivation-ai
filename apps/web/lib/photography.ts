@@ -12,21 +12,23 @@ export type WebsitePhotoRole =
   | "familyGenerations"
   | "weddingPortrait";
 
-const photos: Record<WebsitePhotoRole, string> = {
-  hero: "/brand/founder-hero.jpg",
-  founder: "/brand/founder-hero.jpg",
-  marriageCommitment: "/brand/marriage-commitment.jpg",
-  familyLegacy: "/brand/family-legacy.jpg",
-  brotherhood: "/brand/concrete-brotherhood.jpg",
-  community: "/brand/concrete-brotherhood.jpg",
-  fatherhood: "/brand/family-home.jpg",
-  nextGeneration: "/brand/next-generation.jpg",
-  weddingFamily: "/brand/family-legacy.jpg",
-  weddingTeam: "/brand/wedding-team.jpg",
-  familyGenerations: "/brand/family-generations.jpg",
-  weddingPortrait: "/brand/wedding-family-portrait.jpg"
+const assetBase = (process.env.NEXT_PUBLIC_APP_ASSET_BASE ?? "https://concrete-nation.lovable.app").replace(/\/$/, "");
+
+const fileFor: Record<WebsitePhotoRole, string> = {
+  hero: "founder-hero.jpg",
+  founder: "founder-hero.jpg",
+  marriageCommitment: "marriage-commitment.jpg",
+  familyLegacy: "family-legacy.jpg",
+  brotherhood: "concrete-brotherhood.jpg",
+  community: "concrete-brotherhood.jpg",
+  fatherhood: "family-home.jpg",
+  nextGeneration: "next-generation.jpg",
+  weddingFamily: "family-legacy.jpg",
+  weddingTeam: "wedding-team.jpg",
+  familyGenerations: "family-generations.jpg",
+  weddingPortrait: "wedding-family-portrait.jpg"
 };
 
 export function imageFor(role: WebsitePhotoRole) {
-  return photos[role];
+  return `${assetBase}/brand/${fileFor[role]}`;
 }
