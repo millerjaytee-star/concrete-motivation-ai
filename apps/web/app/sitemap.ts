@@ -1,15 +1,29 @@
 import type { MetadataRoute } from "next";
 import { publicSlugs } from "@/lib/public-pages";
+import { programSlugs } from "@/lib/program-pages";
 import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.links.website.replace(/\/$/, "");
+  const slugs = [...new Set([...publicSlugs, ...programSlugs])];
+  const priorityRoutes = [
+    "our-story",
+    "start-here",
+    "concrete-nation",
+    "concrete-30-day-reset",
+    "founding-100",
+    "speaking",
+    "videos",
+    "shop",
+    "memberships"
+  ];
+
   return [
     { url: base, changeFrequency: "weekly", priority: 1 },
-    ...publicSlugs.map((slug) => ({
+    ...slugs.map((slug) => ({
       url: `${base}/${slug}`,
       changeFrequency: "monthly" as const,
-      priority: ["our-story", "concrete-nation", "speaking", "videos"].includes(slug) ? 0.8 : 0.6
+      priority: priorityRoutes.includes(slug) ? 0.8 : 0.6
     }))
   ];
 }
