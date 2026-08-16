@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { imageFor } from "@/lib/photography";
 import { siteConfig } from "@/lib/site-config";
 
 const ecosystem = [
@@ -36,7 +37,7 @@ export default function HomePage() {
             </ul>
           </div>
           <aside className="hero-photo-card">
-            <Image src="/brand/founder-hero.jpg" alt="Jaytee Miller, founder of Concrete Motivation" width={900} height={900} priority />
+            <Image src={imageFor("hero")} alt="Jaytee Miller, founder of Concrete Motivation" width={900} height={900} priority />
             <div className="photo-caption">
               <p className="eyebrow">Founder message</p>
               <blockquote>“Pressure reveals the foundation. Purpose decides what gets built next.”</blockquote>
@@ -65,7 +66,7 @@ export default function HomePage() {
 
         <section className="section visual-story-grid">
           <article className="visual-story-card">
-            <Image src="/brand/concrete-brotherhood.jpg" alt="Concrete brotherhood and community" width={900} height={700} />
+            <Image src={imageFor("brotherhood")} alt="Concrete brotherhood and community" width={900} height={700} />
             <div>
               <p className="eyebrow">Concrete Nation</p>
               <h2>You do not have to build alone.</h2>
@@ -74,7 +75,7 @@ export default function HomePage() {
             </div>
           </article>
           <article className="visual-story-card">
-            <Image src="/brand/family-generations.jpg" alt="Family and generations representing Concrete Motivation legacy" width={900} height={700} />
+            <Image src={imageFor("familyGenerations")} alt="Family and generations representing Concrete Motivation legacy" width={900} height={700} />
             <div>
               <p className="eyebrow">Family & legacy</p>
               <h2>Build something worth handing forward.</h2>
