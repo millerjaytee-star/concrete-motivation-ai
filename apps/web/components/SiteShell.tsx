@@ -2,18 +2,30 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
 const primary = [
-  ["Our Story", "/our-story"],
-  ["Who We Serve", "/who-we-serve"],
-  ["Conversations", "/concrete-conversations"],
+  ["Start Here", "/start-here"],
+  ["Story", "/our-story"],
+  ["30-Day Reset", "/concrete-30-day-reset"],
+  ["Founding 100", "/founding-100"],
   ["Concrete Nation", "/concrete-nation"],
-  ["Speaking", "/speaking"],
-  ["Videos", "/videos"]
+  ["Watch", "/videos"],
+  ["Shop", "/shop"]
 ] as const;
 
 const footer = [
+  ["About Jaytee", "/about-jaytee"],
+  ["Daily Brick", "/daily-brick"],
+  ["7-Day Challenge", "/foundation-challenge"],
+  ["Programs", "/programs"],
+  ["Founding Captains", "/founding-100-captains"],
+  ["Founding Charter", "/concrete-nation-charter"],
+  ["Concrete Conversations", "/concrete-conversations"],
+  ["Speaking", "/speaking"],
   ["Memberships", "/memberships"],
-  ["Shop", "/shop"],
+  ["Digital Catalog", "/catalog"],
+  ["Community Impact", "/community-impact"],
+  ["Resources", "/resources"],
   ["Join / Contact", "/join"],
+  ["Member App", "/app"],
   ["Support", "/support"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
@@ -47,8 +59,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <div className="footer-links" aria-label="Social links">
           <a href={siteConfig.links.youtube}>YouTube</a>
           <a href={siteConfig.links.instagram}>Instagram</a>
-          <a href={siteConfig.links.tiktok}>TikTok</a>
-          <a href={siteConfig.links.facebook}>Facebook</a>
+          {siteConfig.links.tiktok !== "#" ? <a href={siteConfig.links.tiktok}>TikTok</a> : null}
+          {siteConfig.links.facebook !== "#" ? <a href={siteConfig.links.facebook}>Facebook</a> : null}
         </div>
         <p>© 2026 Concrete Motivation. Built for real change. No fake metrics, testimonials, partners, or promises.</p>
       </footer>
