@@ -5,11 +5,19 @@ export const siteConfig = {
   description:
     "A movement that turns pressure into purpose through practical motivation, honest conversations, disciplined action, and a community built for shared success.",
   links: {
-    website: process.env.NEXT_PUBLIC_SITE_URL ?? "https://concretemotivation.com",
-    youtube: process.env.NEXT_PUBLIC_YOUTUBE_URL ?? "#youtube",
-    app: process.env.NEXT_PUBLIC_APP_URL ?? "#app",
-    booking: process.env.NEXT_PUBLIC_BOOKING_URL ?? "#speaking",
-    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "#",
+    website:
+      process.env.NEXT_PUBLIC_SITE_URL ??
+      "https://concrete-nation-public.millerjaytee.chatgpt.site",
+    youtube:
+      process.env.NEXT_PUBLIC_YOUTUBE_URL ??
+      "https://youtube.com/@concretemotivation444",
+    app:
+      process.env.NEXT_PUBLIC_APP_URL ??
+      "https://concrete-nation.lovable.app",
+    booking: process.env.NEXT_PUBLIC_BOOKING_URL ?? "/speaking",
+    instagram:
+      process.env.NEXT_PUBLIC_INSTAGRAM_URL ??
+      "https://www.instagram.com/concretemotivation444/",
     tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL ?? "#",
     facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "#"
   },

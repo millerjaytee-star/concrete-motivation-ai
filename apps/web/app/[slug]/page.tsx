@@ -1,16 +1,44 @@
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
+import { imageFor, type WebsitePhotoRole } from "@/lib/photography";
 import { publicPages, publicSlugs } from "@/lib/public-pages";
+import { programPages, programSlugs } from "@/lib/program-pages";
+
+const allPages = { ...publicPages, ...programPages };
+const allSlugs = [...new Set([...publicSlugs, ...programSlugs])];
+
+const photoBySlug: Record<string, WebsitePhotoRole> = {
+  "start-here": "nextGeneration",
+  "about-jaytee": "founder",
+  "our-story": "marriageCommitment",
+  "who-we-serve": "fatherhood",
+  "concrete-nation": "brotherhood",
+  "founding-100": "community",
+  "founding-captains": "weddingTeam",
+  "concrete-nation-charter": "weddingFamily",
+  "community-impact": "familyLegacy",
+  resources: "familyGenerations",
+  programs: "weddingPortrait",
+  speaking: "founder",
+  "concrete-conversations": "brotherhood",
+  "daily-brick": "nextGeneration",
+  "foundation-challenge": "nextGeneration",
+  "concrete-30-day-reset": "familyLegacy",
+  memberships: "community",
+  shop: "community",
+  catalog: "community"
+};
 
 export function generateStaticParams() {
-  return publicSlugs.map((slug) => ({ slug }));
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const page = publicPages[slug];
+  const page = allPages[slug];
   if (!page) return {};
   return {
     title: page.title,
@@ -25,24 +53,38 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+function CtaLink({ href, label, secondary = false }: { href: string; label: string; secondary?: boolean }) {
+  const className = secondary ? "button button-secondary" : "button button-primary";
+  if (/^(https?:|mailto:|tel:)/.test(href)) {
+    return <a className={className} href={href}>{label}</a>;
+  }
+  return <Link className={className} href={href as Route}>{label}</Link>;
+}
+
 export default async function PublicPageRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const page = publicPages[slug];
+  const page = allPages[slug];
   if (!page) notFound();
+  const photoRole = photoBySlug[slug];
 
   return (
     <SiteShell>
       <main id="main-content">
-        <section className="page-hero">
+        <section className={photoRole ? "page-hero page-hero-with-photo" : "page-hero"}>
           <div className="page-hero-inner">
             <p className="eyebrow">{page.eyebrow}</p>
             <h1>{page.title}</h1>
             <p className="page-lead">{page.description}</p>
             <div className="button-row">
-              <Link className="button button-primary" href={page.primaryCta.href}>{page.primaryCta.label}</Link>
-              {page.secondaryCta ? <Link className="button button-secondary" href={page.secondaryCta.href}>{page.secondaryCta.label}</Link> : null}
+              <CtaLink href={page.primaryCta.href} label={page.primaryCta.label} />
+              {page.secondaryCta ? <CtaLink href={page.secondaryCta.href} label={page.secondaryCta.label} secondary /> : null}
             </div>
           </div>
+          {photoRole ? (
+            <div className="page-hero-photo">
+              <Image src={imageFor(photoRole)} alt={`${page.title} — Concrete Motivation`} width={1000} height={800} priority={slug === "start-here" || slug === "about-jaytee"} />
+            </div>
+          ) : null}
         </section>
 
         <section className="section page-intro">
@@ -69,7 +111,7 @@ export default async function PublicPageRoute({ params }: { params: Promise<{ sl
             <p className="eyebrow">Your next move</p>
             <h2>{page.primaryCta.label}</h2>
           </div>
-          <Link className="button button-primary" href={page.primaryCta.href}>{page.primaryCta.label}</Link>
+          <CtaLink href={page.primaryCta.href} label={page.primaryCta.label} />
         </section>
       </main>
     </SiteShell>
