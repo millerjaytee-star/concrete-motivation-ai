@@ -7,9 +7,10 @@ import { imageFor, objectPositionFor, type WebsitePhotoRole } from "@/lib/photog
 import { publicPages, publicSlugs } from "@/lib/public-pages";
 import { programPages, programSlugs } from "@/lib/program-pages";
 import { systemPages, systemSlugs } from "@/lib/system-pages";
+import { corePages, coreSlugs } from "@/lib/core-pages";
 
-const allPages = { ...publicPages, ...programPages, ...systemPages };
-const allSlugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs])];
+const allPages = { ...publicPages, ...programPages, ...systemPages, ...corePages };
+const allSlugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs, ...coreSlugs])];
 
 const photoBySlug: Record<string, WebsitePhotoRole> = {
   "start-here": "nextGeneration",
@@ -32,8 +33,10 @@ const photoBySlug: Record<string, WebsitePhotoRole> = {
   shop: "community",
   catalog: "community",
   "inside-the-app": "community",
+  "concrete-os": "founderFocus",
   assessment: "nextGeneration",
   "build-blueprint": "founderFocus",
+  "inspection-recovery": "community",
   "proof-of-build": "community",
   "concrete-passport": "familyGenerations",
   "concrete-foreman": "founderFocus",
@@ -42,7 +45,11 @@ const photoBySlug: Record<string, WebsitePhotoRole> = {
   opportunities: "community",
   "concrete-exchange": "community",
   "concrete-foundation": "familyLegacy",
-  "concrete-saturday": "weddingTeam"
+  "concrete-saturday": "weddingTeam",
+  "pressure-to-purpose-reset-call": "founderFocus",
+  "leadership-sessions": "weddingTeam",
+  partners: "community",
+  "community-guidelines": "familyGenerations"
 };
 
 export function generateStaticParams() {
