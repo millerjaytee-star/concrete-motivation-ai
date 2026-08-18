@@ -7,13 +7,13 @@ export const siteConfig = {
   links: {
     website:
       process.env.NEXT_PUBLIC_SITE_URL ??
-      "https://concrete-nation-public.millerjaytee.chatgpt.site",
+      "https://concretemotivation.com",
     youtube:
       process.env.NEXT_PUBLIC_YOUTUBE_URL ??
       "https://youtube.com/@concretemotivation444",
     app:
       process.env.NEXT_PUBLIC_APP_URL ??
-      "https://concrete-nation.lovable.app",
+      "https://app.concretemotivation.com",
     booking: process.env.NEXT_PUBLIC_BOOKING_URL ?? "/speaking",
     instagram:
       process.env.NEXT_PUBLIC_INSTAGRAM_URL ??

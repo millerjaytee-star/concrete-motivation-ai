@@ -9,7 +9,7 @@ Lovable is no longer the development source of truth. GitHub is the permanent so
 ### 1. Public Website
 - Framework: Next.js with TypeScript
 - Styling: Tailwind CSS and shared design tokens
-- Hosting: Vercel
+- Hosting: Netlify using its supported Next.js runtime
 - Content: version-controlled MDX/JSON initially, with an admin CMS layer added only when required
 - SEO: metadata, sitemap, robots, schema, Open Graph, canonical URLs
 
@@ -27,6 +27,7 @@ Lovable is no longer the development source of truth. GitHub is the permanent so
 - Stripe Checkout, Billing Portal, Products, Prices, subscriptions, merchandise orders, signed webhooks, and idempotent event processing
 - Test and live environments remain strictly separated
 - No secret keys in browser code or repository history
+- The public website exposes `POST /api/stripe/webhook` through the Netlify Next.js runtime. It verifies Stripe signatures and records supported event IDs in the additive Supabase `stripe_webhook_events` ledger before acknowledging delivery. Membership-state synchronization remains gated on the approved existing member-app/Supabase data contract; see `OWNER-ACTIONS.md`.
 
 ### 5. AI and Bots
 - Python service for CEO, content, outreach, YouTube, community, and operations bots
@@ -49,7 +50,7 @@ Lovable is no longer the development source of truth. GitHub is the permanent so
 - Preview deployment for every pull request
 - Production deployment only from protected main branch
 - GitHub Actions for lint, typecheck, unit tests, build, route checks, accessibility checks, and secret scanning
-- Rollback through Vercel deployments and Git history
+- Rollback through Netlify deployments and Git history
 
 ## Repository Target Layout
 

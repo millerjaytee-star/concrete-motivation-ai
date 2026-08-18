@@ -23,3 +23,11 @@ outputs/gmail_staging/
 outputs/speaker_booking/
 config/payment_links.local.json
 generated_videos/*.mp4
+
+# Local Netlify folder
+.netlify
+
+# Next.js build and dependency artifacts
+apps/web/.next/
+apps/web/node_modules/
+apps/web/tsconfig.tsbuildinfo

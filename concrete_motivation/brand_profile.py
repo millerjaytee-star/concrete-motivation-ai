@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 
 PROFILE_PATH = Path(__file__).resolve().parent.parent / "brand" / "concrete_motivation_profile.md"
 
@@ -30,6 +31,19 @@ def _line_value(lines: list[str], label: str) -> str:
     raise ValueError(f"Brand profile is missing {label}.")
 
 
+def _first_line_value(lines: list[str], *labels: str) -> str:
+    for label in labels:
+        try:
+            return _clean_markdown(_line_value(lines, label))
+        except ValueError:
+            continue
+    raise ValueError(f"Brand profile is missing all supported labels: {', '.join(labels)}.")
+
+
+def _clean_markdown(value: str) -> str:
+    return value.replace("**", "").strip()
+
+
 def _section_items(lines: list[str], heading: str) -> tuple[str, ...]:
     items: list[str] = []
     in_section = False
@@ -39,11 +53,22 @@ def _section_items(lines: list[str], heading: str) -> tuple[str, ...]:
             continue
         if in_section and line.startswith("## "):
             break
-        if in_section and line.startswith("- "):
-            items.append(line.removeprefix("- ").strip())
+        if in_section:
+            match = re.match(r"(?:- |\d+\. )(.*)", line)
+            if match:
+                items.append(_clean_markdown(match.group(1)))
     if not items:
         raise ValueError(f"Brand profile section is empty: {heading}.")
     return tuple(items)
+
+
+def _first_section(lines: list[str], *headings: str) -> tuple[str, ...]:
+    for heading in headings:
+        try:
+            return _section_items(lines, heading)
+        except ValueError:
+            continue
+    raise ValueError(f"Brand profile is missing all supported sections: {', '.join(headings)}.")
 
 
 def load_brand_profile(path: Path = PROFILE_PATH) -> BrandProfile:
@@ -54,14 +79,14 @@ def load_brand_profile(path: Path = PROFILE_PATH) -> BrandProfile:
 
     lines = [line.strip() for line in source_text.splitlines()]
     return BrandProfile(
-        brand_name=_line_value(lines, "Brand name"),
-        podcast_name=_line_value(lines, "Podcast name"),
-        founder=_line_value(lines, "Founder"),
-        voice=_line_value(lines, "Voice"),
-        signature_message=_line_value(lines, "Signature message"),
-        core_themes=_section_items(lines, "Core Themes"),
-        primary_audience=_section_items(lines, "Primary Audience"),
-        content_preferences=_section_items(lines, "Content Preferences"),
-        avoid=_section_items(lines, "Avoid"),
+        brand_name=_first_line_value(lines, "Brand name", "Parent movement and company"),
+        podcast_name=_first_line_value(lines, "Podcast name", "Trust and long-form media engine"),
+        founder=_first_line_value(lines, "Founder"),
+        voice="; ".join(_first_section(lines, "Voice")),
+        signature_message=_first_line_value(lines, "Signature message", "Master phrase"),
+        core_themes=_first_section(lines, "Core Themes", "Content pillars"),
+        primary_audience=_first_section(lines, "Primary Audience", "Core audience"),
+        content_preferences=_first_section(lines, "Content Preferences", "Language patterns"),
+        avoid=_first_section(lines, "Avoid", "Non-negotiables"),
         source_text=source_text,
     )

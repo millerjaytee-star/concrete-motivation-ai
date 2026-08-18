@@ -42,7 +42,6 @@ const footer = [
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
         <Link className="brand" href="/" aria-label="Concrete Motivation home">
           <span className="brand-mark" aria-hidden="true">CM</span>

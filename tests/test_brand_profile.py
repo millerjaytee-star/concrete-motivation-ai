@@ -7,6 +7,6 @@ def test_brand_profile_loads_successfully():
     assert profile.brand_name == "Concrete Motivation"
     assert profile.podcast_name == "Concrete Conversations"
     assert profile.founder == "Jaytee Miller"
-    assert "discipline" in profile.core_themes
-    assert "athletes" in profile.primary_audience
-    assert "generic motivational fluff" in profile.avoid
+    assert any("Discipline" in theme for theme in profile.core_themes)
+    assert any("Athletes" in audience for audience in profile.primary_audience)
+    assert "No empty hype" in profile.avoid
