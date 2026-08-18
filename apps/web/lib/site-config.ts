@@ -21,7 +21,7 @@ export const siteConfig = {
     tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL ?? "#",
     facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "#"
   },
-  pillars: ["Leadership", "Discipline", "Faith", "Family", "Growth", "Legacy"],
+  pillars: ["Foundation", "Discipline", "Resilience", "Purpose", "Leadership", "Legacy"],
   method: [
     ["Face It", "Tell the truth about the pressure."],
     ["Own It", "Take responsibility for the next decision."],
