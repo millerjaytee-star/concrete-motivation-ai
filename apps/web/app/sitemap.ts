@@ -3,13 +3,14 @@ import { publicSlugs } from "@/lib/public-pages";
 import { programSlugs } from "@/lib/program-pages";
 import { systemSlugs } from "@/lib/system-pages";
 import { coreSlugs } from "@/lib/core-pages";
+import { alignmentSlugs } from "@/lib/alignment-pages";
 import { siteConfig } from "@/lib/site-config";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.links.website.replace(/\/$/, "");
-  const slugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs, ...coreSlugs])];
+  const slugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs, ...coreSlugs, ...alignmentSlugs])];
   const priorityRoutes = [
     "our-story",
     "start-here",
