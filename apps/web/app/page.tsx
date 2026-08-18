@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
-import { imageFor } from "@/lib/photography";
+import { imageFor, objectPositionFor } from "@/lib/photography";
 import { siteConfig } from "@/lib/site-config";
 
 const pillars = [
@@ -55,9 +55,9 @@ export default function HomePage() {
             </div>
           </div>
           <div className="hero-photo-stack" aria-label="Concrete Motivation family photography">
-            <Image className="hero-photo hero-photo-main" src={imageFor("hero")} alt="Jaytee Miller, founder of Concrete Motivation" width={1000} height={1200} priority />
-            <Image className="hero-photo hero-photo-small one" src={imageFor("familyUnity")} alt="The Miller family together" width={700} height={700} />
-            <Image className="hero-photo hero-photo-small two" src={imageFor("legacyCeremony")} alt="Concrete family and ceremony team" width={700} height={700} />
+            <Image className="hero-photo hero-photo-main" src={imageFor("hero")} alt="Concrete Motivation founder Jaytee Miller in a black pinstripe suit" style={{ objectPosition: objectPositionFor("hero") }} width={1000} height={1200} priority />
+            <Image className="hero-photo hero-photo-small one" src={imageFor("community")} alt="Two men building together beside Concrete messages" style={{ objectPosition: objectPositionFor("community") }} width={700} height={700} />
+            <Image className="hero-photo hero-photo-small two" src={imageFor("legacyCeremony")} alt="A wedding party standing together at a beach ceremony" style={{ objectPosition: objectPositionFor("legacyCeremony") }} width={700} height={700} />
           </div>
         </section>
 
@@ -85,12 +85,12 @@ export default function HomePage() {
             <p className="lead">Before it was a website, membership or stage, it was a family choosing to keep building together. Marriage taught partnership. Fatherhood made leadership personal. The children made legacy visible. Concrete Nation carries those values forward: love with standards, faith with action, resilience with honesty, and success that strengthens the people around you.</p>
           </div>
           <div className="family-gallery">
-            <figure className="family-card family-wide"><Image src={imageFor("familyUnity")} alt="The Miller family together" width={1200} height={900} /><figcaption>Family • The first team</figcaption></figure>
-            <figure className="family-card"><Image src={imageFor("familyLegacy")} alt="A Miller family moment" width={900} height={900} /><figcaption>Legacy • The reason</figcaption></figure>
-            <figure className="family-card"><Image src={imageFor("marriageCommitment")} alt="Jaytee and his wife" width={900} height={900} /><figcaption>Partnership • The promise</figcaption></figure>
-            <figure className="family-card"><Image src={imageFor("weddingTeam")} alt="Concrete men building together" width={900} height={1100} /><figcaption>Roots • The legacy</figcaption></figure>
-            <figure className="family-card"><Image src={imageFor("nextGeneration")} alt="The next generation of the Miller family" width={900} height={900} /><figcaption>Future • The work</figcaption></figure>
-            <figure className="family-card family-wide"><Image src={imageFor("fatherhood")} alt="Family and fatherhood" width={1200} height={900} /><figcaption>Home • The standard</figcaption></figure>
+            <figure className="family-card family-wide"><Image src={imageFor("familyUnity")} alt="A family gathered at home" style={{ objectPosition: objectPositionFor("familyUnity") }} width={1200} height={900} /><figcaption>Family • The first team</figcaption></figure>
+            <figure className="family-card"><Image src={imageFor("familyLegacy")} alt="Three generations of family relationships together" style={{ objectPosition: objectPositionFor("familyLegacy") }} width={900} height={900} /><figcaption>Legacy • The reason</figcaption></figure>
+            <figure className="family-card"><Image src={imageFor("marriageCommitment")} alt="A bride and groom at their beach ceremony" style={{ objectPosition: objectPositionFor("marriageCommitment") }} width={900} height={900} /><figcaption>Partnership • The promise</figcaption></figure>
+            <figure className="family-card"><Image src={imageFor("weddingTeam")} alt="Men standing together at a beach wedding" style={{ objectPosition: objectPositionFor("weddingTeam") }} width={900} height={1100} /><figcaption>Roots • The legacy</figcaption></figure>
+            <figure className="family-card"><Image src={imageFor("nextGeneration")} alt="Two children standing with the family dog" style={{ objectPosition: objectPositionFor("nextGeneration") }} width={900} height={900} /><figcaption>Future • The work</figcaption></figure>
+            <figure className="family-card family-wide"><Image src={imageFor("fatherhood")} alt="A family gathered at home" style={{ objectPosition: objectPositionFor("fatherhood") }} width={1200} height={900} /><figcaption>Home • The standard</figcaption></figure>
           </div>
         </section>
 
@@ -158,7 +158,7 @@ export default function HomePage() {
           <div className="section-number">09 / SPEAKING & PROGRAMS</div>
           <div className="section-heading wide-heading"><h2>Move the room<br />toward action.</h2></div>
           <div className="program-grid-home">{programs.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
-          <div className="speaking-photo"><Image src={imageFor("weddingPortrait")} alt="Jaytee Miller and family representing commitment and legacy" width={1400} height={900} /><div><p className="eyebrow">Build with us</p><h2>What are you building under pressure?</h2><p>Bring Concrete Motivation to your school, team, church, organization, podcast or leadership event.</p><div className="button-row"><Link className="button button-primary" href="/speaking">Start a booking conversation</Link><Link className="button button-secondary" href="/catalog">View the official catalog</Link></div></div></div>
+          <div className="speaking-photo"><Image src={imageFor("weddingPortrait")} alt="A bride and groom standing together at a beach ceremony" style={{ objectPosition: objectPositionFor("weddingPortrait") }} width={1400} height={900} /><div><p className="eyebrow">Build with us</p><h2>What are you building under pressure?</h2><p>Bring Concrete Motivation to your school, team, church, organization, podcast or leadership event.</p><div className="button-row"><Link className="button button-primary" href="/speaking">Start a booking conversation</Link><Link className="button button-secondary" href="/catalog">View the official catalog</Link></div></div></div>
         </section>
       </main>
     </SiteShell>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
-import { imageFor, type WebsitePhotoRole } from "@/lib/photography";
+import { imageFor, objectPositionFor, type WebsitePhotoRole } from "@/lib/photography";
 import { publicPages, publicSlugs } from "@/lib/public-pages";
 import { programPages, programSlugs } from "@/lib/program-pages";
 
@@ -82,7 +82,7 @@ export default async function PublicPageRoute({ params }: { params: Promise<{ sl
           </div>
           {photoRole ? (
             <div className="page-hero-photo">
-              <Image src={imageFor(photoRole)} alt={`${page.title} — Concrete Motivation`} width={1000} height={800} priority={slug === "start-here" || slug === "about-jaytee"} />
+              <Image src={imageFor(photoRole)} alt={`${page.title} — Concrete Motivation`} style={{ objectPosition: objectPositionFor(photoRole) }} width={1000} height={800} priority={slug === "start-here" || slug === "about-jaytee"} />
             </div>
           ) : null}
         </section>
