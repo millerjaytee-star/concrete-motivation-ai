@@ -8,9 +8,10 @@ import { publicPages, publicSlugs } from "@/lib/public-pages";
 import { programPages, programSlugs } from "@/lib/program-pages";
 import { systemPages, systemSlugs } from "@/lib/system-pages";
 import { corePages, coreSlugs } from "@/lib/core-pages";
+import { alignmentPages, alignmentSlugs } from "@/lib/alignment-pages";
 
-const allPages = { ...publicPages, ...programPages, ...systemPages, ...corePages };
-const allSlugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs, ...coreSlugs])];
+const allPages = { ...publicPages, ...programPages, ...systemPages, ...corePages, ...alignmentPages };
+const allSlugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs, ...coreSlugs, ...alignmentSlugs])];
 
 const photoBySlug: Record<string, WebsitePhotoRole> = {
   "start-here": "nextGeneration",
