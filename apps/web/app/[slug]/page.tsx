@@ -6,9 +6,10 @@ import { SiteShell } from "@/components/SiteShell";
 import { imageFor, objectPositionFor, type WebsitePhotoRole } from "@/lib/photography";
 import { publicPages, publicSlugs } from "@/lib/public-pages";
 import { programPages, programSlugs } from "@/lib/program-pages";
+import { systemPages, systemSlugs } from "@/lib/system-pages";
 
-const allPages = { ...publicPages, ...programPages };
-const allSlugs = [...new Set([...publicSlugs, ...programSlugs])];
+const allPages = { ...publicPages, ...programPages, ...systemPages };
+const allSlugs = [...new Set([...publicSlugs, ...programSlugs, ...systemSlugs])];
 
 const photoBySlug: Record<string, WebsitePhotoRole> = {
   "start-here": "nextGeneration",
@@ -29,7 +30,19 @@ const photoBySlug: Record<string, WebsitePhotoRole> = {
   "concrete-30-day-reset": "familyLegacy",
   memberships: "community",
   shop: "community",
-  catalog: "community"
+  catalog: "community",
+  "inside-the-app": "community",
+  assessment: "nextGeneration",
+  "build-blueprint": "founderFocus",
+  "proof-of-build": "community",
+  "concrete-passport": "familyGenerations",
+  "concrete-foreman": "founderFocus",
+  "444-challenge": "familyUnity",
+  crews: "brotherhood",
+  opportunities: "community",
+  "concrete-exchange": "community",
+  "concrete-foundation": "familyLegacy",
+  "concrete-saturday": "weddingTeam"
 };
 
 export function generateStaticParams() {
