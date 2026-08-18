@@ -2,27 +2,39 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
 const primary = [
+  ["Start Here", "/start-here"],
   ["Story", "/our-story"],
-  ["Challenge", "/foundation-challenge"],
-  ["30-Day Reset", "/concrete-30-day-reset"],
-  ["Founding 100", "/founding-100"],
-  ["Membership", "/memberships"],
-  ["Shop", "/shop"],
-  ["Catalog", "/catalog"]
+  ["System", "/inside-the-app"],
+  ["Programs", "/programs"],
+  ["Conversations", "/concrete-conversations"],
+  ["Membership", "/memberships"]
 ] as const;
 
 const footer = [
   ["Start Here", "/start-here"],
   ["About Jaytee", "/about-jaytee"],
   ["Concrete Story", "/our-story"],
+  ["Who We Serve", "/who-we-serve"],
   ["Concrete Nation", "/concrete-nation"],
+  ["Inside the App", "/inside-the-app"],
+  ["Concrete OS", "/concrete-os"],
+  ["Foundation Assessment", "/assessment"],
+  ["Build + Blueprint", "/build-blueprint"],
   ["Daily Brick", "/daily-brick"],
+  ["Proof of Build", "/proof-of-build"],
+  ["Concrete Passport", "/concrete-passport"],
+  ["Concrete Foreman", "/concrete-foreman"],
+  ["444 Challenge", "/444-challenge"],
+  ["Crews", "/crews"],
+  ["Opportunities", "/opportunities"],
+  ["Concrete Exchange", "/concrete-exchange"],
+  ["Concrete Foundation", "/concrete-foundation"],
+  ["Concrete Saturday", "/concrete-saturday"],
   ["7-Day Challenge", "/foundation-challenge"],
   ["30-Day Reset", "/concrete-30-day-reset"],
   ["Founding 100", "/founding-100"],
   ["Founding Captains", "/founding-100-captains"],
   ["Founding Charter", "/concrete-nation-charter"],
-  ["Concrete OS", "/concrete-os"],
   ["Concrete Conversations", "/concrete-conversations"],
   ["Speaking", "/speaking"],
   ["Programs", "/programs"],
@@ -58,6 +70,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <strong>CM · Concrete Motivation</strong>
           <p>Build from pressure. Lead with purpose. Move with discipline.</p>
           <p>{siteConfig.promise}</p>
+          <p>The website explains the complete system. The app is the private workspace where Builders do and document the work.</p>
         </div>
         <div className="footer-links" aria-label="Website links">
           {footer.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
