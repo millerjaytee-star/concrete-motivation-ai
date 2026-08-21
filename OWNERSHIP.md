@@ -1,9 +1,10 @@
 # Production Ownership
 
-- **Source of truth:** this GitHub repository.
-- **Public website:** `apps/web`, deployed by the root `netlify.toml` from protected `main`.
-- **Member application:** must be migrated into this repository before the full platform can be certified; see `OWNER-ACTIONS.md`.
-- **Database and authentication:** Supabase production ownership remains with Jaytee Miller. Schema, migrations, policies, and server integration must be version controlled here before release approval.
-- **Payments:** Stripe production ownership remains with Jaytee Miller. Dashboard configuration and secrets stay outside Git; handlers, event contracts, and tests belong here.
+- **Website source of truth:** `millerjaytee-star/concrete-motivation-ai`. The public website lives in `apps/web` and deploys from protected `main` through the committed root `netlify.toml`.
+- **Application source of truth:** `millerjaytee-star/concrete-motivation-app-d5d7553a`. The full Concrete Nation member application remains independently versioned so website releases cannot overwrite authenticated app, payments, Supabase, AI, or mobile-shell work.
+- **Release synchronization:** website and app may share brand, offers, routes, and public-facing copy, but neither repository may replace the other. Cross-platform changes must be reconciled against both current release branches before production promotion.
+- **Database and authentication:** Supabase production ownership remains with Jaytee Miller. App schema, migrations, policies, RLS tests, and server integration are version controlled in the application repository; browser-safe website integration may reference the approved public contract only.
+- **Payments:** Stripe production ownership remains with Jaytee Miller. Dashboard configuration and secrets stay outside Git. Checkout, webhook, entitlement, and payment-health contracts are owned by the application repository and must pass sandbox verification before live payments are enabled.
 - **Brand:** the approved brand constitution and Concrete Bible govern all implementation. The Six Pillars remain Foundation, Discipline, Resilience, Purpose, Leadership, and Legacy.
-- **Deployment:** production infrastructure changes require a documented reason, reviewed repository change, passing release gate, and owner approval.
+- **Deployment:** production infrastructure changes require a documented reason, reviewed repository change, passing release gate, and owner approval. Website and app are promoted independently so a failed app release cannot take down the public website and a website content release cannot regress member functionality.
+- **Recovery:** the August 21, 2026 checkpoint branches are preserved as rollback references. Do not rewrite published Git history or force-update those checkpoints.
