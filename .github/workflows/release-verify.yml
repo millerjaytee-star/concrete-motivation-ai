@@ -6,10 +6,11 @@ on:
       - release/2026-08-21-website-readiness
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify-release:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:
@@ -18,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: release/2026-08-21-website-readiness
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -40,3 +43,29 @@ jobs:
 
       - name: Production build
         run: npm run build
+
+      - name: Record verified release gate
+        working-directory: .
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs
+          cat > docs/RELEASE-VERIFY.md <<EOF
+          # Website release verification
+
+          GitHub Actions verified the website release branch after an exact dependency installation.
+
+          - Typecheck: passed
+          - ESLint: passed
+          - Test suite: passed
+          - Production Next.js build: passed
+          - Verified commit: ${GITHUB_SHA}
+          - Verified at: $(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
+          This marker is generated on the release branch only and is not a Netlify production deployment approval.
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- docs/RELEASE-VERIFY.md
+          git commit -m "chore: record passing website release verification [skip ci]"
+          git push origin HEAD:release/2026-08-21-website-readiness
