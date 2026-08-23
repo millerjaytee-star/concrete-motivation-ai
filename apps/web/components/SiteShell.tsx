@@ -64,6 +64,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           {primary.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
           <a className="nav-cta" href={siteConfig.links.app}>Open the app</a>
         </nav>
+        <details className="nav-menu">
+          <summary>Menu</summary>
+          <div className="nav-menu-panel">
+            {primary.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+            <a href={siteConfig.links.app}>Open the app</a>
+          </div>
+        </details>
       </header>
       {children}
       <footer>
