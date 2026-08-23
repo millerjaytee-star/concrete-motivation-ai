@@ -6,7 +6,7 @@ const primary = [
   ["Story", "/our-story"],
   ["System", "/inside-the-app"],
   ["Programs", "/programs"],
-  ["Conversations", "/concrete-conversations"],
+  ["Gatherings", "/gatherings"],
   ["Membership", "/memberships"]
 ] as const;
 
@@ -16,6 +16,7 @@ const footer = [
   ["Concrete Story", "/our-story"],
   ["Who We Serve", "/who-we-serve"],
   ["Concrete Nation", "/concrete-nation"],
+  ["Concrete Nation Gatherings", "/gatherings"],
   ["Inside the App", "/inside-the-app"],
   ["Concrete OS", "/concrete-os"],
   ["Foundation Assessment", "/assessment"],
