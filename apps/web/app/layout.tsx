@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./public-pages.css";
 import "./responsive-hardening.css";
+import "./premium-polish.css";
 
 export const metadata: Metadata = {
   title: {
