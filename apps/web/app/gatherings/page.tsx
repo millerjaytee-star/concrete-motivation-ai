@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { siteConfig } from "@/lib/site-config";
 
@@ -31,7 +32,7 @@ export default function GatheringsPage() {
             </p>
             <div className="button-row">
               <a className="button button-primary" href={appGatheringsUrl}>Open Gatherings in the app</a>
-              <a className="button button-secondary" href="/memberships">See memberships</a>
+              <Link className="button button-secondary" href="/memberships">See memberships</Link>
             </div>
           </div>
         </section>
