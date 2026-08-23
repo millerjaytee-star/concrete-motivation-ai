@@ -1,0 +1,169 @@
+/* Cross-site responsive guardrails.
+   Keep content inside the viewport without flattening the editorial design. */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+main,
+header,
+footer,
+section,
+article,
+nav,
+.site-header > *,
+.legacy-hero > *,
+.page-hero > *,
+.editorial-grid > *,
+.content-grid > *,
+.brick-panel > *,
+.speaking-photo > *,
+.closing-cta > * {
+  min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+li,
+a,
+button {
+  overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+.button,
+.nav-cta {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+.site-header {
+  gap: 1rem;
+}
+
+.site-header nav {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Prevent oversized display type from starving adjacent media on laptops. */
+.legacy-hero h1 {
+  font-size: clamp(3.4rem, 7vw, 7rem);
+  max-width: 11ch;
+}
+
+.page-hero h1 {
+  font-size: clamp(3.25rem, 6.5vw, 6.6rem);
+  max-width: 11ch;
+}
+
+.page-hero-with-photo {
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+}
+
+.page-hero-photo,
+.page-hero-photo img {
+  max-width: 100%;
+}
+
+.content-card {
+  min-height: 0;
+}
+
+footer,
+.footer-links {
+  min-width: 0;
+}
+
+@media (max-width: 1200px) {
+  .legacy-hero {
+    gap: 2rem;
+  }
+
+  .legacy-hero h1,
+  .page-hero h1 {
+    font-size: clamp(3.1rem, 6.7vw, 5.8rem);
+  }
+
+  .page-hero-with-photo {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    padding-inline: 1rem;
+  }
+
+  .legacy-hero,
+  .page-hero,
+  .page-hero-with-photo {
+    min-height: 0;
+  }
+
+  .legacy-hero,
+  .page-hero-with-photo,
+  .editorial-grid,
+  .brick-panel,
+  .split-section-old,
+  .speaking-photo,
+  .closing-cta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero-photo {
+    width: 100%;
+    min-height: 0;
+  }
+
+  .button-row,
+  .catalog-banner,
+  .closing-cta {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 600px) {
+  .legacy-hero h1,
+  .page-hero h1 {
+    font-size: clamp(2.75rem, 13vw, 4.5rem);
+    max-width: 100%;
+  }
+
+  .button-row {
+    width: 100%;
+  }
+
+  .button-row .button {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .catalog-banner,
+  .closing-cta {
+    flex-direction: column;
+  }
+}
