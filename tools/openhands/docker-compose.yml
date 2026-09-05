@@ -1,0 +1,10 @@
+services:
+  openhands-agent-canvas:
+    image: ghcr.io/openhands/agent-canvas:1.16.0
+    container_name: openhands-agent-canvas
+    ports:
+      - "8000:8000"
+    volumes:
+      - "${HOME}/.openhands:/home/openhands/.openhands"
+      - "${PROJECTS_PATH}:/projects"
+    restart: unless-stopped
