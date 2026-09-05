@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-09-05",
+  "tools": [
+    {
+      "id": "openhands-agent-canvas",
+      "name": "OpenHands Agent Canvas",
+      "category": "software-development-agent-orchestrator",
+      "status": "approved",
+      "upstream_repository": "https://github.com/OpenHands/OpenHands",
+      "homepage": "https://openhands.dev",
+      "license": "MIT",
+      "version_pin": "1.16.0",
+      "github_stars_snapshot": 86246,
+      "github_stars_snapshot_date": "2026-09-05",
+      "role": "Developer control center and execution layer for repo-scoped coding agents and automations.",
+      "capabilities": [
+        "run OpenHands software agents",
+        "run Codex and other ACP-compatible agents",
+        "work against mounted GitHub project workspaces",
+        "execute repo-scoped development tasks",
+        "run local, Docker, VM, or cloud agent backends",
+        "support scheduled or event-driven engineering automations"
+      ],
+      "integration_path": "tools/openhands/",
+      "source_policy": "external-upstream-not-vendored",
+      "default_execution_policy": "feature-branch-only",
+      "production_write_policy": "human-review-required",
+      "secret_policy": "do-not-provide-production-payment-or-database-secrets",
+      "notes": "Keep OpenHands separate from customer-facing application code. Use it as a development control plane; GitHub remains source of truth."
+    }
+  ]
+}
