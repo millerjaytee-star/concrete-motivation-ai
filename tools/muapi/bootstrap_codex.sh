@@ -7,6 +7,7 @@ cd "$ROOT_DIR"
 MUAPI_VERSION="0.2.7"
 VENV_DIR="${MUAPI_VENV_DIR:-$HOME/.local/share/muapi-cli-$MUAPI_VERSION}"
 CLI="$ROOT_DIR/tools/muapi/run_cli.sh"
+MCP_WRAPPER="$ROOT_DIR/tools/muapi/run_mcp.sh"
 
 echo "== MuAPI + Codex bootstrap =="
 echo "Repo: $ROOT_DIR"
@@ -41,13 +42,14 @@ bash "$CLI" --version || true
 echo
 if command -v codex >/dev/null 2>&1; then
   echo "Codex CLI detected: $(command -v codex)"
-  echo "Checking project MCP registration..."
+  echo "Checking MuAPI MCP registration..."
   if codex mcp get muapi --json >/tmp/muapi-codex-mcp.json 2>/tmp/muapi-codex-mcp.err; then
     cat /tmp/muapi-codex-mcp.json
   else
-    echo "Codex did not return the project MCP entry through the CLI yet."
-    echo "The repo-level .codex/config.toml is present and will be loaded when this project is opened/trusted."
-    cat /tmp/muapi-codex-mcp.err 2>/dev/null || true
+    echo "MuAPI MCP is not registered globally in Codex yet. Registering it now..."
+    codex mcp add muapi -- bash "$MCP_WRAPPER"
+    echo "Verifying Codex MCP registration..."
+    codex mcp get muapi --json
   fi
 else
   echo "Codex CLI is not on PATH. The desktop app can still use this repo's .codex/config.toml."
