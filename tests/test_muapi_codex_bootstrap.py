@@ -32,9 +32,14 @@ def test_cli_wrapper_has_private_venv_fallback():
     assert 'exec "$VENV_DIR/bin/muapi" "$@"' in text
 
 
-def test_mcp_wrapper_uses_cli_wrapper():
+def test_mcp_wrapper_bridges_macos_keychain_without_persisting_secret():
     text = (ROOT / "tools" / "muapi" / "run_mcp.sh").read_text()
+    assert '/usr/bin/security find-generic-password -s "muapi-cli" -a "api-key" -w' in text
+    assert 'export MUAPI_API_KEY="$MUAPI_KEYCHAIN_VALUE"' in text
+    assert 'unset MUAPI_KEYCHAIN_VALUE' in text
     assert 'run_cli.sh" mcp serve' in text
+    assert 'echo "$MUAPI_API_KEY"' not in text
+    assert 'printf "$MUAPI_API_KEY"' not in text
 
 
 def test_verifier_is_read_only_for_media_generation():
