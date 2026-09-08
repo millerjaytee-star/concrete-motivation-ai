@@ -71,6 +71,19 @@ bash tools/muapi/verify_codex.sh
 
 The Codex project config contains no MuAPI credential.
 
+## macOS Keychain bridge for MCP
+
+The official MuAPI CLI stores an API key in the macOS Keychain under service `muapi-cli` and account `api-key` when Keychain access is available.
+
+Interactive CLI commands can read that Keychain entry, but a Codex-launched MCP child process may not resolve the Python keyring backend in the same way. `tools/muapi/run_mcp.sh` therefore performs a narrow runtime bridge on macOS:
+
+1. if `MUAPI_API_KEY` is already present, it uses that value;
+2. otherwise it asks `/usr/bin/security` for the `muapi-cli` / `api-key` Keychain item;
+3. it exports the value only into the MCP child-process environment;
+4. it immediately launches `muapi mcp serve`.
+
+The bridge does **not** write the secret to Git, `.codex/config.toml`, `.env`, project files, command arguments, or logs.
+
 ## Intel macOS compatibility
 
 The npm installer currently attempts to fetch a native Intel macOS release asset that is not present upstream. This repository therefore uses the official PyPI distribution instead.
