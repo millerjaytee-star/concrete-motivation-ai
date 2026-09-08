@@ -12,7 +12,7 @@ MuAPI is registered as the multi-provider generative-media gateway for the Concr
 - Source commit pin: `59c9b9f7c0432f89f048ba3db8e04d4d94b12cd8`
 - Official PyPI package: `muapi-cli==0.2.7`
 
-MuAPI exposes one API pattern for multiple image, video, audio, editing and 3D models. It also exposes an MCP server designed for coding agents and an official CLI.
+MuAPI exposes one API pattern for multiple image, video, audio and editing models. It also exposes an MCP server designed for coding agents and an official CLI.
 
 ## Why it matters for our stack
 
@@ -24,7 +24,6 @@ Primary uses:
 - image-to-video and text-to-video
 - lipsync and audio generation
 - background removal, enhancement and editing
-- 3D generation routes
 - rapid model comparison before choosing a dedicated provider
 - agent-driven media generation through MCP
 - optional social publishing through the CLI transport
@@ -57,32 +56,43 @@ It launches the MuAPI MCP server through:
 bash tools/muapi/run_mcp.sh
 ```
 
-Bootstrap everything except the secret key with:
+Bootstrap the local CLI, Codex MCP registration and macOS GUI credential bridge with:
 
 ```bash
 bash tools/muapi/bootstrap_codex.sh
 ```
 
-After adding the key, verify the connection with:
+After adding or rotating the key, rerun the bootstrap and verify with:
 
 ```bash
+bash tools/muapi/bootstrap_codex.sh
 bash tools/muapi/verify_codex.sh
 ```
 
+Then fully quit and reopen Codex/VS Code so the GUI process uses the current login-session environment.
+
 The Codex project config contains no MuAPI credential.
 
-## macOS Keychain bridge for MCP
+## macOS credential bridge for MCP
 
 The official MuAPI CLI stores an API key in the macOS Keychain under service `muapi-cli` and account `api-key` when Keychain access is available.
 
-Interactive CLI commands can read that Keychain entry, but a Codex-launched MCP child process may not resolve the Python keyring backend in the same way. `tools/muapi/run_mcp.sh` therefore performs a narrow runtime bridge on macOS:
+Interactive CLI commands can read that Keychain entry, but a Codex-launched MCP child process may not be able to resolve the same Keychain backend. The integration therefore uses a two-stage runtime bridge:
 
-1. if `MUAPI_API_KEY` is already present, it uses that value;
-2. otherwise it asks `/usr/bin/security` for the `muapi-cli` / `api-key` Keychain item;
-3. it exports the value only into the MCP child-process environment;
-4. it immediately launches `muapi mcp serve`.
+1. `bootstrap_codex.sh` runs from an interactive Terminal and reads the already-configured MuAPI credential from Keychain (or the official MuAPI credential resolver);
+2. it seeds `MUAPI_API_KEY` into the current macOS user `launchd` session with `launchctl setenv`;
+3. after Codex is restarted, `run_mcp.sh` first tries the normal environment and Keychain path, then falls back to `launchctl getenv MUAPI_API_KEY`;
+4. the value is exported only into the MuAPI MCP child process before `muapi mcp serve` starts.
 
-The bridge does **not** write the secret to Git, `.codex/config.toml`, `.env`, project files, command arguments, or logs.
+This bridge does **not** write the secret to Git, `.codex/config.toml`, `.env`, project files, command arguments, or logs.
+
+`launchctl setenv` keeps the value in the current macOS login session, so other processes running as the same user may be able to query that environment value. When rotating or removing the MuAPI credential, rerun the bootstrap with the new key or clear the session value with:
+
+```bash
+/bin/launchctl unsetenv MUAPI_API_KEY
+```
+
+Then quit and reopen Codex/VS Code.
 
 ## Intel macOS compatibility
 
