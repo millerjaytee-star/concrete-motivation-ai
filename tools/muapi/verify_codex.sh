@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT_DIR"
 CLI="$ROOT_DIR/tools/muapi/run_cli.sh"
+MCP_WRAPPER="$ROOT_DIR/tools/muapi/run_mcp.sh"
+CONFIG_FILE="$HOME/.muapi/config.json"
 
 echo "== Verify MuAPI + Codex =="
 
@@ -23,15 +25,59 @@ else
   exit 3
 fi
 
-if [[ "$(uname -s)" == "Darwin" && -x /bin/launchctl ]]; then
-  MUAPI_LAUNCHD_CHECK="$(/bin/launchctl getenv MUAPI_API_KEY 2>/dev/null || true)"
-  if [[ -n "$MUAPI_LAUNCHD_CHECK" ]]; then
-    echo "PASS: macOS GUI credential bridge is populated for this login session"
-  else
-    echo "WARN: macOS GUI credential bridge is empty. Run bash tools/muapi/bootstrap_codex.sh, then restart Codex/VS Code." >&2
-  fi
-  unset MUAPI_LAUNCHD_CHECK
-fi
+echo
+python3 - "$CONFIG_FILE" <<'PY'
+import json
+import stat
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+if not path.exists():
+    raise SystemExit("FAIL: ~/.muapi/config.json is missing; rerun bootstrap_codex.sh")
+
+try:
+    data = json.loads(path.read_text())
+except Exception as exc:
+    raise SystemExit(f"FAIL: ~/.muapi/config.json is unreadable JSON: {exc}")
+
+if not isinstance(data, dict) or not data.get("api_key"):
+    raise SystemExit("FAIL: ~/.muapi/config.json does not contain an API key")
+
+mode = stat.S_IMODE(path.stat().st_mode)
+if mode & 0o077:
+    raise SystemExit(f"FAIL: ~/.muapi/config.json permissions are too broad: {oct(mode)}")
+
+print(f"PASS: MuAPI native config fallback exists with restricted permissions ({oct(mode)})")
+PY
+
+echo
+python3 - "$MCP_WRAPPER" <<'PY'
+import subprocess
+import sys
+
+wrapper = sys.argv[1]
+proc = subprocess.Popen(
+    ["bash", wrapper],
+    stdin=subprocess.PIPE,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    text=True,
+)
+try:
+    stdout, stderr = proc.communicate(input="", timeout=5)
+except subprocess.TimeoutExpired:
+    proc.terminate()
+    stdout, stderr = proc.communicate(timeout=2)
+
+combined = (stdout or "") + "\n" + (stderr or "")
+if "No MUAPI_API_KEY configured" in combined:
+    raise SystemExit("FAIL: MuAPI MCP startup still cannot resolve a credential")
+if "muapi MCP server ready" not in combined:
+    raise SystemExit("FAIL: MuAPI MCP startup did not report ready")
+
+print("PASS: MuAPI MCP server resolves authentication and reaches ready state")
+PY
 
 echo
 bash "$CLI" account balance || true
@@ -44,7 +90,7 @@ if command -v codex >/dev/null 2>&1; then
   if codex mcp get muapi --json; then
     echo "PASS: Codex can see the MuAPI MCP entry"
   else
-    echo "WARN: Codex CLI could not resolve the project MCP entry. Reopen/trust this repo in Codex and retry." >&2
+    echo "WARN: Codex CLI could not resolve the MuAPI MCP entry. Reopen/trust this repo in Codex and retry." >&2
   fi
 else
   echo "INFO: Codex CLI is not on PATH; verify the MCP in the Codex desktop app after reopening this project."
