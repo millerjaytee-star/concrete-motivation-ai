@@ -31,48 +31,94 @@ Primary uses:
 
 ## Authentication
 
-Do not commit credentials. Store the key in `MUAPI_API_KEY`.
+Do not commit credentials.
 
-During development, create a **Sandbox** key. Sandbox requests return mock data and do not consume production credits.
+For the Codex integration in this repo, authentication is intentionally handled by the official MuAPI CLI rather than storing the key in `.codex/config.toml`.
 
-Production keys can consume credits. Never run production generation as part of CI or automated tests.
+Add the key once with:
+
+```bash
+muapi auth configure
+```
+
+During development, use a **Sandbox** key. Production keys can consume credits. Never run production generation as part of CI or automated tests.
+
+## Codex integration
+
+This repository includes a project-scoped Codex MCP entry at:
+
+```text
+.codex/config.toml
+```
+
+It launches the official local MCP server with:
+
+```bash
+muapi mcp serve
+```
+
+Bootstrap everything except the secret key with:
+
+```bash
+bash tools/muapi/bootstrap_codex.sh
+```
+
+After adding the key with `muapi auth configure`, verify the connection with:
+
+```bash
+bash tools/muapi/verify_codex.sh
+```
+
+The Codex project config contains no MuAPI credential. It only points Codex to the local `muapi mcp serve` process.
 
 ## Hosted MCP
 
-Use:
-`https://api.muapi.ai/mcp`
+Hosted endpoint:
 
-with:
-`Authorization: Bearer $MUAPI_API_KEY`
+```text
+https://api.muapi.ai/mcp
+```
 
-The hosted MCP is the preferred low-friction agent route when the client supports authenticated Streamable HTTP.
+For clients that support authenticated Streamable HTTP directly, use the bearer token from a secure environment variable or secret store. Do not hard-code the bearer token in committed configuration.
 
 ## CLI / stdio MCP
 
 Install:
-`npm install -g muapi-cli@0.2.7`
+
+```bash
+npm install -g muapi-cli@0.2.7
+```
 
 Run:
-`muapi mcp serve`
 
-This route adds local-file upload capabilities and additional social publishing tools that depend on local filesystem access.
+```bash
+muapi mcp serve
+```
+
+This is the default Codex route for this repository because it keeps the secret out of project config and gives the agent local-file upload support.
 
 ## REST pattern
 
 Submit:
-`POST https://api.muapi.ai/api/v1/{model}`
+
+```text
+POST https://api.muapi.ai/api/v1/{model}
+```
 
 Poll:
-`GET https://api.muapi.ai/api/v1/predictions/{request_id}/result`
+
+```text
+GET https://api.muapi.ai/api/v1/predictions/{request_id}/result
+```
 
 ## Security and spend guardrails
 
-- never commit `MUAPI_API_KEY`
-- use Sandbox keys for tests
+- never commit MuAPI API keys
+- use Sandbox keys for integration tests
 - do not top up or consume credits without an explicit production-generation request
 - keep model choice and estimated cost visible before expensive batch jobs
-- use OAuth client credentials for autonomous agents when narrower scopes are appropriate
-- do not embed API keys in URLs unless a client provides no header support
+- do not put live API keys into shell scripts, GitHub files, prompts, or committed `.env` files
+- verification scripts perform read-only account/model checks and submit no generation jobs
 
 ## Relation to our other tools
 
