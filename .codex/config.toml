@@ -1,10 +1,10 @@
 # Project-scoped Codex MCP configuration.
 # Secrets are intentionally NOT stored here.
-# MuAPI authentication is handled by the official `muapi auth configure` flow.
+# MuAPI authentication is handled by the official CLI auth flow.
 
 [mcp_servers.muapi]
-command = "muapi"
-args = ["mcp", "serve"]
+command = "bash"
+args = ["tools/muapi/run_mcp.sh"]
 enabled = true
 startup_timeout_sec = 30
 tool_timeout_sec = 900
