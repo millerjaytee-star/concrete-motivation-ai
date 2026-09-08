@@ -3,37 +3,38 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT_DIR"
+CLI="$ROOT_DIR/tools/muapi/run_cli.sh"
 
 echo "== Verify MuAPI + Codex =="
 
-command -v muapi >/dev/null 2>&1 || {
-  echo "FAIL: muapi CLI not installed. Run bash tools/muapi/bootstrap_codex.sh" >&2
+if ! bash "$CLI" --version >/dev/null 2>&1; then
+  echo "FAIL: MuAPI CLI not installed. Run bash tools/muapi/bootstrap_codex.sh" >&2
   exit 2
-}
+fi
 
-echo "PASS: muapi CLI found at $(command -v muapi)"
-muapi --version || true
+echo "PASS: MuAPI CLI available through tools/muapi/run_cli.sh"
+bash "$CLI" --version || true
 
 echo
-if muapi auth whoami; then
+if bash "$CLI" auth whoami; then
   echo "PASS: MuAPI authentication configured"
 else
-  echo "FAIL: MuAPI key not configured. Run: muapi auth configure" >&2
+  echo "FAIL: MuAPI key not configured. Run: bash tools/muapi/run_cli.sh auth configure" >&2
   exit 3
 fi
 
 echo
-muapi account balance || true
+bash "$CLI" account balance || true
 
 echo
-muapi models list --category video || true
+bash "$CLI" models list --category video || true
 
 echo
 if command -v codex >/dev/null 2>&1; then
   if codex mcp get muapi --json; then
     echo "PASS: Codex can see the MuAPI MCP entry"
   else
-    echo "WARN: Codex CLI could not resolve the project MCP entry. Open/trust this repo in Codex and retry." >&2
+    echo "WARN: Codex CLI could not resolve the project MCP entry. Reopen/trust this repo in Codex and retry." >&2
   fi
 else
   echo "INFO: Codex CLI is not on PATH; verify the MCP in the Codex desktop app after reopening this project."
