@@ -23,6 +23,16 @@ else
   exit 3
 fi
 
+if [[ "$(uname -s)" == "Darwin" && -x /bin/launchctl ]]; then
+  MUAPI_LAUNCHD_CHECK="$(/bin/launchctl getenv MUAPI_API_KEY 2>/dev/null || true)"
+  if [[ -n "$MUAPI_LAUNCHD_CHECK" ]]; then
+    echo "PASS: macOS GUI credential bridge is populated for this login session"
+  else
+    echo "WARN: macOS GUI credential bridge is empty. Run bash tools/muapi/bootstrap_codex.sh, then restart Codex/VS Code." >&2
+  fi
+  unset MUAPI_LAUNCHD_CHECK
+fi
+
 echo
 bash "$CLI" account balance || true
 
