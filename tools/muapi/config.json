@@ -1,0 +1,16 @@
+{
+  "name": "MuAPI",
+  "id": "muapi-unified-generative-media",
+  "homepage": "https://muapi.ai",
+  "api_base_url": "https://api.muapi.ai",
+  "rest_api_base": "https://api.muapi.ai/api/v1",
+  "hosted_mcp_url": "https://api.muapi.ai/mcp",
+  "official_cli_repository": "https://github.com/SamurAIGPT/muapi-cli",
+  "official_cli_commit": "59c9b9f7c0432f89f048ba3db8e04d4d94b12cd8",
+  "official_cli_version": "0.2.7",
+  "npm_package": "muapi-cli",
+  "pypi_package": "muapi-cli",
+  "auth_env": "MUAPI_API_KEY",
+  "sandbox_supported": true,
+  "default_execution_policy": "hosted-mcp-or-official-cli"
+}
