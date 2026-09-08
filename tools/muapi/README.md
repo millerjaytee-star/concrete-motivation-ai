@@ -32,13 +32,17 @@ Primary uses:
 
 Do not commit credentials.
 
-For the Codex integration in this repo, authentication is handled by the official MuAPI CLI rather than storing the key in `.codex/config.toml`.
-
-Add the key once with:
+Add the Sandbox key once with the official CLI:
 
 ```bash
 bash tools/muapi/run_cli.sh auth configure
 ```
+
+The interactive CLI prefers the OS Keychain/keyring. MuAPI's own credential resolver then checks, in order:
+
+1. `MUAPI_API_KEY`
+2. OS Keychain/keyring
+3. `~/.muapi/config.json`
 
 During development, use a **Sandbox** key. Production keys can consume credits. Never run production generation as part of CI or automated tests.
 
@@ -56,43 +60,44 @@ It launches the MuAPI MCP server through:
 bash tools/muapi/run_mcp.sh
 ```
 
-Bootstrap the local CLI, Codex MCP registration and macOS GUI credential bridge with:
+Bootstrap the local CLI, Codex MCP registration and native MuAPI credential fallback with:
 
 ```bash
 bash tools/muapi/bootstrap_codex.sh
 ```
 
-After adding or rotating the key, rerun the bootstrap and verify with:
+Then verify with:
 
 ```bash
-bash tools/muapi/bootstrap_codex.sh
 bash tools/muapi/verify_codex.sh
 ```
 
-Then fully quit and reopen Codex/VS Code so the GUI process uses the current login-session environment.
-
 The Codex project config contains no MuAPI credential.
 
-## macOS credential bridge for MCP
+## Native config fallback for sandboxed MCP processes
 
-The official MuAPI CLI stores an API key in the macOS Keychain under service `muapi-cli` and account `api-key` when Keychain access is available.
+On this Intel macOS setup, interactive MuAPI CLI commands can read the Keychain successfully while the Codex-launched MCP process cannot. The previous direct-Keychain and `launchctl` bridges therefore remain unreliable inside the Codex sandbox.
 
-Interactive CLI commands can read that Keychain entry, but a Codex-launched MCP child process may not be able to resolve the same Keychain backend. The integration therefore uses a two-stage runtime bridge:
+MuAPI itself officially supports `~/.muapi/config.json` as the final credential fallback. `bootstrap_codex.sh` now uses the already-configured MuAPI credential resolver from the pinned PyPI package and writes only the API key into that native config path while preserving any existing settings.
 
-1. `bootstrap_codex.sh` runs from an interactive Terminal and reads the already-configured MuAPI credential from Keychain (or the official MuAPI credential resolver);
-2. it seeds `MUAPI_API_KEY` into the current macOS user `launchd` session with `launchctl setenv`;
-3. after Codex is restarted, `run_mcp.sh` first tries the normal environment and Keychain path, then falls back to `launchctl getenv MUAPI_API_KEY`;
-4. the value is exported only into the MuAPI MCP child process before `muapi mcp serve` starts.
+Security controls:
 
-This bridge does **not** write the secret to Git, `.codex/config.toml`, `.env`, project files, command arguments, or logs.
+- directory: `~/.muapi` with mode `700`
+- file: `~/.muapi/config.json` with mode `600`
+- no secret is written to Git, `.codex/config.toml`, `.env`, project files, shell history, or logs
+- the older `launchctl` credential bridge is cleared during bootstrap
+- `verify_codex.sh` checks the file exists, has restricted permissions, and that `muapi mcp serve` reaches its ready state without printing the key
 
-`launchctl setenv` keeps the value in the current macOS login session, so other processes running as the same user may be able to query that environment value. When rotating or removing the MuAPI credential, rerun the bootstrap with the new key or clear the session value with:
+This is a local plaintext fallback protected by Unix file permissions, so it is less isolated than the macOS Keychain. It is used only because the sandboxed MCP child cannot access the Keychain. Treat the Mac user account itself as the trust boundary.
+
+When rotating the MuAPI key, run:
 
 ```bash
-/bin/launchctl unsetenv MUAPI_API_KEY
+bash tools/muapi/run_cli.sh auth configure
+bash tools/muapi/bootstrap_codex.sh
 ```
 
-Then quit and reopen Codex/VS Code.
+For future production hardening, MuAPI also supports OAuth 2.0 `client_credentials` for agents with scoped, short-lived tokens. That is preferable to a long-lived production API key when we move beyond Sandbox testing.
 
 ## Intel macOS compatibility
 
@@ -122,7 +127,7 @@ Hosted endpoint:
 https://api.muapi.ai/mcp
 ```
 
-For clients that support authenticated Streamable HTTP directly, use the bearer token from a secure environment variable or secret store. Do not hard-code the bearer token in committed configuration.
+For clients that support authenticated Streamable HTTP directly, use a bearer token from a secure environment variable or secret store. Do not hard-code bearer tokens in committed configuration.
 
 ## REST pattern
 
