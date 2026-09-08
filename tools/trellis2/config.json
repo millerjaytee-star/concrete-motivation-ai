@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "tool_id": "microsoft-trellis2",
+  "name": "Microsoft TRELLIS.2",
+  "category": "image-to-3d-generation",
+  "license": "MIT",
+  "upstream": {
+    "github_repository": "https://github.com/microsoft/TRELLIS.2",
+    "github_commit": "75fbf0183001ed9876c8dbb35de6b68552ee08bd",
+    "project_page": "https://microsoft.github.io/TRELLIS.2"
+  },
+  "hugging_face": {
+    "model_id": "microsoft/TRELLIS.2-4B",
+    "space_id": "microsoft/TRELLIS.2",
+    "task": "image-to-3d"
+  },
+  "capabilities": [
+    "single-image to 3D asset generation",
+    "PBR material generation",
+    "GLB export",
+    "MP4 turntable preview rendering",
+    "512, 1024, and 1536 voxel-resolution pipelines"
+  ],
+  "outputs": ["glb", "mp4"],
+  "execution": {
+    "default_route": "connected-hugging-face",
+    "official_local_os": "Linux",
+    "official_gpu_vendor": "NVIDIA",
+    "minimum_vram_gb": 24,
+    "recommended_cuda": "12.4",
+    "jobs_compute_required": true
+  }
+}

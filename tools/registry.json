@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-09-05",
+  "last_updated": "2026-09-08",
   "tools": [
     {
       "id": "openhands-agent-canvas",
@@ -28,6 +28,35 @@
       "production_write_policy": "human-review-required",
       "secret_policy": "do-not-provide-production-payment-or-database-secrets",
       "notes": "Keep OpenHands separate from customer-facing application code. Use it as a development control plane; GitHub remains source of truth."
+    },
+    {
+      "id": "microsoft-trellis2",
+      "name": "Microsoft TRELLIS.2",
+      "category": "image-to-3d-generation",
+      "status": "approved",
+      "upstream_repository": "https://github.com/microsoft/TRELLIS.2",
+      "homepage": "https://microsoft.github.io/TRELLIS.2",
+      "license": "MIT",
+      "version_pin": "75fbf0183001ed9876c8dbb35de6b68552ee08bd",
+      "hugging_face_model": "microsoft/TRELLIS.2-4B",
+      "hugging_face_space": "microsoft/TRELLIS.2",
+      "github_stars_snapshot": 11116,
+      "github_stars_snapshot_date": "2026-09-08",
+      "role": "High-fidelity image-to-3D generation layer for branded assets, product visualization, interactive web models, 3D scene components, and downstream video production.",
+      "capabilities": [
+        "convert a single image into a textured 3D asset",
+        "generate PBR material attributes including base color, roughness, metallic, and opacity",
+        "export PBR-ready GLB assets",
+        "render MP4 turntable previews",
+        "generate 512, 1024, and 1536 voxel-resolution assets on supported GPU hardware",
+        "use the official Hugging Face TRELLIS.2-4B weights and Microsoft Space"
+      ],
+      "integration_path": "tools/trellis2/",
+      "source_policy": "external-upstream-not-vendored",
+      "default_execution_policy": "connected-hugging-face-or-supported-linux-nvidia",
+      "production_write_policy": "human-review-required",
+      "secret_policy": "never-commit-hugging-face-tokens-or-generated-model-caches",
+      "notes": "Official local implementation is tested on Linux and requires an NVIDIA GPU with at least 24 GB VRAM. Hugging Face model and Space access were verified on 2026-09-08; Hugging Face Jobs execution requires account compute entitlement/credits."
     }
   ]
 }
