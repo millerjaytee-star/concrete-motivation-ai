@@ -59,6 +59,48 @@ echo
 if bash "$CLI" auth whoami >/tmp/muapi-whoami.txt 2>/tmp/muapi-whoami.err; then
   echo "MuAPI authentication is already configured:"
   cat /tmp/muapi-whoami.txt
+
+  # GUI apps launched by macOS may not inherit shell credentials and Codex may
+  # run MCP servers with a restricted environment. Seed the current user's
+  # launchd environment from the existing MuAPI Keychain entry so a restarted
+  # Codex app can make the credential available to the MCP launcher. Nothing is
+  # written to project files, .env files, or Codex config.
+  if [[ "$(uname -s)" == "Darwin" && -x /bin/launchctl ]]; then
+    MUAPI_GUI_KEY=""
+
+    if [[ -x /usr/bin/security ]]; then
+      MUAPI_GUI_KEY="$(/usr/bin/security find-generic-password -s "muapi-cli" -a "api-key" -w 2>/dev/null || true)"
+    fi
+
+    # If the direct security command cannot read the entry in this Terminal,
+    # ask the installed MuAPI package to resolve its normal credential chain.
+    if [[ -z "$MUAPI_GUI_KEY" && -x "$VENV_DIR/bin/python" ]]; then
+      MUAPI_GUI_KEY="$("$VENV_DIR/bin/python" - <<'PY'
+from muapi.config import get_api_key
+key = get_api_key()
+if key:
+    print(key, end="")
+PY
+)"
+    fi
+
+    if [[ -n "$MUAPI_GUI_KEY" ]]; then
+      /bin/launchctl setenv MUAPI_API_KEY "$MUAPI_GUI_KEY"
+      unset MUAPI_GUI_KEY
+
+      MUAPI_LAUNCHD_CHECK="$(/bin/launchctl getenv MUAPI_API_KEY 2>/dev/null || true)"
+      if [[ -n "$MUAPI_LAUNCHD_CHECK" ]]; then
+        echo "macOS GUI credential bridge: configured for this login session."
+        echo "Restart Codex/VS Code after this bootstrap so the new GUI session environment is used."
+      else
+        echo "WARN: launchd did not retain the MuAPI credential bridge." >&2
+      fi
+      unset MUAPI_LAUNCHD_CHECK
+    else
+      echo "WARN: could not seed the macOS GUI credential bridge from the configured MuAPI credential." >&2
+    fi
+  fi
+
   echo
   echo "Checking account balance (read-only)..."
   bash "$CLI" account balance || true
@@ -73,5 +115,6 @@ else
   echo "  bash tools/muapi/run_cli.sh auth configure"
   echo
   echo "Then rerun:"
+  echo "  bash tools/muapi/bootstrap_codex.sh"
   echo "  bash tools/muapi/verify_codex.sh"
 fi
