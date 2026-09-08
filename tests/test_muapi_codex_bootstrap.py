@@ -12,12 +12,14 @@ def test_project_codex_config_uses_wrapper_stdio():
     assert "Bearer " not in text
 
 
-def test_bootstrap_pins_cli_and_uses_pypi_venv():
+def test_bootstrap_pins_cli_uses_pypi_and_registers_codex_mcp():
     text = (ROOT / "tools" / "muapi" / "bootstrap_codex.sh").read_text()
     assert 'MUAPI_VERSION="0.2.7"' in text
     assert 'muapi-cli==$MUAPI_VERSION' in text
     assert "python3 -m venv" in text
     assert "npm install -g" not in text
+    assert 'codex mcp add muapi -- bash "$MCP_WRAPPER"' in text
+    assert "codex mcp get muapi --json" in text
     assert "bash tools/muapi/run_cli.sh auth configure" in text
     assert "YOUR_MUAPI_KEY" not in text
     assert "Bearer " not in text
