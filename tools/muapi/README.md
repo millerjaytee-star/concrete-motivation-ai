@@ -10,7 +10,7 @@ MuAPI is registered as the multi-provider generative-media gateway for the Concr
 - Official CLI repository: https://github.com/SamurAIGPT/muapi-cli
 - CLI pin: `0.2.7`
 - Source commit pin: `59c9b9f7c0432f89f048ba3db8e04d4d94b12cd8`
-- CLI install: `npm install -g muapi-cli@0.2.7`
+- Official PyPI package: `muapi-cli==0.2.7`
 
 MuAPI exposes one API pattern for multiple image, video, audio, editing and 3D models. It also exposes an MCP server designed for coding agents and an official CLI.
 
@@ -33,12 +33,12 @@ Primary uses:
 
 Do not commit credentials.
 
-For the Codex integration in this repo, authentication is intentionally handled by the official MuAPI CLI rather than storing the key in `.codex/config.toml`.
+For the Codex integration in this repo, authentication is handled by the official MuAPI CLI rather than storing the key in `.codex/config.toml`.
 
 Add the key once with:
 
 ```bash
-muapi auth configure
+bash tools/muapi/run_cli.sh auth configure
 ```
 
 During development, use a **Sandbox** key. Production keys can consume credits. Never run production generation as part of CI or automated tests.
@@ -51,10 +51,10 @@ This repository includes a project-scoped Codex MCP entry at:
 .codex/config.toml
 ```
 
-It launches the official local MCP server with:
+It launches the MuAPI MCP server through:
 
 ```bash
-muapi mcp serve
+bash tools/muapi/run_mcp.sh
 ```
 
 Bootstrap everything except the secret key with:
@@ -63,13 +63,33 @@ Bootstrap everything except the secret key with:
 bash tools/muapi/bootstrap_codex.sh
 ```
 
-After adding the key with `muapi auth configure`, verify the connection with:
+After adding the key, verify the connection with:
 
 ```bash
 bash tools/muapi/verify_codex.sh
 ```
 
-The Codex project config contains no MuAPI credential. It only points Codex to the local `muapi mcp serve` process.
+The Codex project config contains no MuAPI credential.
+
+## Intel macOS compatibility
+
+The npm installer currently attempts to fetch a native Intel macOS release asset that is not present upstream. This repository therefore uses the official PyPI distribution instead.
+
+The bootstrap script creates a private virtual environment at:
+
+```text
+~/.local/share/muapi-cli-0.2.7
+```
+
+and installs:
+
+```bash
+muapi-cli==0.2.7
+```
+
+from PyPI. The package is published as a universal Python wheel and requires Python 3.9+.
+
+`tools/muapi/run_cli.sh` first uses a normal `muapi` command if one is already installed, then falls back to the private virtual environment. This avoids PATH issues in Codex and on Intel Macs.
 
 ## Hosted MCP
 
@@ -80,22 +100,6 @@ https://api.muapi.ai/mcp
 ```
 
 For clients that support authenticated Streamable HTTP directly, use the bearer token from a secure environment variable or secret store. Do not hard-code the bearer token in committed configuration.
-
-## CLI / stdio MCP
-
-Install:
-
-```bash
-npm install -g muapi-cli@0.2.7
-```
-
-Run:
-
-```bash
-muapi mcp serve
-```
-
-This is the default Codex route for this repository because it keeps the secret out of project config and gives the agent local-file upload support.
 
 ## REST pattern
 
