@@ -88,6 +88,36 @@
       "production_write_policy": "human-review-required",
       "secret_policy": "never-commit-hugging-face-tokens-model-weights-or-private-source-media",
       "notes": "The distilled transformer is a component inside the gated Lightricks/LTX-2.5 model repository; there is no separate official LTX-2.5-Distilled repo. The official quick start downloads roughly 66 GiB of required components. Use Hugging Face or cloud GPU execution rather than the current Intel Mac, and review current model license terms before commercial deployment."
+    },
+    {
+      "id": "muapi-unified-generative-media",
+      "name": "MuAPI",
+      "category": "generative-media-api-gateway",
+      "status": "approved",
+      "upstream_repository": "https://github.com/SamurAIGPT/muapi-cli",
+      "homepage": "https://muapi.ai",
+      "license": "MIT (CLI) / MuAPI service terms",
+      "version_pin": "59c9b9f7c0432f89f048ba3db8e04d4d94b12cd8",
+      "upstream_release": "0.2.7",
+      "rest_api_base": "https://api.muapi.ai/api/v1",
+      "hosted_mcp_url": "https://api.muapi.ai/mcp",
+      "role": "Unified generative-media gateway and MCP layer for routing image, video, audio, editing, 3D, model discovery, and selected social publishing workflows through one API surface.",
+      "capabilities": [
+        "generate and edit images across multiple model providers",
+        "generate text-to-video and image-to-video outputs",
+        "generate music, speech, and other audio",
+        "run lipsync, enhancement, background removal, face swap, and other media utilities",
+        "access 3D generation routes",
+        "expose agent-callable media tools through hosted MCP or the official CLI stdio server",
+        "use Sandbox keys for free mock integration testing before production credit usage",
+        "use the CLI transport for local-file upload and additional social publishing tools"
+      ],
+      "integration_path": "tools/muapi/",
+      "source_policy": "external-service-plus-pinned-open-source-cli",
+      "default_execution_policy": "hosted-mcp-or-official-cli",
+      "production_write_policy": "human-review-required-for-credit-spend-and-social-publishing",
+      "secret_policy": "never-commit-muapi-api-keys-oauth-secrets-or-private-source-media",
+      "notes": "MuAPI is a paid-by-generation external service rather than a local foundation model. Use a Sandbox key for integration tests; production keys consume credits. The official hosted MCP and REST API were verified on 2026-09-08."
     }
   ]
 }
