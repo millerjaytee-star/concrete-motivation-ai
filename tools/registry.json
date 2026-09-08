@@ -57,6 +57,37 @@
       "production_write_policy": "human-review-required",
       "secret_policy": "never-commit-hugging-face-tokens-or-generated-model-caches",
       "notes": "Official local implementation is tested on Linux and requires an NVIDIA GPU with at least 24 GB VRAM. Hugging Face model and Space access were verified on 2026-09-08; Hugging Face Jobs execution requires account compute entitlement/credits."
+    },
+    {
+      "id": "lightricks-ltx25-distilled",
+      "name": "LTX-2.5 Distilled",
+      "category": "audio-video-generation",
+      "status": "approved",
+      "upstream_repository": "https://github.com/Lightricks/LTX-2",
+      "homepage": "https://ltx.io",
+      "license": "LTX-2.x Community License / gated model terms",
+      "version_pin": "a95ab856bf29407b6b066ede0abe1846050db56c",
+      "upstream_release": "1.3.0",
+      "hugging_face_model": "Lightricks/LTX-2.5",
+      "hugging_face_space": "Lightricks/LTX-2.5",
+      "distilled_checkpoint": "diffusion_models/ltx-2.5-22b-distilled-transformer-bf16.safetensors",
+      "github_stars_snapshot": 9373,
+      "github_stars_snapshot_date": "2026-09-08",
+      "role": "Fast synchronized audio-video generation layer for cinematic social content, faceless YouTube production, branded short-form video, product spots, and operations/training simulations.",
+      "capabilities": [
+        "generate synchronized audio and video",
+        "run the official LTX-2.5 DistilledPipeline with the 22B distilled transformer",
+        "support text-to-video and image-conditioned video workflows through the LTX-2.5 model family",
+        "generate dialogue, ambience, motion, and cinematic footage in one production workflow",
+        "use DFR as the higher-quality production path when additional compute is justified",
+        "use the official gated Hugging Face model and Lightricks Space"
+      ],
+      "integration_path": "tools/ltx25/",
+      "source_policy": "external-upstream-not-vendored",
+      "default_execution_policy": "hugging-face-space-or-supported-linux-nvidia-cloud-gpu",
+      "production_write_policy": "human-review-required",
+      "secret_policy": "never-commit-hugging-face-tokens-model-weights-or-private-source-media",
+      "notes": "The distilled transformer is a component inside the gated Lightricks/LTX-2.5 model repository; there is no separate official LTX-2.5-Distilled repo. The official quick start downloads roughly 66 GiB of required components. Use Hugging Face or cloud GPU execution rather than the current Intel Mac, and review current model license terms before commercial deployment."
     }
   ]
 }
