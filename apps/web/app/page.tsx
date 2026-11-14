@@ -44,7 +44,7 @@ export default function HomePage() {
             <h1>Built under pressure.<br /><span>Proven through purpose.</span></h1>
             <p className="legacy-lead">A family-built movement helping people lead with faith, stand through pressure, and turn hard seasons into lasting purpose.</p>
             <div className="button-row">
-              <Link className="button button-primary" href="/foundation-challenge">Start the free 7-day challenge</Link>
+              <Link className="button button-primary" href="/foundation-challenge">Read the free 7-day challenge</Link>
               <a className="button button-secondary" href="#family">Meet the Miller family</a>
             </div>
             <div className="proof-strip">
@@ -113,7 +113,7 @@ export default function HomePage() {
           </div>
           <div className="brick-panel">
             <div><p className="eyebrow">Today’s Brick / Foundation</p><h3>Rest is not quitting. It is maintenance for the work that still matters.</h3><p>Review the week, celebrate one kept promise, and choose next week’s first brick.</p></div>
-            <div className="brick-meter"><span>0 of 7 bricks placed</span><strong>0%</strong><div className="meter"><i /></div></div>
+            <div className="brick-meter"><span>Your next move</span><strong>One promise.</strong><p>Choose it. Act on it. Review what happened.</p></div>
           </div>
         </section>
 
@@ -122,7 +122,7 @@ export default function HomePage() {
           <div className="section-heading wide-heading"><h2>From first Brick<br />to Founding Builder.</h2><p className="lead">The website explains the movement. The app delivers the private work. Choose the entry point that matches your season.</p></div>
           <div className="flagship-grid-home">
             <Link href="/foundation-challenge" className="launch-card"><span>FREE</span><h3>7-Day Foundation Challenge</h3><p>Seven days. Seven kept promises. No payment required to start.</p><b>Start free →</b></Link>
-            <Link href="/concrete-30-day-reset" className="launch-card featured"><span>$29 ONE TIME</span><h3>30-Day Concrete Reset</h3><p>Foundation, discipline, recovery, purpose and leadership—then your next 90-day Blueprint.</p><b>Explore the Reset →</b></Link>
+            <Link href="/concrete-30-day-reset" className="launch-card featured"><span>PROGRAM PREVIEW</span><h3>30-Day Concrete Reset</h3><p>Foundation, discipline, recovery, purpose and leadership—then your next 90-day Blueprint.</p><b>Explore the Reset →</b></Link>
             <Link href="/founding-100" className="launch-card"><span>INAUGURAL COHORT</span><h3>The Founding 100</h3><p>100 Builders. One Foundation. One Brick Every Day. Founding status is earned through action.</p><b>See the Founding 100 →</b></Link>
             <Link href="/concrete-os" className="launch-card"><span>THE SYSTEM</span><h3>Concrete OS</h3><p>Pressure → Foundation → Blueprint → Bricks → Inspection → Structure → Legacy.</p><b>See the system →</b></Link>
           </div>
@@ -131,17 +131,17 @@ export default function HomePage() {
 
         <section className="numbered-section" id="membership">
           <div className="section-number">06 / MEMBERSHIP</div>
-          <div className="section-heading wide-heading"><h2>Don’t just watch.<br />Build with us.</h2><p className="lead">Founding-member pricing with monthly or annual access. Secure account and checkout actions live inside the member app.</p></div>
+          <div className="section-heading wide-heading"><h2>Don’t just watch.<br />Build with us.</h2><p className="lead">Paid enrollment is not open. Explore the proposed memberships below; final pricing and included experiences will be confirmed before purchase.</p></div>
           <div className="membership-grid-old">
-            {memberships.map(([name, monthly, annual, benefits], index) => <article key={name} className={index === 1 ? "membership-card popular" : "membership-card"}>{index === 1 ? <span className="popular-tag">Most popular</span> : null}<h3>{name}</h3><p className="membership-price"><strong>{monthly}</strong> per month <small>• {annual}</small></p><ul>{benefits.map(b => <li key={b}>{b}</li>)}</ul><a className="text-link" href={siteConfig.links.app}>Explore {name} →</a></article>)}
+            {memberships.map(([name, monthly, annual, benefits], index) => <article key={name} className={index === 1 ? "membership-card popular" : "membership-card"}>{index === 1 ? <span className="popular-tag">Planned</span> : null}<h3>{name}</h3><p className="membership-price"><strong>{monthly}</strong> proposed / month <small>• {annual} proposed</small></p><ul>{benefits.map(b => <li key={b}>{b}</li>)}</ul><Link className="text-link" href="/memberships">Preview {name} →</Link></article>)}
           </div>
         </section>
 
         <section className="numbered-section" id="shop">
           <div className="section-number">07 / SHOP THE STANDARD</div>
-          <div className="section-heading wide-heading"><h2>Wear what<br />you stand for.</h2><p className="lead">The Concrete collection carries the same standard as the movement: simple, durable and built around what you represent.</p></div>
+          <div className="section-heading wide-heading"><h2>Wear what<br />you stand for.</h2><p className="lead">The planned Concrete collection carries the same standard as the movement. Merchandise is not open for orders; pricing and fulfillment will be confirmed before sale.</p></div>
           <div className="merch-grid-home">
-            {merch.map(([name, price, copy]) => <Link key={name} href="/shop" className="merch-card"><div className="merch-mark">CM</div><h3>{name}</h3><p>{copy}</p><strong>{price}</strong><span>View product →</span></Link>)}
+            {merch.map(([name, price, copy]) => <Link key={name} href="/shop" className="merch-card"><div className="merch-mark">CM</div><h3>{name}</h3><p>{copy}</p><strong>{price} proposed</strong><span>Preview collection →</span></Link>)}
           </div>
           <div className="catalog-banner"><div><p className="eyebrow">Official 2026 catalog</p><h3>The complete brand, membership & merch guide.</h3></div><Link className="button button-primary" href="/catalog">View the catalog</Link></div>
         </section>

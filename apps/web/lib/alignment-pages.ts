@@ -115,9 +115,9 @@ export const alignmentPages: Record<string, PublicPage> = {
     eyebrow: "Concrete Nation memberships",
     title: "Choose the depth of support that matches your Build.",
     description:
-      "Foundation $9/month, Builder $19/month, and Legacy $49/month—with yearly options designed as two months free when the live billing system is enabled.",
+      "Paid enrollment is not open. Proposed plans are Foundation $9/month, Builder $19/month, and Legacy $49/month; final pricing and benefits will be confirmed before purchase.",
     intro:
-      "Membership pays for depth, saved progress, libraries, community experiences, and development access. It does not buy leadership, guarantee outcomes, or replace the free public method. Secure billing belongs in the authenticated app and must only be presented as live when the payment system is actually production-ready.",
+      "These are planned memberships. The experiences below are a preview, not a list of benefits currently available for purchase. Start with a public Daily Brick or read the seven-day challenge while enrollment is being prepared.",
     sections: [
       {
         title: "Foundation — $9/month",
@@ -178,7 +178,7 @@ export const alignmentPages: Record<string, PublicPage> = {
           "No tier guarantees income, employment, health, healing, relationships, business results, leadership status, or personal transformation. Concrete provides structure, content, tools, relationships, and opportunities; the Builder remains responsible for action and decisions."
       }
     ],
-    primaryCta: { label: "Open membership in the app", href: siteConfig.links.app },
+    primaryCta: { label: "Try a Daily Brick", href: "/daily-brick" },
     secondaryCta: { label: "See how Concrete Nation works", href: "/concrete-nation" }
   },
 
