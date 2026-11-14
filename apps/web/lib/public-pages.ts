@@ -106,7 +106,7 @@ export const publicPages: Record<string, PublicPage> = {
     eyebrow: "Concrete Nation memberships",
     title: "Choose the support level that matches your build.",
     description: "Foundation, Builder, and Legacy memberships are designed around access, accountability, contribution, and opportunity.",
-    intro: "Pricing remains in Stripe Test mode until the full independent payment system passes staging acceptance. This page explains the intended structure without taking live payments.",
+    intro: "Paid enrollment is not open. These proposed prices and benefits will be confirmed before purchase; this page does not take payments.",
     sections: [
       { title: "Foundation — $9 monthly / $90 yearly", body: "Core community access, selected challenges, member resources, announcements, and foundational accountability tools." },
       { title: "Builder — $19 monthly / $190 yearly", body: "Foundation access plus deeper accountability experiences, workshops, progress tools, and expanded member opportunities." },

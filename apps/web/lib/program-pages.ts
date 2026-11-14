@@ -60,9 +60,9 @@ export const programPages: Record<string, PublicPage> = {
       { title: "Week 2 — Discipline", body: "Build the routines, environment, boundaries, and Daily Bricks that make action repeatable." },
       { title: "Week 3 — Pressure & Recovery", body: "Learn to inspect misses without shame, identify what broke down, and lay a Recovery Brick instead of quitting." },
       { title: "Week 4 — Purpose & Leadership", body: "Turn personal progress into clearer leadership, service, and a 90-day continuation plan." },
-      { title: "Founding Edition — $29", body: "The founding digital edition is priced at $29. Checkout must use the secure app/Stripe path when live; no payment information is collected on this public page." }
+      { title: "Founding Edition — $29", body: "The proposed founding digital edition is $29. Enrollment is not open; the final price, delivery and support details will be confirmed before purchase." }
     ],
-    primaryCta: { label: "Open the Reset in the app", href: siteConfig.links.app },
+    primaryCta: { label: "Read the free Foundation Challenge", href: "/foundation-challenge" },
     secondaryCta: { label: "Join the Founding 100", href: "/founding-100" }
   },
   "founding-100": {
@@ -120,7 +120,7 @@ export const programPages: Record<string, PublicPage> = {
   catalog: {
     slug: "catalog", eyebrow: "Official 2026 catalog", title: "Membership + merch + programs",
     description: "A clear public view of the active Concrete Motivation offer stack.",
-    intro: "Public pricing should be transparent. Secure checkout remains in the app/Stripe flow; this website never asks visitors to enter card data into an unverified form.",
+    intro: "This is a preview of proposed offers and prices. Paid memberships, the Reset and merchandise are not open for purchase. Final availability, delivery and terms will be confirmed before sale.",
     sections: [
       { title: "Memberships", body: "Foundation — $9/month or $90/year. Builder — $19/month or $190/year. Legacy — $49/month or $490/year." },
       { title: "Merchandise", body: "T-shirt — $28. Hoodie — $55. Cap — $25. Bottle — $24. Wristband — $8." },
