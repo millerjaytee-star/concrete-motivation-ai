@@ -87,6 +87,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <a href={siteConfig.links.app}>App</a>
           <a href={siteConfig.links.youtube}>YouTube</a>
           <a href={siteConfig.links.instagram}>Instagram</a>
+          <a href={siteConfig.links.tiktok}>TikTok</a>
         </div>
         <p>© 2026 Jaytee Miller · Concrete Motivation. Built under pressure. Proven through purpose.</p>
       </footer>

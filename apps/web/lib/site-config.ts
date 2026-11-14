@@ -18,7 +18,9 @@ export const siteConfig = {
     instagram:
       process.env.NEXT_PUBLIC_INSTAGRAM_URL ??
       "https://www.instagram.com/concretemotivation444/",
-    tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL ?? "#",
+    tiktok:
+      process.env.NEXT_PUBLIC_TIKTOK_URL ??
+      "https://www.tiktok.com/@concrete_motivation",
     facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "#"
   },
   pillars: ["Foundation", "Discipline", "Resilience", "Purpose", "Leadership", "Legacy"],
