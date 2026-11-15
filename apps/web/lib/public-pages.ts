@@ -135,7 +135,7 @@ export const publicPages: Record<string, PublicPage> = {
     eyebrow: "Take the next step",
     title: "Tell us what you are building.",
     description: "One clear entry point for community, speaking, partnerships, sponsorships, media, guests, and general support.",
-    intro: "The production inquiry form and Gmail/CRM workflow will be connected in the next backend milestone. Until then, this page defines the exact intake paths and information required.",
+    intro: "Email Concrete Motivation and tell us what you need. Use the guidance below to include the details that will help us understand your request.",
     sections: [
       { title: "Concrete Nation", body: "Share your 90-day goal, current pressure point, support needed, and what you can contribute." },
       { title: "Speaking and programs", body: "Provide organization, audience, date range, location, desired outcome, format, budget range, and decision timeline." },
@@ -209,7 +209,7 @@ export const publicPages: Record<string, PublicPage> = {
     eyebrow: "Help and safety",
     title: "Support built around clarity and responsibility.",
     description: "Get help with accounts, memberships, orders, community safety, accessibility, privacy, partnerships, and technical issues.",
-    intro: "The dedicated support form and ticket workflow will be connected in a later backend milestone. For now, use the official email and include enough detail to investigate without exposing sensitive credentials or records.",
+    intro: "Email Concrete Motivation for help with your account, the website, accessibility, or a privacy request. Include the details below so we can investigate, and keep passwords and payment details private.",
     sections: [
       { title: "Account and technical support", body: "Include the page or feature, device, browser, time of issue, expected behavior, actual behavior, and a screenshot with sensitive information removed." },
       { title: "Billing and orders", body: "Include the account email, order or payment reference, date, amount, and issue. Never email full card numbers, bank credentials, or passwords." },
