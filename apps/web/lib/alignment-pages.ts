@@ -63,7 +63,7 @@ export const alignmentPages: Record<string, PublicPage> = {
     description:
       "A public introduction to honest assessment, specific action, discipline, boundaries, self-leadership, purpose, and Legacy before a person buys anything.",
     intro:
-      "The seven-day challenge is designed to be useful on its own. The website explains every day so a visitor understands the method. The app adds saved progress, authenticated records, reminders, and the ability to continue into deeper Builds.",
+      "You can read all seven days here for free. Open the challenge in the web app to create a free account and save Day 1. Tracking Days 2 through 7 requires an active membership.",
     sections: [
       {
         title: "Day 1 — Assess Your Foundation",
@@ -106,7 +106,7 @@ export const alignmentPages: Record<string, PublicPage> = {
           "A Builder can continue into the 30-Day Concrete Reset, create a 30/60/90-day Build, enter Concrete Nation, or simply keep practicing the Bricks that proved useful. There is no requirement to buy a membership to benefit from the public method."
       }
     ],
-    primaryCta: { label: "Start the challenge in the app", href: siteConfig.links.app },
+    primaryCta: { label: "Start the challenge in the app", href: new URL("/challenge", siteConfig.links.app).toString() },
     secondaryCta: { label: "Continue to the 30-Day Reset", href: "/concrete-30-day-reset" }
   },
 
