@@ -1,6 +1,9 @@
 import type { PublicPage } from "@/lib/public-pages";
 import { siteConfig } from "@/lib/site-config";
 
+// Supply this offer’s dedicated paid event URL after verifying checkout and confirmation.
+const paidCallUrl = process.env.NEXT_PUBLIC_PRESSURE_TO_PURPOSE_BOOKING_URL?.trim();
+
 export const corePages: Record<string, PublicPage> = {
   "concrete-os": {
     slug: "concrete-os",
@@ -97,35 +100,31 @@ export const corePages: Record<string, PublicPage> = {
 
   "pressure-to-purpose-reset-call": {
     slug: "pressure-to-purpose-reset-call",
-    eyebrow: "Work with Jaytee · Individual",
+    eyebrow: "One-to-one with Jaytee Miller",
     title: "Pressure-to-Purpose Reset Call",
-    description:
-      "A focused private working session designed to turn a current pressure point into a practical 30-day action plan.",
-    intro:
-      "This is not a therapy session or a promise that one conversation fixes a life. The purpose is to clarify the pressure, identify what the person can responsibly control, choose a meaningful Build, and leave with a concrete next-step structure.",
+    description: "A private 45-minute call with Jaytee and a written 30-day action plan. $99 for one session.",
+    intro: "Bring the decision you keep putting off. Maybe a job change has disrupted your routine, or everyone at home needs something from you and your own goal keeps slipping. We’ll pick one thing you can move in the next 30 days.",
     sections: [
       {
-        title: "Who it is for",
-        body:
-          "Adults carrying a real decision, transition, leadership challenge, rebuilding season, career pressure, family responsibility, discipline gap, or goal that needs structure rather than more vague motivation."
+        title: "What we’ll do in 45 minutes",
+        body: "Tell me what’s happening and what you’ve already tried. Together we’ll choose one outcome, name what gets in the way and build a week-by-week plan that fits the time you actually have."
       },
       {
-        title: "What the session does",
-        body:
-          "Clarify the situation, separate controllable actions from noise, choose priorities, identify obstacles, define the first Bricks, and map a realistic 30-day execution rhythm."
+        title: "What you take with you",
+        body: "We’ll write your 30-day plan together. You’ll leave with one clear goal, your first action and its date, a weekly check-in and a fallback for the week things go sideways."
       },
       {
-        title: "What you leave with",
-        body:
-          "A written action direction, a first set of commitments, accountability questions, and a clearer connection between the immediate pressure and the larger purpose behind the Build."
+        title: "Before you book",
+        body: "Choose one decision or commitment to bring. This is an action-planning session. For medical, mental-health, financial or legal questions, work directly with a qualified professional."
       },
       {
-        title: "Scope and boundaries",
-        body:
-          "The session does not replace licensed medical, mental-health, legal, financial, tax, or emergency support. When a pressure point requires qualified professional care, the responsible move is to use it."
+        title: "If checkout gets interrupted",
+        body: "If a payment appears and you have no appointment confirmation, email concretemotivation444@gmail.com with your checkout email and the date. We’ll match the payment to your booking. Please check with us before paying again."
       }
     ],
-    primaryCta: { label: "Start a booking conversation", href: "/join" },
+    primaryCta: paidCallUrl
+      ? { label: "Choose a time · $99", href: paidCallUrl }
+      : { label: "Ask about availability", href: "/join" },
     secondaryCta: { label: "Explore the 30-Day Reset", href: "/concrete-30-day-reset" }
   },
 
