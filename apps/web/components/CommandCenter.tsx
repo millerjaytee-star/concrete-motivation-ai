@@ -51,7 +51,11 @@ async function api<Result>(data?: object): Promise<Result> {
 }
 
 function dateLabel(value: string | null | undefined) {
-  return value ? new Date(value).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "—";
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.valueOf())) return "—";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return date.toLocaleDateString(undefined, { dateStyle: "medium", timeZone: "UTC" });
+  return date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 }
 
 function linkTo(base: string, path: string) {
