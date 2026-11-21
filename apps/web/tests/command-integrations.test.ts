@@ -174,12 +174,16 @@ describe('Command Center Composio registry', () => {
   it('uses only the expected owned YouTube channel’s uploads playlist', async () => {
     prepare('youtube');
     vi.stubEnv('COMPOSIO_YOUTUBE_CHANNEL_ID', 'UC-expected');
-    const channel = (id: string, uploads: string) => ({ id, contentDetails: { relatedPlaylists: { uploads } } });
+    const channel = (id: string, uploads: string) => ({
+      id, contentDetails: { relatedPlaylists: { uploads } },
+      statistics: { viewCount: '12345', videoCount: '1', subscriberCount: '9999', hiddenSubscriberCount: true },
+    });
     fetchMock.mockResolvedValueOnce(response({ items: [account('youtube')] }))
       .mockResolvedValueOnce(response(config('youtube', 'youtube.readonly')))
       .mockResolvedValueOnce(response({ status: 200, data: { items: [channel('UC-other', 'incorrect'), channel('UC-expected', 'expected')] } }))
       .mockResolvedValueOnce(response({ status: 200, data: { items: [{ snippet: { title: 'An episode' }, contentDetails: { videoId: 'video123' } }] } }));
     expect((await readCommandIntegration(owner, 'youtube')).items).toMatchObject([
+      { id: 'UC-expected', title: 'Channel totals', detail: 'Views 12,345 · Videos 1' },
       { id: 'video123', title: 'An episode', url: 'https://www.youtube.com/watch?v=video123' },
     ]);
     expect(request(3).body.parameters).toContainEqual({ name: 'playlistId', value: 'expected', type: 'query' });

@@ -25,7 +25,7 @@ Create or review the four dedicated configs under **Platform → Auth Configs** 
 | Gmail | `gmail.readonly` | Mailbox profile email must match. Preview up to six inbox messages with subject, sender and snippet |
 | Google Calendar | `calendar.readonly` | Primary calendar ID must match. Preview up to six upcoming events |
 | Google Drive | `drive.metadata.readonly` | Drive user email must match. Preview up to six recently modified file metadata records |
-| YouTube | `youtube.readonly` | Channel ID must match an owned channel. Preview up to six uploads from its uploads playlist |
+| YouTube | `youtube.readonly` | Channel ID must match an owned channel. Preview available channel totals and up to six uploads from its uploads playlist |
 
 All listed Google OAuth scope suffixes use the `https://www.googleapis.com/auth/` prefix.
 
