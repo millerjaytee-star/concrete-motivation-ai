@@ -71,3 +71,13 @@ describe("Command Center owner authorization", () => {
     expect(() => verifyCommandOrigin(request(app, "cross-site"))).toThrow();
   });
 });
+
+it("allows the exact Netlify preview origin through an internal proxy URL", () => {
+  const preview = "https://deploy-preview-56--example.netlify.app";
+  vi.stubEnv("COMMAND_BUILD_ORIGIN", preview);
+  const request = (origin: string) => new NextRequest("http://localhost:8888/api/command-center", {
+    method: "POST", headers: { origin, "content-type": "application/json", "sec-fetch-site": "same-origin" }
+  });
+  expect(() => verifyCommandOrigin(request(preview))).not.toThrow();
+  expect(() => verifyCommandOrigin(request("https://deploy-preview-57--example.netlify.app"))).toThrow();
+});

@@ -92,8 +92,13 @@ export function setCommandSession(response: NextResponse, token: string, lifetim
 export function verifyCommandOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
   const contentType = request.headers.get("content-type")?.split(";")[0];
-  const deploymentOrigin = process.env.COMMAND_ORIGIN?.trim();
-  if (!origin || (origin !== request.nextUrl.origin && origin !== deploymentOrigin) ||
+  const allowedOrigins = [
+    request.nextUrl.origin,
+    process.env.COMMAND_ORIGIN,
+    process.env.COMMAND_BUILD_ORIGIN,
+    process.env.COMMAND_IMMUTABLE_BUILD_ORIGIN
+  ].filter((value): value is string => Boolean(value)).map(value => value.trim().replace(/\/$/, ""));
+  if (!origin || !allowedOrigins.includes(origin) ||
       request.headers.get("sec-fetch-site") === "cross-site" || contentType !== "application/json") {
     throw new CommandAuthError("The request did not originate from the Command Center.", 403);
   }

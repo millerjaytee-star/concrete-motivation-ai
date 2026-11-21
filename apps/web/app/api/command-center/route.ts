@@ -27,8 +27,16 @@ function json(data: unknown, status = 200) {
 }
 
 function handleError(error: unknown) {
-  if (error instanceof CommandAuthError || error instanceof CommandStoreError ||
-      error instanceof CommandIntegrationError) return json({ error: error.message }, error.status);
+  if (error instanceof CommandIntegrationError) {
+    const response = json({ error: error.message }, error.status);
+    if (error.status === 429 && Number.isFinite(error.retryAfter)) {
+      response.headers.set("Retry-After", String(error.retryAfter));
+    }
+    return response;
+  }
+  if (error instanceof CommandAuthError || error instanceof CommandStoreError) {
+    return json({ error: error.message }, error.status);
+  }
   if (error instanceof CommandAgentError) {
     const statuses = { input: 400, configuration: 503, rate_limit: 429, timeout: 504, provider: 502, refusal: 422 };
     return json({ error: error.message }, statuses[error.code]);
