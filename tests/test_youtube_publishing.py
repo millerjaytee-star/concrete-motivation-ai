@@ -100,7 +100,12 @@ def test_confirmed_script_runs_composio_command_with_private_default(monkeypatch
     assert "Executing:" in output
 
 
-def test_composio_checker_finds_cached_youtube_upload_action():
+def test_composio_checker_finds_cached_youtube_upload_action(monkeypatch, tmp_path):
+    cache = tmp_path / ".composio" / "tool_definitions"
+    cache.mkdir(parents=True)
+    (cache / f"{YOUTUBE_UPLOAD_TOOL}.json").write_text("{}", encoding="utf-8")
+    (cache / "GMAIL_LIST_EMAILS.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(Path, "home", classmethod(lambda _cls: tmp_path))
     actions = load_cached_youtube_actions()
 
-    assert YOUTUBE_UPLOAD_TOOL in actions
+    assert actions == [YOUTUBE_UPLOAD_TOOL]

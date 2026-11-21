@@ -39,7 +39,8 @@ def test_cli_wrapper_has_private_venv_fallback():
 
 def test_mcp_wrapper_uses_muapi_native_resolver_without_secret_injection():
     text = (ROOT / "tools" / "muapi" / "run_mcp.sh").read_text()
-    assert 'run_cli.sh" mcp serve' in text
+    assert 'CLI="$ROOT_DIR/tools/muapi/run_cli.sh"' in text
+    assert 'exec bash "$CLI" mcp serve' in text
     assert "~/.muapi/config.json" in text
     assert "/usr/bin/security find-generic-password" not in text
     assert "/bin/launchctl getenv MUAPI_API_KEY" not in text

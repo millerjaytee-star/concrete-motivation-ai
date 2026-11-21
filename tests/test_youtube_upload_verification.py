@@ -78,6 +78,7 @@ def test_test_youtube_upload_script_reports_private_single_video_flow(monkeypatc
             )
         raise AssertionError(f"Unexpected command: {command}")
 
+    monkeypatch.setattr(test_youtube_upload.shutil, "which", lambda _command: "/test/bin/composio")
     monkeypatch.setattr(test_youtube_upload, "run_command", fake_run)
     monkeypatch.setattr(test_youtube_upload, "ensure_project_initialized", lambda _root: _root / ".composio" / "project.json")
     monkeypatch.setattr(

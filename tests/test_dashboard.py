@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import os
 import sys
 from pathlib import Path
 
@@ -22,6 +23,8 @@ def _write_csv(path: Path, headers: list[str], rows: list[dict[str, str]]) -> No
 def test_content_metrics_count_existing_artifacts(tmp_path):
     content_root = tmp_path / "outputs" / "content_packages"
     youtube_root = tmp_path / "outputs" / "youtube_packages"
+    content_mtime = 1_700_000_000_000_000_000
+    youtube_mtime = content_mtime + 1_000_000_000
 
     for folder in (
         content_root / "2026-01-01-alpha",
@@ -29,15 +32,17 @@ def test_content_metrics_count_existing_artifacts(tmp_path):
         content_root / "2026-01-03-charlie-day-01",
     ):
         folder.mkdir(parents=True, exist_ok=True)
-        (folder / "package.md").write_text(folder.name, encoding="utf-8")
+        package_file = folder / "package.md"
+        package_file.write_text(folder.name, encoding="utf-8")
+        os.utime(package_file, ns=(content_mtime, content_mtime))
 
     youtube_root.mkdir(parents=True, exist_ok=True)
     first = youtube_root / "2026-01-01-alpha.md"
     second = youtube_root / "2026-01-04-beta.md"
     first.write_text("alpha", encoding="utf-8")
     second.write_text("beta", encoding="utf-8")
-    first.touch()
-    second.touch()
+    for package_file in (first, second):
+        os.utime(package_file, ns=(youtube_mtime, youtube_mtime))
 
     metrics = build_content_metrics(tmp_path)
 

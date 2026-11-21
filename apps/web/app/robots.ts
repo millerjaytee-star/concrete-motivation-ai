@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 export default function robots(): MetadataRoute.Robots {
   const base = siteConfig.links.website.replace(/\/$/, "");
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/command-center", "/api/command-center"] }],
     sitemap: `${base}/sitemap.xml`,
     host: base
   };

@@ -48,3 +48,7 @@ Run `npm ci`, `npm run typecheck`, `npm run lint`, `npm test`, and `npm run buil
 - Stripe stays in test mode until staging acceptance is complete.
 - Never publish fake testimonials, metrics, clients, partners, or social proof.
 - Consequential bot, email, payment, and publishing actions require owner approval.
+
+## Owner Command Center
+
+The private workspace lives at `/command-center`. See the [operator runbook](../../docs/command-center-runbook.md), [architecture and release inventory](../../docs/command-center-inventory.md), and [Composio configuration](../../docs/command-center-integrations.md).
