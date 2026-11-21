@@ -31,3 +31,8 @@ generated_videos/*.mp4
 apps/web/.next/
 apps/web/node_modules/
 apps/web/tsconfig.tsbuildinfo
+
+# Local Next.js environment and Command Center credentials
+apps/web/.env*
+!apps/web/.env.example
+supabase/.temp/

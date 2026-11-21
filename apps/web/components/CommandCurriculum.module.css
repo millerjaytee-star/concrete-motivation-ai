@@ -1,0 +1,118 @@
+.curriculum {
+  color: var(--white, #f4f0e6);
+}
+
+.curriculum p {
+  margin-block: .35rem .75rem;
+}
+
+.subtle {
+  color: var(--muted, #b5afa3);
+}
+
+.selectors {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: .75rem;
+  margin-block: 1.1rem;
+}
+
+.selectors label {
+  min-width: 0;
+  font-weight: 650;
+}
+
+.curriculum .selectors select {
+  display: block;
+  width: 100%;
+  margin-top: .25rem;
+}
+
+.progress {
+  display: grid;
+  gap: .4rem;
+  font-size: .875rem;
+  color: var(--muted, #b5afa3);
+}
+
+.progress progress {
+  width: 100%;
+  height: .65rem;
+  accent-color: var(--gold, #d6a129);
+}
+
+.lesson {
+  border: 1px solid var(--line, #303030);
+  border-radius: .65rem;
+  margin-block: 1rem;
+  padding: clamp(.9rem, 2vw, 1.5rem);
+}
+
+.lesson h3 {
+  margin: .5rem 0;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  text-transform: none;
+}
+
+.pillar {
+  color: var(--gold-light, #f3c04a);
+  font-size: .85rem;
+}
+
+.exercise {
+  display: block;
+  margin-top: 1.15rem;
+}
+
+.exercise fieldset {
+  display: grid;
+  min-width: 0;
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+}
+
+.exercise legend {
+  margin-bottom: .4rem;
+  font-weight: 650;
+}
+
+.exercise fieldset label {
+  display: flex;
+  gap: .6rem;
+  align-items: baseline;
+  padding-block: .55rem;
+  cursor: pointer;
+}
+
+.curriculum .exercise input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  margin: 0;
+  accent-color: var(--gold, #d6a129);
+}
+
+.brick,
+.educator {
+  margin-top: 1rem;
+  padding-top: .85rem;
+  border-top: 1px solid var(--line, #303030);
+}
+
+.educator summary {
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.educator a {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+@media (max-width: 468px) {
+  .selectors {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
